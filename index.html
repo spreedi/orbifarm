@@ -1200,17 +1200,54 @@ function handleFullToolClick() {
   }
 }
 
-function handleRegister(e) {
+async function handleRegister(e) {
   e.preventDefault();
   const name = document.getElementById('regName').value.trim();
   const company = document.getElementById('regCompany').value.trim();
   const email = document.getElementById('regEmail').value.trim();
-  localStorage.setItem('orbifarm_registered', 'true');
-  localStorage.setItem('orbifarm_user', JSON.stringify({ name, company, email, date: new Date().toISOString() }));
-  isUnlocked = true;
-  closeRegisterModal();
-  applyGating();
-  updateCalc();
+  if (!name || !email) return;
+
+  // Disable button while submitting
+  const btn = e.target.querySelector('button[type="submit"]');
+  const origText = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'f3ff7398-1b39-4e20-9a15-8021516b701b',
+        subject: 'New OrbiFarm Registration: ' + company,
+        from_name: 'OrbiFarm Website',
+        name: name,
+        company: company,
+        email: email,
+        message: 'New lead registration on OrbiFarm Calculator.\n\nName: ' + name + '\nCompany: ' + company + '\nEmail: ' + email + '\nDate: ' + new Date().toLocaleString('de-DE')
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem('orbifarm_registered', 'true');
+      localStorage.setItem('orbifarm_user', JSON.stringify({ name, company, email, date: new Date().toISOString() }));
+      isUnlocked = true;
+      closeRegisterModal();
+      applyGating();
+      updateCalc();
+    } else {
+      alert('Registration failed. Please try again.');
+    }
+  } catch (err) {
+    // Offline fallback: unlock anyway, email will be missed
+    localStorage.setItem('orbifarm_registered', 'true');
+    localStorage.setItem('orbifarm_user', JSON.stringify({ name, company, email, date: new Date().toISOString() }));
+    isUnlocked = true;
+    closeRegisterModal();
+    applyGating();
+    updateCalc();
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = origText; }
+  }
 }
 
 // Close modal on overlay click
