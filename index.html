@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OrbiFarm — The Most Profitable Indoor Farming Platform</title>
+<meta name="description" content="OrbiFarm delivers the world's most productive vertical farming platform. 90% less water, 365 days/year, zero pesticides. Pharma & Food grade.">
+<style>
+/* ==================== RESET & VARIABLES ==================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-dark: #080d0a;
+  --bg-section: #0c1410;
+  --bg-card: #121e17;
+  --bg-card-hover: #182a20;
+  --bg-input: #0f1a14;
+  --accent: #00c853;
+  --accent-dim: #00a844;
+  --accent-glow: rgba(0, 200, 83, 0.15);
+  --accent-glow-strong: rgba(0, 200, 83, 0.3);
+  --text: #e8f5e9;
+  --text-muted: #81c784;
+  --text-dim: #4a7a52;
+  --border: #1a2e22;
+  --border-accent: #1f3d28;
+  --gradient-hero: linear-gradient(160deg, #080d0a 0%, #0a1a10 40%, #0c1f14 100%);
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --max-w: 1200px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: #66ffa6; }
+img { max-width: 100%; display: block; }
+
+/* ==================== NAVBAR ==================== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(8, 13, 10, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.navbar-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
+.nav-links a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color var(--transition); }
+.nav-links a:hover { color: var(--accent); }
+.lang-toggle { display: flex; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; font-size: 0.8rem; }
+.lang-btn { padding: 5px 12px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-weight: 600; transition: all var(--transition); font-family: var(--font); }
+.lang-btn.active { background: var(--accent); color: var(--bg-dark); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+/* ==================== HERO ==================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 70% 60%, rgba(0,200,83,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 40%, rgba(0,200,83,0.05) 0%, transparent 50%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(0,200,83,0.06) 0%, transparent 60%);
+  animation: hero-glow 8s ease-in-out infinite alternate;
+}
+@keyframes hero-glow {
+  0%   { opacity: 0.3; transform: translate(0,0) scale(1); }
+  50%  { opacity: 0.7; transform: translate(-30px,20px) scale(1.1); }
+  100% { opacity: 0.4; transform: translate(30px,-10px) scale(1.05); }
+}
+.hero-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: brightness(0.7);
+}
+.hero-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(8,13,10,0.6) 0%, rgba(8,13,10,0.3) 40%, rgba(8,13,10,0.35) 65%, rgba(8,13,10,0.95) 88%, rgba(8,13,10,1) 100%);
+}
+.hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.hero-content { max-width: 700px; }
+.hero-badge {
+  display: inline-block; padding: 6px 16px;
+  background: var(--accent-glow); border: 1px solid var(--border-accent);
+  border-radius: 20px; font-size: 0.85rem; color: var(--accent);
+  font-weight: 500; margin-bottom: 24px; letter-spacing: 0.5px;
+}
+.hero h1 { font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+.hero h1 .highlight { background: linear-gradient(135deg, var(--accent), #66ffa6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--text-muted); margin-bottom: 36px; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 10px; font-size: 1rem;
+  font-weight: 600; border: none; cursor: pointer;
+  transition: all var(--transition); font-family: var(--font); text-decoration: none;
+}
+.btn-primary { background: var(--accent); color: var(--bg-dark); box-shadow: 0 0 30px rgba(0,200,83,0.2); }
+.btn-primary:hover { background: #00e65c; box-shadow: 0 0 40px rgba(0,200,83,0.35); transform: translateY(-2px); color: var(--bg-dark); }
+.btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border-accent); }
+.btn-outline:hover { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); }
+
+/* Hero image showcase */
+.hero-visual {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.hero-visual img {
+  width: 100%;
+  border-radius: var(--radius);
+}
+.hero-visual {
+  animation: hero-float 6s ease-in-out infinite;
+}
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* ==================== SECTIONS ==================== */
+section { padding: 100px 24px; }
+.section-inner { max-width: var(--max-w); margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-label { display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+.section-header h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+.section-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+/* ==================== TECHNOLOGY ==================== */
+#technology { background: var(--bg-section); }
+
+/* Photo Gallery */
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 60px;
+}
+.photo-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+  position: relative;
+}
+.photo-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,200,83,0.1);
+}
+.photo-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.photo-card:hover img { transform: scale(1.05); }
+.photo-caption {
+  padding: 14px 16px;
+  background: var(--bg-card);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.photo-caption strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 2px;
+  font-size: 0.9rem;
+}
+
+/* Tech feature grid below animation */
+.tech-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.tech-feat {
+  text-align: center;
+  padding: 24px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition);
+}
+.tech-feat:hover { border-color: var(--accent-dim); }
+.tech-feat-icon { font-size: 2rem; margin-bottom: 12px; }
+.tech-feat h4 { font-size: 1rem; margin-bottom: 6px; color: var(--text); }
+.tech-feat p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+/* Key Facts Bar */
+.key-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 48px; }
+.key-fact {
+  text-align: center; padding: 24px 16px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); transition: border-color var(--transition);
+}
+.key-fact:hover { border-color: var(--accent-dim); }
+.key-fact-value { font-size: 1.8rem; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+.key-fact-label { font-size: 0.85rem; color: var(--text-muted); }
+
+/* ==================== ADVANTAGES ==================== */
+#advantages { background: var(--bg-dark); }
+.adv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.adv-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 24px;
+  transition: all var(--transition);
+}
+.adv-card:hover { border-color: var(--border-accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,200,83,0.06); }
+.adv-icon { font-size: 1.6rem; margin-bottom: 16px; display: block; }
+.adv-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text); }
+.adv-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+/* ==================== CALCULATOR ==================== */
+#calculator { background: var(--bg-section); }
+.calc-container { display: grid; grid-template-columns: 340px 1fr; gap: 40px; align-items: start; }
+.calc-controls {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px; position: sticky; top: 88px;
+}
+.calc-controls h3 { font-size: 1.1rem; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+.control-group { margin-bottom: 24px; }
+.control-group:last-child { margin-bottom: 0; }
+.control-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+.control-value { color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+.control-select {
+  width: 100%; padding: 12px 16px; background: var(--bg-input);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  color: var(--text); font-size: 0.95rem; font-family: var(--font);
+  cursor: pointer; transition: border-color var(--transition); appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2381c784' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.control-select:focus { outline: none; border-color: var(--accent); }
+.control-select optgroup { color: var(--accent); font-weight: 700; }
+.control-select option { background: var(--bg-card); color: var(--text); }
+.control-range {
+  width: 100%; -webkit-appearance: none; appearance: none;
+  height: 6px; border-radius: 3px; background: var(--border); outline: none;
+}
+.control-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--accent); cursor: pointer; border: 3px solid var(--bg-dark);
+  box-shadow: 0 0 10px rgba(0,200,83,0.3); transition: all var(--transition);
+}
+.control-range::-webkit-slider-thumb:hover { transform: scale(1.15); box-shadow: 0 0 16px rgba(0,200,83,0.5); }
+.control-range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--accent); cursor: pointer; border: 3px solid var(--bg-dark); }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.kpi-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 24px;
+  transition: all var(--transition); position: relative; overflow: hidden;
+}
+.kpi-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0; transition: opacity var(--transition);
+}
+.kpi-card:hover { border-color: var(--border-accent); box-shadow: 0 4px 20px rgba(0,200,83,0.06); }
+.kpi-card:hover::after { opacity: 1; }
+.kpi-card.highlight { border-color: var(--border-accent); background: linear-gradient(135deg, var(--bg-card), rgba(0,200,83,0.05)); }
+.kpi-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.kpi-value { font-size: 1.7rem; font-weight: 800; color: var(--text); line-height: 1.2; transition: color 0.5s; }
+.kpi-value.positive { color: var(--accent); }
+.kpi-value.negative { color: #ff5252; }
+.kpi-unit { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; font-weight: 500; }
+
+.plant-info {
+  grid-column: 1 / -1; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  display: flex; gap: 32px; align-items: center; flex-wrap: wrap;
+}
+.plant-info-item { display: flex; flex-direction: column; gap: 2px; }
+.plant-info-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.plant-info-value { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+.calc-footer { margin-top: 24px; text-align: center; }
+.calc-footer a { font-size: 0.9rem; color: var(--text-muted); }
+.calc-footer a:hover { color: var(--accent); }
+
+/* ==================== FREEMIUM GATING ==================== */
+.kpi-card.kpi-locked { cursor: pointer; }
+.kpi-card.kpi-locked .kpi-value { filter: blur(8px); user-select: none; pointer-events: none; }
+.kpi-card.kpi-locked .kpi-unit { filter: blur(4px); }
+.kpi-card.kpi-locked .lock-badge {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 1.4rem; z-index: 2; opacity: 0.7;
+}
+
+.unlock-hint {
+  margin-top: 16px; padding: 12px 16px; text-align: center; cursor: pointer;
+  background: rgba(0,200,83,0.06); border: 1px dashed var(--border-accent);
+  border-radius: var(--radius-sm); color: var(--accent); font-size: 0.85rem; font-weight: 600;
+  transition: all var(--transition);
+}
+.unlock-hint:hover { background: rgba(0,200,83,0.12); border-color: var(--accent); }
+
+/* Registration Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  display: none; justify-content: center; align-items: center; z-index: 2000;
+}
+.modal-overlay.active { display: flex; }
+.modal-card {
+  max-width: 440px; width: 90%; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 40px; position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+.modal-card p { color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--text-muted); font-size: 1.3rem; cursor: pointer; padding: 4px 8px;
+  border-radius: 4px; transition: all var(--transition);
+}
+.modal-close:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.modal-card input[type="text"],
+.modal-card input[type="email"] {
+  width: 100%; padding: 14px 16px; background: var(--bg-section); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); color: var(--text); font-size: 0.95rem;
+  font-family: var(--font); margin-bottom: 14px; transition: border-color var(--transition);
+  box-sizing: border-box;
+}
+.modal-card input:focus { outline: none; border-color: var(--accent); }
+.modal-card input::placeholder { color: var(--text-dim); }
+.modal-card .btn { width: 100%; margin-top: 8px; }
+
+/* ==================== CTA / CONTACT ==================== */
+#contact { background: var(--bg-dark); text-align: center; }
+.cta-box {
+  max-width: 600px; margin: 0 auto; padding: 60px 40px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); position: relative; overflow: hidden;
+}
+.cta-box::before {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at center, rgba(0,200,83,0.04), transparent 60%); pointer-events: none;
+}
+.cta-box h2 { font-size: 2rem; margin-bottom: 16px; position: relative; }
+.cta-box p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.05rem; position: relative; }
+.cta-box .btn { position: relative; }
+
+/* ==================== FOOTER ==================== */
+.footer { padding: 32px 24px; border-top: 1px solid var(--border); background: var(--bg-dark); }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-copy { color: var(--text-dim); font-size: 0.85rem; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--text-dim); font-size: 0.85rem; }
+.footer-links a:hover { color: var(--text-muted); }
+
+/* ==================== LOOP SYSTEM ANIMATION ==================== */
+.loop-animation-container {
+  max-width: 100%; margin: 0 auto 48px; overflow: hidden;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-card); position: relative;
+}
+.loop-animation-container::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.loop-animation-container svg { display: block; width: 100%; height: auto; }
+
+@keyframes belt-move {
+  from { stroke-dashoffset: 40; }
+  to   { stroke-dashoffset: 0; }
+}
+.conveyor-belt { stroke-dasharray: 12 8; animation: belt-move 6s linear infinite; }
+
+.loop-plant {
+  fill: #00c853;
+  filter: drop-shadow(0 0 4px rgba(0,200,83,0.5));
+}
+
+@keyframes spray-pulse {
+  0%, 100% { opacity: 0.35; transform: scaleY(0.85); }
+  50%      { opacity: 1; transform: scaleY(1); }
+}
+.spray-nozzle { animation: spray-pulse 2.5s ease-in-out infinite; transform-origin: center top; }
+.spray-nozzle:nth-child(even) { animation-delay: 0.6s; }
+
+@keyframes led-glow {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+.led-strip { animation: led-glow 3s ease-in-out infinite; }
+
+/* ==================== SCROLL ANIMATIONS ==================== */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Staggered reveals for grid children */
+[data-stagger] > * {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+[data-stagger] > .stagger-visible { opacity: 1; transform: translateY(0); }
+
+/* ==================== BUTTON GLOW ==================== */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(0,200,83,0.2); }
+  50%      { box-shadow: 0 0 35px rgba(0,200,83,0.4); }
+}
+.btn-primary { animation: pulse-glow 3s ease-in-out infinite; }
+.btn-primary:hover { animation: none; }
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { max-width: 500px; }
+  .calc-container { grid-template-columns: 1fr; }
+  .calc-controls { position: static; }
+}
+@media (max-width: 768px) {
+  .loop-animation-container svg { min-height: 220px; }
+  .loop-animation-container svg text { font-size: 11px; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: 64px; left: 0; right: 0; background: rgba(8,13,10,0.97);
+    padding: 24px; gap: 20px; border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu-btn { display: block; }
+  .tech-features { grid-template-columns: 1fr; }
+  .key-facts { grid-template-columns: repeat(2, 1fr); }
+  .adv-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .photo-gallery { grid-template-columns: 1fr; }
+  .hero { padding: 100px 20px 60px; }
+  section { padding: 60px 16px; }
+  .plant-info { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .key-facts { grid-template-columns: 1fr; }
+  .hero-buttons { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="logo">Orbi<span>Farm</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#technology" data-i18n="nav.technology">Technology</a></li>
+      <li><a href="#advantages" data-i18n="nav.advantages">Advantages</a></li>
+      <li><a href="#calculator" data-i18n="nav.calculator">Calculator</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" onclick="setLanguage('de')">DE</button>
+        </div>
+      </li>
+    </ul>
+    <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="images/hero-video.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge" data-i18n="hero.badge">Vertical Farming Platform</div>
+      <h1>
+        <span data-i18n="hero.title1">The Most Profitable</span><br>
+        <span class="highlight" data-i18n="hero.title2">Indoor Farming Platform</span>
+      </h1>
+      <p data-i18n="hero.subtitle">Grow high-value pharma and food crops year-round with our patented rotating loop system. Up to 120x higher yields, 90% less water, zero pesticides.</p>
+      <div class="hero-buttons">
+        <a href="#calculator" class="btn btn-primary" data-i18n="hero.cta1">Explore Crops</a>
+        <a href="#technology" class="btn btn-outline" data-i18n="hero.cta2">Learn More</a>
+      </div>
+    </div>
+    <!-- Video is now full hero background -->
+  </div>
+</section>
+
+<!-- ==================== TECHNOLOGY ==================== -->
+<section id="technology">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label" data-i18n="tech.label">How It Works</div>
+      <h2 data-i18n="tech.title">Revolutionary Growing Technology</h2>
+      <p data-i18n="tech.subtitle">Our patented loop system maximises growing area within minimal floor space, enabling industrial-scale production of high-value crops.</p>
+    </div>
+
+    <!-- Animated Loop System Diagram -->
+    <div class="loop-animation-container reveal">
+      <svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OrbiFarm Loop System">
+        <defs>
+          <linearGradient id="reservoirGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0a4a6a" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#062a3a" stop-opacity="0.8"/>
+          </linearGradient>
+          <linearGradient id="ledGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ffeb3b" stop-opacity="1"/>
+            <stop offset="50%" stop-color="#fdd835" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#ff9800" stop-opacity="0.5"/>
+          </linearGradient>
+          <linearGradient id="sprayGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4fc3f7" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#4fc3f7" stop-opacity="0"/>
+          </linearGradient>
+          <marker id="arrowR" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6" fill="#81c784"/>
+          </marker>
+        </defs>
+
+        <!-- Background -->
+        <rect x="0" y="0" width="900" height="500" rx="12" fill="#0c1410"/>
+
+        <!-- Fertilizer Reservoirs -->
+        <rect x="130" y="420" width="100" height="35" rx="4" fill="url(#reservoirGrad)"/>
+        <rect x="290" y="420" width="100" height="35" rx="4" fill="url(#reservoirGrad)"/>
+        <rect x="450" y="420" width="100" height="35" rx="4" fill="url(#reservoirGrad)"/>
+        <rect x="610" y="420" width="100" height="35" rx="4" fill="url(#reservoirGrad)"/>
+
+        <!-- Loop Outlines (stadium/racetrack shape) -->
+        <!-- Loop 1 -->
+        <path d="M150,400 A30,30 0 0,1 210,400 L210,120 A30,30 0 0,1 150,120 Z" fill="none" stroke="#1a2e22" stroke-width="3"/>
+        <path d="M150,400 A30,30 0 0,1 210,400 L210,120 A30,30 0 0,1 150,120 Z" fill="none" stroke="#00c853" stroke-width="1.5" stroke-opacity="0.3"/>
+        <!-- Loop 2 -->
+        <path d="M310,400 A30,30 0 0,1 370,400 L370,120 A30,30 0 0,1 310,120 Z" fill="none" stroke="#1a2e22" stroke-width="3"/>
+        <path d="M310,400 A30,30 0 0,1 370,400 L370,120 A30,30 0 0,1 310,120 Z" fill="none" stroke="#00c853" stroke-width="1.5" stroke-opacity="0.3"/>
+        <!-- Loop 3 -->
+        <path d="M470,400 A30,30 0 0,1 530,400 L530,120 A30,30 0 0,1 470,120 Z" fill="none" stroke="#1a2e22" stroke-width="3"/>
+        <path d="M470,400 A30,30 0 0,1 530,400 L530,120 A30,30 0 0,1 470,120 Z" fill="none" stroke="#00c853" stroke-width="1.5" stroke-opacity="0.3"/>
+        <!-- Loop 4 -->
+        <path d="M630,400 A30,30 0 0,1 690,400 L690,120 A30,30 0 0,1 630,120 Z" fill="none" stroke="#1a2e22" stroke-width="3"/>
+        <path d="M630,400 A30,30 0 0,1 690,400 L690,120 A30,30 0 0,1 630,120 Z" fill="none" stroke="#00c853" stroke-width="1.5" stroke-opacity="0.3"/>
+
+        <!-- LED Strips (vertical, installed BETWEEN the loops — cycling Blue/Red/Green/Yellow) -->
+        <g class="led-strip">
+          <rect x="130" y="120" width="14" height="275" rx="5" fill="#42a5f5" opacity="0.15">
+            <animate attributeName="fill" values="#42a5f5;#ef5350;#66bb6a;#ffeb3b;#42a5f5" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+          <rect x="133" y="120" width="8" height="275" rx="4" fill="#42a5f5">
+            <animate attributeName="fill" values="#42a5f5;#ef5350;#66bb6a;#ffeb3b;#42a5f5" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+        </g>
+        <g class="led-strip" style="animation-delay:0.6s">
+          <rect x="253" y="120" width="14" height="275" rx="5" fill="#ef5350" opacity="0.15">
+            <animate attributeName="fill" values="#ef5350;#66bb6a;#ffeb3b;#42a5f5;#ef5350" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+          <rect x="256" y="120" width="8" height="275" rx="4" fill="#ef5350">
+            <animate attributeName="fill" values="#ef5350;#66bb6a;#ffeb3b;#42a5f5;#ef5350" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+        </g>
+        <g class="led-strip" style="animation-delay:1.2s">
+          <rect x="413" y="120" width="14" height="275" rx="5" fill="#66bb6a" opacity="0.15">
+            <animate attributeName="fill" values="#66bb6a;#ffeb3b;#42a5f5;#ef5350;#66bb6a" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+          <rect x="416" y="120" width="8" height="275" rx="4" fill="#66bb6a">
+            <animate attributeName="fill" values="#66bb6a;#ffeb3b;#42a5f5;#ef5350;#66bb6a" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+        </g>
+        <g class="led-strip" style="animation-delay:1.8s">
+          <rect x="573" y="120" width="14" height="275" rx="5" fill="#ffeb3b" opacity="0.15">
+            <animate attributeName="fill" values="#ffeb3b;#42a5f5;#ef5350;#66bb6a;#ffeb3b" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+          <rect x="576" y="120" width="8" height="275" rx="4" fill="#ffeb3b">
+            <animate attributeName="fill" values="#ffeb3b;#42a5f5;#ef5350;#66bb6a;#ffeb3b" dur="10s" repeatCount="indefinite" begin="0s"/>
+          </rect>
+        </g>
+        <g class="led-strip" style="animation-delay:0.3s">
+          <rect x="699" y="120" width="14" height="275" rx="5" fill="#42a5f5" opacity="0.15">
+            <animate attributeName="fill" values="#42a5f5;#ef5350;#66bb6a;#ffeb3b;#42a5f5" dur="10s" repeatCount="indefinite" begin="-2.5s"/>
+          </rect>
+          <rect x="702" y="120" width="8" height="275" rx="4" fill="#42a5f5">
+            <animate attributeName="fill" values="#42a5f5;#ef5350;#66bb6a;#ffeb3b;#42a5f5" dur="10s" repeatCount="indefinite" begin="-2.5s"/>
+          </rect>
+        </g>
+
+        <!-- Aeroponic Mist (fine spray from back wall inside each loop) -->
+        <g class="spray-nozzle">
+          <rect x="155" y="140" width="50" height="245" rx="6" fill="#4fc3f7" opacity="0.08"/>
+          <line x1="158" y1="170" x2="202" y2="170" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="158" y1="210" x2="202" y2="210" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="158" y1="250" x2="202" y2="250" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="158" y1="290" x2="202" y2="290" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="158" y1="330" x2="202" y2="330" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="158" y1="370" x2="202" y2="370" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <circle cx="167" cy="185" r="1.8" fill="#4fc3f7" opacity="0.6"/><circle cx="192" cy="195" r="1.5" fill="#4fc3f7" opacity="0.5"/>
+          <circle cx="175" cy="230" r="2" fill="#4fc3f7" opacity="0.55"/><circle cx="195" cy="240" r="1.5" fill="#4fc3f7" opacity="0.45"/>
+          <circle cx="170" cy="275" r="1.8" fill="#4fc3f7" opacity="0.5"/><circle cx="188" cy="310" r="2" fill="#4fc3f7" opacity="0.55"/>
+          <circle cx="180" cy="350" r="1.5" fill="#4fc3f7" opacity="0.5"/><circle cx="196" cy="365" r="1.8" fill="#4fc3f7" opacity="0.45"/>
+        </g>
+        <g class="spray-nozzle" style="animation-delay:0.4s">
+          <rect x="315" y="140" width="50" height="245" rx="6" fill="#4fc3f7" opacity="0.08"/>
+          <line x1="318" y1="170" x2="362" y2="170" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="318" y1="210" x2="362" y2="210" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="318" y1="250" x2="362" y2="250" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="318" y1="290" x2="362" y2="290" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="318" y1="330" x2="362" y2="330" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="318" y1="370" x2="362" y2="370" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <circle cx="327" cy="190" r="1.8" fill="#4fc3f7" opacity="0.6"/><circle cx="352" cy="225" r="1.5" fill="#4fc3f7" opacity="0.5"/>
+          <circle cx="335" cy="265" r="2" fill="#4fc3f7" opacity="0.55"/><circle cx="355" cy="300" r="1.5" fill="#4fc3f7" opacity="0.45"/>
+          <circle cx="330" cy="340" r="1.8" fill="#4fc3f7" opacity="0.5"/><circle cx="348" cy="360" r="2" fill="#4fc3f7" opacity="0.55"/>
+        </g>
+        <g class="spray-nozzle" style="animation-delay:0.8s">
+          <rect x="475" y="140" width="50" height="245" rx="6" fill="#4fc3f7" opacity="0.08"/>
+          <line x1="478" y1="170" x2="522" y2="170" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="478" y1="210" x2="522" y2="210" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="478" y1="250" x2="522" y2="250" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="478" y1="290" x2="522" y2="290" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="478" y1="330" x2="522" y2="330" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="478" y1="370" x2="522" y2="370" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <circle cx="487" cy="195" r="1.8" fill="#4fc3f7" opacity="0.6"/><circle cx="512" cy="235" r="1.5" fill="#4fc3f7" opacity="0.5"/>
+          <circle cx="495" cy="270" r="2" fill="#4fc3f7" opacity="0.55"/><circle cx="515" cy="305" r="1.5" fill="#4fc3f7" opacity="0.45"/>
+          <circle cx="490" cy="345" r="1.8" fill="#4fc3f7" opacity="0.5"/><circle cx="508" cy="365" r="2" fill="#4fc3f7" opacity="0.55"/>
+        </g>
+        <g class="spray-nozzle" style="animation-delay:1.2s">
+          <rect x="635" y="140" width="50" height="245" rx="6" fill="#4fc3f7" opacity="0.08"/>
+          <line x1="638" y1="170" x2="682" y2="170" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="638" y1="210" x2="682" y2="210" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="638" y1="250" x2="682" y2="250" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="638" y1="290" x2="682" y2="290" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="638" y1="330" x2="682" y2="330" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <line x1="638" y1="370" x2="682" y2="370" stroke="#4fc3f7" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5"/>
+          <circle cx="647" cy="185" r="1.8" fill="#4fc3f7" opacity="0.6"/><circle cx="672" cy="220" r="1.5" fill="#4fc3f7" opacity="0.5"/>
+          <circle cx="655" cy="260" r="2" fill="#4fc3f7" opacity="0.55"/><circle cx="675" cy="295" r="1.5" fill="#4fc3f7" opacity="0.45"/>
+          <circle cx="650" cy="335" r="1.8" fill="#4fc3f7" opacity="0.5"/><circle cx="668" cy="360" r="2" fill="#4fc3f7" opacity="0.55"/>
+        </g>
+
+        <!-- Conveyor Belt Path (through all 4 loops: up left wall, over top, down right wall) -->
+        <path id="beltPath" d="M55,390 L150,390 L150,90 A30,30 0 0,1 210,90 L210,390 L310,390 L310,90 A30,30 0 0,1 370,90 L370,390 L470,390 L470,90 A30,30 0 0,1 530,90 L530,390 L630,390 L630,90 A30,30 0 0,1 690,90 L690,390 L845,390" class="conveyor-belt" stroke="#81c784" stroke-width="2" fill="none"/>
+
+        <!-- Plants (dense chain traveling through loops via animateMotion) -->
+        <g id="plantChain"></g>
+
+        <!-- Height Indicator -->
+        <line x1="120" y1="120" x2="120" y2="400" stroke="#81c784" stroke-width="1" stroke-dasharray="4 4" opacity="0.4"/>
+        <text x="113" y="265" fill="#81c784" font-size="11" text-anchor="end" transform="rotate(-90,113,265)" opacity="0.6">12 m</text>
+
+        <!-- Arrow: Seeds to Belt -->
+        <line x1="58" y1="370" x2="78" y2="387" stroke="#81c784" stroke-width="1.5" marker-end="url(#arrowR)" opacity="0.7"/>
+        <!-- Arrow: Belt to Harvest -->
+        <line x1="822" y1="387" x2="842" y2="370" stroke="#81c784" stroke-width="1.5" opacity="0.7"/>
+
+        <!-- Labels -->
+        <text x="50" y="360" fill="#e8f5e9" font-size="13" font-weight="600" data-i18n-text="loop.seeds">Seeds</text>
+        <text x="850" y="360" fill="#e8f5e9" font-size="13" font-weight="600" text-anchor="end" data-i18n-text="loop.harvest">Harvest</text>
+        <text x="260" y="85" fill="#ffeb3b" font-size="11" text-anchor="middle" opacity="0.8" data-i18n-text="loop.led">LED Lighting</text>
+        <line x1="260" y1="90" x2="260" y2="120" stroke="#ffeb3b" stroke-width="1" opacity="0.3"/>
+        <text x="780" y="260" fill="#4fc3f7" font-size="11" text-anchor="start" opacity="0.8" data-i18n-text="loop.aeroponics">Aeroponics</text>
+        <line x1="690" y1="260" x2="775" y2="260" stroke="#4fc3f7" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <text x="450" y="475" fill="#4fc3f7" font-size="10" text-anchor="middle" opacity="0.6" data-i18n-text="loop.reservoir">Nutrient Reservoir</text>
+        <text x="260" y="260" fill="#81c784" font-size="10" text-anchor="middle" opacity="0.5" data-i18n-text="loop.belt">Conveyor Belt</text>
+
+        <!-- Direction indicator -->
+        <text x="450" y="30" fill="#e8f5e9" font-size="12" text-anchor="middle" font-weight="600" opacity="0.5">&#x2190; &#x1F331; &#x2192; &#x1F33F; &#x2192; &#x1F33E; &#x2192;</text>
+      </svg>
+    </div>
+
+    <!-- Tech Feature Cards -->
+    <div class="tech-features reveal" data-stagger>
+      <div class="tech-feat">
+        <div class="tech-feat-icon">&#x1F504;</div>
+        <h4 data-i18n="tech.card1.title">Rotating Loop System</h4>
+        <p data-i18n="tech.card1.desc">12-metre high rotating loops create up to 101 m&#xb2; growing area per loop &#x2014; maximising vertical space like no other system.</p>
+      </div>
+      <div class="tech-feat">
+        <div class="tech-feat-icon">&#x1F4A7;</div>
+        <h4 data-i18n="tech.card2.title">Aeroponic Nutrition</h4>
+        <p data-i18n="tech.card2.desc2">Roots are misted with nutrient solution &#x2014; no soil, no substrate. 90% less water, faster uptake, higher yields.</p>
+      </div>
+      <div class="tech-feat">
+        <div class="tech-feat-icon">&#x1F9E9;</div>
+        <h4 data-i18n="tech.card3.title">Modular &amp; Scalable</h4>
+        <p data-i18n="tech.card3.desc">Start with a single module, scale to industrial farms. Each module operates independently &#x2014; grow different crops simultaneously.</p>
+      </div>
+    </div>
+
+    <!-- Photo Gallery -->
+    <div class="photo-gallery reveal" data-stagger>
+      <div class="photo-card">
+        <img src="images/IMG_1503.JPG" alt="OrbiFarm Facility Rendering" loading="lazy">
+        <div class="photo-caption">
+          <strong data-i18n="photo.render1.title">Farm Facility</strong>
+          <span data-i18n="photo.render1.desc">Industrial-scale vertical farming facility with multiple loop modules</span>
+        </div>
+      </div>
+      <div class="photo-card">
+        <img src="images/IMG_1505.JPG" alt="OrbiFarm Interior Rendering" loading="lazy">
+        <div class="photo-caption">
+          <strong data-i18n="photo.render2.title">Inside the Farm</strong>
+          <span data-i18n="photo.render2.desc">Rotating loop modules with optimised LED lighting for maximum growth</span>
+        </div>
+      </div>
+      <div class="photo-card">
+        <img src="images/IMG_1507.JPG" alt="OrbiFarm Module Detail" loading="lazy">
+        <div class="photo-caption">
+          <strong data-i18n="photo.render3.title">Module Detail</strong>
+          <span data-i18n="photo.render3.desc">Close-up view of the patented loop system in operation</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Facts -->
+    <div class="key-facts reveal" data-stagger>
+      <div class="key-fact">
+        <div class="key-fact-value" data-count-to="90" data-count-suffix="%">0</div>
+        <div class="key-fact-label" data-i18n="tech.fact1">Less Water</div>
+      </div>
+      <div class="key-fact">
+        <div class="key-fact-value" data-count-to="80" data-count-suffix="%">0</div>
+        <div class="key-fact-label" data-i18n="tech.fact2">Less Energy</div>
+      </div>
+      <div class="key-fact">
+        <div class="key-fact-value" data-count-to="365">0</div>
+        <div class="key-fact-label" data-i18n="tech.fact3">Days / Year</div>
+      </div>
+      <div class="key-fact">
+        <div class="key-fact-value" data-count-to="0" data-count-suffix="">0</div>
+        <div class="key-fact-label" data-i18n="tech.fact4">Pesticides</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ADVANTAGES ==================== -->
+<section id="advantages">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label" data-i18n="adv.label">Why OrbiFarm</div>
+      <h2 data-i18n="adv.title">Built for Profitability</h2>
+      <p data-i18n="adv.subtitle">A complete platform that combines hardware, software and bioprocessing to deliver unmatched unit economics.</p>
+    </div>
+    <div class="adv-grid" data-stagger>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F331;</span>
+        <h3 data-i18n="adv.card1.title">Highest Yields</h3>
+        <p data-i18n="adv.card1.desc">6&#x2013;120x more yield per m&#xb2; compared to outdoor cultivation, thanks to year-round multi-harvest cycles and optimised growing conditions.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F3ED;</span>
+        <h3 data-i18n="adv.card2.title">Pharma &amp; Food Grade</h3>
+        <p data-i18n="adv.card2.desc">GMP-capable production environment for pharmaceutical-grade crops. From cannabis to artemisinin &#x2014; with full traceability and standardised quality.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F527;</span>
+        <h3 data-i18n="adv.card3.title">Complete Platform</h3>
+        <p data-i18n="adv.card3.desc">Hardware (loop system), software (farm management), and downstream processing &#x2014; everything from seed to final product, from a single source.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F4C8;</span>
+        <h3 data-i18n="adv.card4.title">Licensing Model</h3>
+        <p data-i18n="adv.card4.desc">Scale rapidly through licensing. OrbiFarm provides the platform and know-how &#x2014; partners operate the farms locally with proven economics.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F30D;</span>
+        <h3 data-i18n="adv.card5.title">Carbon Credits</h3>
+        <p data-i18n="adv.card5.desc">CO&#x2082; captured during growth generates tradeable carbon credits &#x2014; an additional revenue stream on top of product sales.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x267B;</span>
+        <h3 data-i18n="adv.card6.title">Zero Waste</h3>
+        <p data-i18n="adv.card6.desc">Full biomass utilisation: primary product, sidestream revenue from extracts, biomass, and by-products. Nothing goes to waste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CALCULATOR ==================== -->
+<section id="calculator">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-label" data-i18n="calc.label">Crop Calculator</div>
+      <h2 data-i18n="calc.title">Explore the Economics</h2>
+      <p data-i18n="calc.subtitle">Select a crop and adjust key parameters to see the projected financial performance of an OrbiFarm installation.</p>
+    </div>
+    <div class="calc-container reveal">
+      <div class="calc-controls">
+        <h3>&#x2699;&#xFE0F; <span data-i18n="calc.controls">Parameters</span></h3>
+        <div class="control-group">
+          <div class="control-label"><span data-i18n="calc.plant">Crop</span></div>
+          <select class="control-select" id="calcPlant" onchange="updateCalc()"></select>
+          <div id="unlockHint" class="unlock-hint" onclick="openRegisterModal()">&#x1F512; <span data-i18n="calc.unlock">Unlock all 22 plants &amp; full KPIs</span></div>
+        </div>
+        <div class="control-group">
+          <div class="control-label"><span data-i18n="calc.modules">Modules</span><span class="control-value" id="modulesVal">10</span></div>
+          <input type="range" class="control-range" id="calcModules" min="1" max="20" value="10" oninput="updateCalc()">
+        </div>
+        <div class="control-group">
+          <div class="control-label"><span data-i18n="calc.electricity">Electricity Price</span><span class="control-value" id="elecVal">0,07 &#x20ac;/kWh</span></div>
+          <input type="range" class="control-range" id="calcElectricity" min="0.03" max="0.20" step="0.01" value="0.07" oninput="updateCalc()">
+        </div>
+        <div class="control-group">
+          <div class="control-label"><span data-i18n="calc.rent">Rent</span><span class="control-value" id="rentVal">5,00 &#x20ac;/m&#xb2;</span></div>
+          <input type="range" class="control-range" id="calcRent" min="2" max="15" step="0.5" value="5" oninput="updateCalc()">
+        </div>
+        <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);">
+          <a href="OrbiFarm_Calculation_Tool.html" target="_blank" style="font-size: 0.85rem; display:flex; align-items:center; gap:6px;">
+            &#x1F4CA; <span data-i18n="calc.fullTool">Open Full Calculation Tool</span> &rarr;
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="plant-info" id="plantInfo">
+          <div class="plant-info-item"><span class="plant-info-label" data-i18n="calc.product">Product</span><span class="plant-info-value" id="infoProduct">&#x2014;</span></div>
+          <div class="plant-info-item"><span class="plant-info-label" data-i18n="calc.category">Category</span><span class="plant-info-value" id="infoCategory">&#x2014;</span></div>
+          <div class="plant-info-item"><span class="plant-info-label" data-i18n="calc.area">Growing Area</span><span class="plant-info-value" id="infoArea">&#x2014;</span></div>
+          <div class="plant-info-item"><span class="plant-info-label" data-i18n="calc.floor">Floor Space</span><span class="plant-info-value" id="infoFloor">&#x2014;</span></div>
+        </div>
+        <div class="kpi-grid" style="margin-top: 20px;">
+          <div class="kpi-card highlight" data-kpi="kpiRevenue">
+            <div class="kpi-label">&#x1F4B0; <span data-i18n="kpi.revenue">Total Revenue</span></div>
+            <div class="kpi-value" id="kpiRevenue">&#x2014;</div>
+            <div class="kpi-unit" data-i18n="kpi.perYear">per year</div>
+          </div>
+          <div class="kpi-card highlight" data-kpi="kpiEbitda">
+            <div class="kpi-label">&#x1F4C8; <span data-i18n="kpi.ebitda">EBITDA</span></div>
+            <div class="kpi-value" id="kpiEbitda">&#x2014;</div>
+            <div class="kpi-unit" data-i18n="kpi.perYear">per year</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiOpex">
+            <div class="kpi-label">&#x1F527; <span data-i18n="kpi.opex">Total OPEX</span></div>
+            <div class="kpi-value" id="kpiOpex">&#x2014;</div>
+            <div class="kpi-unit" data-i18n="kpi.perYear">per year</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiCapex">
+            <div class="kpi-label">&#x1F3D7; <span data-i18n="kpi.capex">Total CAPEX</span></div>
+            <div class="kpi-value" id="kpiCapex">&#x2014;</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiRoi">
+            <div class="kpi-label">&#x1F4B9; <span data-i18n="kpi.roi">ROI</span></div>
+            <div class="kpi-value" id="kpiRoi">&#x2014;</div>
+            <div class="kpi-unit" data-i18n="kpi.annual">annual</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiPayback">
+            <div class="kpi-label">&#x23F1; <span data-i18n="kpi.payback">Payback Period</span></div>
+            <div class="kpi-value" id="kpiPayback">&#x2014;</div>
+            <div class="kpi-unit" data-i18n="kpi.years">years</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiMargin">
+            <div class="kpi-label">&#x1F4CA; <span data-i18n="kpi.margin">EBITDA Margin</span></div>
+            <div class="kpi-value" id="kpiMargin">&#x2014;</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiProduction">
+            <div class="kpi-label">&#x1F4E6; <span data-i18n="kpi.production">Annual Production</span></div>
+            <div class="kpi-value" id="kpiProduction">&#x2014;</div>
+            <div class="kpi-unit" data-i18n="kpi.kgYear">kg / year</div>
+          </div>
+          <div class="kpi-card" data-kpi="kpiCostKg">
+            <div class="kpi-label">&#x1F4B2; <span data-i18n="kpi.costKg">Cost per kg</span></div>
+            <div class="kpi-value" id="kpiCostKg">&#x2014;</div>
+          </div>
+        </div>
+        <div class="calc-footer">
+          <a href="OrbiFarm_Calculation_Tool.html" target="_blank" data-i18n="calc.disclaimer">Values are projections based on default parameters. Open the full tool for detailed analysis.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="cta-box reveal">
+      <h2 data-i18n="cta.title">Ready to Grow?</h2>
+      <p data-i18n="cta.subtitle">Get in touch to discuss how OrbiFarm can transform your agricultural or pharmaceutical production.</p>
+      <a href="mailto:info@orbi.farm" class="btn btn-primary" data-i18n="cta.button">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-copy">&copy; 2025 OrbiFarm GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
+    <div class="footer-links">
+      <a href="#" data-i18n="footer.imprint">Imprint</a>
+      <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== REGISTRATION MODAL ==================== -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeRegisterModal()">&#x2715;</button>
+    <h3>&#x1F331; <span data-i18n="reg.title">Unlock Full Calculator</span></h3>
+    <p data-i18n="reg.subtitle">Register to access all 22 plants and detailed KPIs.</p>
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <input type="text" id="regName" placeholder="Name *" required>
+      <input type="text" id="regCompany" placeholder="Company *" required>
+      <input type="email" id="regEmail" placeholder="Email *" required>
+      <button type="submit" class="btn btn-primary" style="animation:none;"><span data-i18n="reg.button">Unlock Full Access</span></button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ==================== i18n ====================
+const LANG = {
+  en: {
+    "nav.technology": "Technology", "nav.advantages": "Advantages", "nav.calculator": "Calculator", "nav.contact": "Contact",
+    "hero.badge": "Vertical Farming Platform",
+    "hero.title1": "The Most Profitable", "hero.title2": "Indoor Farming Platform",
+    "hero.subtitle": "Grow high-value pharma and food crops year-round with our patented rotating loop system. Up to 120x higher yields, 90% less water, zero pesticides.",
+    "hero.cta1": "Explore Crops", "hero.cta2": "Learn More",
+    "tech.label": "How It Works", "tech.title": "Revolutionary Growing Technology",
+    "tech.subtitle": "Our patented loop system maximises growing area within minimal floor space, enabling industrial-scale production of high-value crops.",
+    "tech.card1.title": "Rotating Loop System",
+    "tech.card1.desc": "12-metre high rotating loops create up to 101 m\u00b2 growing area per loop \u2014 maximising vertical space like no other system.",
+    "tech.card2.title": "Aeroponic Nutrition",
+    "tech.card2.desc2": "Roots are misted with nutrient solution \u2014 no soil, no substrate. 90% less water, faster uptake, higher yields.",
+    "tech.card3.title": "Modular & Scalable",
+    "tech.card3.desc": "Start with a single module, scale to industrial farms. Each module operates independently \u2014 grow different crops simultaneously.",
+    "tech.fact1": "Less Water", "tech.fact2": "Less Energy", "tech.fact3": "Days / Year", "tech.fact4": "Pesticides",
+    "photo.render1.title": "Farm Facility", "photo.render1.desc": "Industrial-scale vertical farming facility with multiple loop modules",
+    "photo.render2.title": "Inside the Farm", "photo.render2.desc": "Rotating loop modules with optimised LED lighting for maximum growth",
+    "photo.render3.title": "Module Detail", "photo.render3.desc": "Close-up view of the patented loop system in operation",
+    "loop.seeds": "Seeds", "loop.harvest": "Harvest", "loop.led": "LED Lighting",
+    "loop.aeroponics": "Aeroponics", "loop.reservoir": "Nutrient Reservoir", "loop.belt": "Conveyor Belt",
+    "adv.label": "Why OrbiFarm", "adv.title": "Built for Profitability",
+    "adv.subtitle": "A complete platform that combines hardware, software and bioprocessing to deliver unmatched unit economics.",
+    "adv.card1.title": "Highest Yields", "adv.card1.desc": "6\u2013120x more yield per m\u00b2 compared to outdoor cultivation, thanks to year-round multi-harvest cycles and optimised growing conditions.",
+    "adv.card2.title": "Pharma & Food Grade", "adv.card2.desc": "GMP-capable production environment for pharmaceutical-grade crops. From cannabis to artemisinin \u2014 with full traceability and standardised quality.",
+    "adv.card3.title": "Complete Platform", "adv.card3.desc": "Hardware (loop system), software (farm management), and downstream processing \u2014 everything from seed to final product, from a single source.",
+    "adv.card4.title": "Licensing Model", "adv.card4.desc": "Scale rapidly through licensing. OrbiFarm provides the platform and know-how \u2014 partners operate the farms locally with proven economics.",
+    "adv.card5.title": "Carbon Credits", "adv.card5.desc": "CO\u2082 captured during growth generates tradeable carbon credits \u2014 an additional revenue stream on top of product sales.",
+    "adv.card6.title": "Zero Waste", "adv.card6.desc": "Full biomass utilisation: primary product, sidestream revenue from extracts, biomass, and by-products. Nothing goes to waste.",
+    "calc.label": "Crop Calculator", "calc.title": "Explore the Economics",
+    "calc.subtitle": "Select a crop and adjust key parameters to see the projected financial performance of an OrbiFarm installation.",
+    "calc.controls": "Parameters", "calc.plant": "Crop", "calc.modules": "Modules", "calc.electricity": "Electricity Price", "calc.rent": "Rent",
+    "calc.fullTool": "Open Full Calculation Tool", "calc.product": "Product", "calc.category": "Category", "calc.area": "Growing Area", "calc.floor": "Floor Space",
+    "kpi.revenue": "Total Revenue", "kpi.ebitda": "EBITDA", "kpi.margin": "EBITDA Margin", "kpi.capex": "Total CAPEX", "kpi.opex": "Total OPEX", "kpi.roi": "ROI", "kpi.payback": "Payback Period",
+    "kpi.production": "Annual Production", "kpi.costKg": "Cost per kg", "kpi.perYear": "per year", "kpi.annual": "annual", "kpi.years": "years", "kpi.kgYear": "kg / year",
+    "calc.unlock": "Unlock all 22 plants & full KPIs", "calc.morePlants": "17 more plants \u2014 Registration required",
+    "reg.title": "Unlock Full Calculator", "reg.subtitle": "Register to access all 22 plants and detailed KPIs.", "reg.button": "Unlock Full Access",
+    "calc.disclaimer": "Values are projections based on default parameters. Open the full tool for detailed analysis.",
+    "cta.title": "Ready to Grow?", "cta.subtitle": "Get in touch to discuss how OrbiFarm can transform your agricultural or pharmaceutical production.", "cta.button": "Contact Us",
+    "footer.rights": "All rights reserved.", "footer.imprint": "Imprint", "footer.privacy": "Privacy Policy",
+  },
+  de: {
+    "nav.technology": "Technologie", "nav.advantages": "Vorteile", "nav.calculator": "Kalkulator", "nav.contact": "Kontakt",
+    "hero.badge": "Vertical Farming Plattform",
+    "hero.title1": "Die profitabelste", "hero.title2": "Indoor-Farming-Plattform",
+    "hero.subtitle": "Bauen Sie ganzj\u00e4hrig hochwertige Pharma- und Lebensmittelpflanzen an \u2014 mit unserem patentierten Rotating-Loop-System. Bis zu 120x h\u00f6here Ertr\u00e4ge, 90% weniger Wasser, null Pestizide.",
+    "hero.cta1": "Pflanzen entdecken", "hero.cta2": "Mehr erfahren",
+    "tech.label": "So funktioniert es", "tech.title": "Revolution\u00e4re Anbau-Technologie",
+    "tech.subtitle": "Unser patentiertes Loop-System maximiert die Anbaufl\u00e4che auf minimaler Grundfl\u00e4che und erm\u00f6glicht die industrielle Produktion hochwertiger Pflanzen.",
+    "tech.card1.title": "Rotating Loop System",
+    "tech.card1.desc": "12 Meter hohe rotierende Loops schaffen bis zu 101 m\u00b2 Anbaufl\u00e4che pro Loop \u2014 maximale Raumnutzung wie kein anderes System.",
+    "tech.card2.title": "Aeroponische N\u00e4hrstoffversorgung",
+    "tech.card2.desc2": "Wurzeln werden mit N\u00e4hrl\u00f6sung benebelt \u2014 kein Boden, kein Substrat. 90% weniger Wasser, schnellere Aufnahme, h\u00f6here Ertr\u00e4ge.",
+    "tech.card3.title": "Modular & Skalierbar",
+    "tech.card3.desc": "Starten Sie mit einem einzelnen Modul, skalieren Sie bis zur Industrieanlage. Jedes Modul arbeitet unabh\u00e4ngig \u2014 verschiedene Pflanzen gleichzeitig anbauen.",
+    "tech.fact1": "Weniger Wasser", "tech.fact2": "Weniger Energie", "tech.fact3": "Tage / Jahr", "tech.fact4": "Pestizide",
+    "photo.render1.title": "Farm-Anlage", "photo.render1.desc": "Industrielle Vertical-Farming-Anlage mit mehreren Loop-Modulen",
+    "photo.render2.title": "Im Inneren der Farm", "photo.render2.desc": "Rotierende Loop-Module mit optimierter LED-Beleuchtung für maximales Wachstum",
+    "photo.render3.title": "Modul-Detail", "photo.render3.desc": "Nahaufnahme des patentierten Loop-Systems im Betrieb",
+    "loop.seeds": "Saatgut", "loop.harvest": "Ernte", "loop.led": "LED-Beleuchtung",
+    "loop.aeroponics": "Aeroponik", "loop.reservoir": "N\u00e4hrstoffreservoir", "loop.belt": "F\u00f6rderband",
+    "adv.label": "Warum OrbiFarm", "adv.title": "Gebaut f\u00fcr Profitabilit\u00e4t",
+    "adv.subtitle": "Eine Komplettplattform aus Hardware, Software und Bioprocessing f\u00fcr unerreichte Wirtschaftlichkeit.",
+    "adv.card1.title": "H\u00f6chste Ertr\u00e4ge", "adv.card1.desc": "6\u2013120x mehr Ertrag pro m\u00b2 im Vergleich zum Freilandanbau \u2014 dank ganzj\u00e4hriger Mehrfachernten und optimierter Wachstumsbedingungen.",
+    "adv.card2.title": "Pharma- & Lebensmittelqualit\u00e4t", "adv.card2.desc": "GMP-f\u00e4hige Produktionsumgebung f\u00fcr pharmazeutische Pflanzen. Von Cannabis bis Artemisinin \u2014 mit vollst\u00e4ndiger R\u00fcckverfolgbarkeit und standardisierter Qualit\u00e4t.",
+    "adv.card3.title": "Komplettplattform", "adv.card3.desc": "Hardware (Loop-System), Software (Farm-Management) und Downstream-Processing \u2014 alles vom Saatgut bis zum Endprodukt aus einer Hand.",
+    "adv.card4.title": "Lizenzmodell", "adv.card4.desc": "Schnelle Skalierung durch Lizenzierung. OrbiFarm liefert Plattform und Know-how \u2014 Partner betreiben die Farmen lokal mit bew\u00e4hrter Wirtschaftlichkeit.",
+    "adv.card5.title": "CO\u2082-Zertifikate", "adv.card5.desc": "W\u00e4hrend des Wachstums gebundenes CO\u2082 generiert handelbare Emissionszertifikate \u2014 eine zus\u00e4tzliche Erl\u00f6squelle neben dem Produktverkauf.",
+    "adv.card6.title": "Zero Waste", "adv.card6.desc": "Vollst\u00e4ndige Biomassenutzung: Hauptprodukt, Sidestream-Erl\u00f6se aus Extrakten, Biomasse und Nebenprodukten. Nichts wird verschwendet.",
+    "calc.label": "Ertrags-Kalkulator", "calc.title": "Wirtschaftlichkeit entdecken",
+    "calc.subtitle": "W\u00e4hlen Sie eine Pflanze und passen Sie die Schl\u00fcsselparameter an, um die projizierte finanzielle Performance einer OrbiFarm-Anlage zu sehen.",
+    "calc.controls": "Parameter", "calc.plant": "Pflanze", "calc.modules": "Module", "calc.electricity": "Strompreis", "calc.rent": "Miete",
+    "calc.fullTool": "Vollst\u00e4ndiges Kalkulationstool \u00f6ffnen", "calc.product": "Produkt", "calc.category": "Kategorie", "calc.area": "Anbaufl\u00e4che", "calc.floor": "Grundfl\u00e4che",
+    "kpi.revenue": "Gesamtumsatz", "kpi.ebitda": "EBITDA", "kpi.margin": "EBITDA-Marge", "kpi.capex": "Gesamt-CAPEX", "kpi.opex": "Gesamt-OPEX", "kpi.roi": "ROI", "kpi.payback": "Amortisation",
+    "kpi.production": "Jahresproduktion", "kpi.costKg": "Kosten pro kg", "kpi.perYear": "pro Jahr", "kpi.annual": "j\u00e4hrlich", "kpi.years": "Jahre", "kpi.kgYear": "kg / Jahr",
+    "calc.unlock": "Alle 22 Pflanzen & alle KPIs freischalten", "calc.morePlants": "17 weitere Pflanzen \u2014 Registrierung erforderlich",
+    "reg.title": "Kalkulator freischalten", "reg.subtitle": "Registrieren Sie sich f\u00fcr Zugang zu allen 22 Pflanzen und detaillierten KPIs.", "reg.button": "Vollen Zugang freischalten",
+    "calc.disclaimer": "Werte sind Projektionen auf Basis der Standardparameter. \u00d6ffnen Sie das vollst\u00e4ndige Tool f\u00fcr detaillierte Analysen.",
+    "cta.title": "Bereit zu wachsen?", "cta.subtitle": "Kontaktieren Sie uns und erfahren Sie, wie OrbiFarm Ihre landwirtschaftliche oder pharmazeutische Produktion transformieren kann.", "cta.button": "Kontakt aufnehmen",
+    "footer.rights": "Alle Rechte vorbehalten.", "footer.imprint": "Impressum", "footer.privacy": "Datenschutz",
+  }
+};
+
+let currentLang = 'en';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (LANG[lang] && LANG[lang][key]) el.textContent = LANG[lang][key];
+  });
+  // SVG text elements
+  document.querySelectorAll('[data-i18n-text]').forEach(el => {
+    const key = el.getAttribute('data-i18n-text');
+    if (LANG[lang] && LANG[lang][key]) el.textContent = LANG[lang][key];
+  });
+  document.documentElement.lang = lang;
+  updateCalc();
+}
+
+// ==================== PLANT DATABASE ====================
+const PLANTS = {
+  "Matcha (Camellia sinensis)": { category: "Pharma", productName: "Matcha", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 600, capexAddon: 500000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 69, energyOverhead: 1.2, yield: 4.5, productFraction: 0.85, sidestreamMass: 3000, nutrientCost: 0.3, processingCost: 2, personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 150, sidestreamRevenue: 127000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Cannabis sativa (GMP Pharma)": { category: "Pharma", productName: "Flowers (GMP)", modules: 1, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 6000, capexAddon: 500000, electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 100, energyOverhead: 1.0, yield: 6.89, productFraction: 0.5, sidestreamMass: 0, nutrientCost: 1.9, processingCost: 5.5, personnel: 600000, maintenance: 0, rent: 5, otherOpex: 150000, licenseFee: 10, productPrice: 1800, sidestreamRevenue: 4178033, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.4 },
+  "Primula veris (Saponin Extract)": { category: "Pharma", productName: "Dry Extract (std.)", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 400, capexAddon: 200000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 83, energyOverhead: 1.0, yield: 0.834, productFraction: 0.3393, sidestreamMass: 0, nutrientCost: 14.74, processingCost: 12.5, personnel: 158581, maintenance: 0.9, rent: 5, otherOpex: 199258, licenseFee: 10, productPrice: 2000, sidestreamRevenue: 0, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.4 },
+  "Peas \u2192 TVP": { category: "Food", productName: "TVP", modules: 10, loops: 30, reserveLoops: 0, loopHeight: 12, loopWidth: 4, capexPerM2: 300, capexAddon: 2000000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 96, energyOverhead: 1.0, yield: 30.42, productFraction: 0.27, sidestreamMass: 0, nutrientCost: 0, processingCost: 0, personnel: 238613, maintenance: 0, rent: 5, otherOpex: 150000, licenseFee: 10, productPrice: 28, sidestreamRevenue: 301167, co2Factor: 0.483, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Saffron (Crocus sativus)": { category: "Food", productName: "Saffron (Pharma-Grade)", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 400, capexAddon: 200000, electricityPrice: 0.07, lightingHours: 12, lightingIntensity: 50, energyOverhead: 1.3, yield: 0.007, productFraction: 1.0, sidestreamMass: 0, nutrientCost: 50, processingCost: 150, personnel: 200000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 15000, sidestreamRevenue: 1400000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Artemisia annua": { category: "Pharma", productName: "Artemisinin Extract", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 450, capexAddon: 600000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 75, energyOverhead: 1.2, yield: 3, productFraction: 0.15, sidestreamMass: 40000, nutrientCost: 0.5, processingCost: 15, personnel: 160000, maintenance: 0.75, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 250, sidestreamRevenue: 200000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Centella asiatica (Gotu Kola)": { category: "Pharma", productName: "Centella Extract (cosmetic-grade)", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 450, capexAddon: 380000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 50, energyOverhead: 1.2, yield: 6, productFraction: 0.8, sidestreamMass: 10000, nutrientCost: 0.2, processingCost: 3, personnel: 180000, maintenance: 0.75, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 60, sidestreamRevenue: 80000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Nicotiana benthamiana (Pharma)": { category: "Pharma", productName: "Pharma Biomass (FW)", modules: 2, loops: 10, reserveLoops: 0, loopHeight: 12, loopWidth: 2.58, capexPerM2: 7000, capexAddon: 800000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 1233, energyOverhead: 1.0, yield: 30, productFraction: 1, sidestreamMass: 0, nutrientCost: 0, processingCost: 1.26, personnel: 450000, maintenance: 0, rent: 8, otherOpex: 350000, licenseFee: 10, productPrice: 822.5, sidestreamRevenue: 0, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.4 },
+  "Andrographis paniculata": { category: "Pharma", productName: "Andrographolide Extract", modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 2.58, capexPerM2: 600, capexAddon: 300000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 88, energyOverhead: 1.2, yield: 3.5, productFraction: 0.3, sidestreamMass: 2000, nutrientCost: 0.5, processingCost: 3, personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 250, sidestreamRevenue: 40000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Echinacea purpurea": { category: "Pharma", productName: "Echinacea Herba/Radix Extract", modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 2.58, capexPerM2: 600, capexAddon: 400000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 75, energyOverhead: 1.2, yield: 5, productFraction: 0.6, sidestreamMass: 4000, nutrientCost: 0.4, processingCost: 2.5, personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 340, sidestreamRevenue: 80000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Glycyrrhiza glabra (Liquorice)": { category: "Pharma", productName: "Glycyrrhizin / Glycyrrhetinic Acid", modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 2.58, capexPerM2: 600, capexAddon: 400000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 63, energyOverhead: 1.2, yield: 6, productFraction: 0.5, sidestreamMass: 5000, nutrientCost: 0.3, processingCost: 2, personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 180, sidestreamRevenue: 90000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Salvia miltiorrhiza (Danshen)": { category: "Pharma", productName: "Tanshinone/Salvianolic Acid Extract", modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 2.58, capexPerM2: 600, capexAddon: 500000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 81, energyOverhead: 1.2, yield: 3.5, productFraction: 0.25, sidestreamMass: 4000, nutrientCost: 0.8, processingCost: 5, personnel: 200000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 1400, sidestreamRevenue: 150000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Scutellaria baicalensis": { category: "Pharma", productName: "Baicalin/Baicalein Extract", modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 2.58, capexPerM2: 600, capexAddon: 400000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 69, energyOverhead: 1.2, yield: 4, productFraction: 0.4, sidestreamMass: 3000, nutrientCost: 0.5, processingCost: 3, personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 900, sidestreamRevenue: 60000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Catharanthus roseus (Madagascar Periwinkle)": { category: "Pharma", productName: "Vinblastine/Vincristine Extract", modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 2.58, capexPerM2: 600, capexAddon: 500000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 88, energyOverhead: 1.2, yield: 2.8, productFraction: 0.15, sidestreamMass: 5000, nutrientCost: 1, processingCost: 8, personnel: 250000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 1196, sidestreamRevenue: 180000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Matricaria chamomilla (Pharma Extract)": { category: "Pharma", productName: "Chamomile Extract", modules: 5, loops: 10, reserveLoops: 0, loopHeight: 12, loopWidth: 4, capexPerM2: 900, capexAddon: 1150000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 56, energyOverhead: 1.15, yield: 7.68, productFraction: 0.108, sidestreamMass: 0, nutrientCost: 4.63, processingCost: 31.3, personnel: 420000, maintenance: 0, rent: 9, otherOpex: 0, licenseFee: 5.5, productPrice: 1196, sidestreamRevenue: 0, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.4 },
+  "Stevia rebaudiana": { category: "Food", productName: "Stevia Glycoside Extract", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 500, capexAddon: 400000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 63, energyOverhead: 1.2, yield: 3.5, productFraction: 0.6, sidestreamMass: 5000, nutrientCost: 0.25, processingCost: 5, personnel: 200000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 80, sidestreamRevenue: 75000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Tulsi (Ocimum tenuiflorum)": { category: "Pharma", productName: "Dried Tulsi Herb", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 450, capexAddon: 350000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 56, energyOverhead: 1.2, yield: 5, productFraction: 0.9, sidestreamMass: 8000, nutrientCost: 0.2, processingCost: 1.5, personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10, productPrice: 35, sidestreamRevenue: 120000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 },
+  "Hops (Humulus lupulus)": { category: "Food", productName: "Hop Pellets / CO\u2082 Extract", modules: 5, loops: 10, reserveLoops: 0, loopHeight: 12, loopWidth: 4, capexPerM2: 900, capexAddon: 1150000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 59, energyOverhead: 1.12, yield: 6, productFraction: 0.55, sidestreamMass: 0, nutrientCost: 0.55, processingCost: 1.3, personnel: 420000, maintenance: 0, rent: 9, otherOpex: 0, licenseFee: 5.5, productPrice: 35, sidestreamRevenue: 0, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.4 },
+  "Nasturtium officinale (Watercress)": { category: "Pharma", productName: "PEITC-enriched Extract", modules: 5, loops: 10, reserveLoops: 0, loopHeight: 12, loopWidth: 4, capexPerM2: 450, capexAddon: 1100000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 50, energyOverhead: 1.15, yield: 3.5, productFraction: 0.2, sidestreamMass: 14140, nutrientCost: 3, processingCost: 22, personnel: 360000, maintenance: 0.75, rent: 9, otherOpex: 0, licenseFee: 5.5, productPrice: 400, sidestreamRevenue: 950000, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.5 },
+  "Taraxacum officinale (Dandelion)": { category: "Pharma", productName: "Root Extract (Taraxasterol)", modules: 5, loops: 10, reserveLoops: 0, loopHeight: 12, loopWidth: 4, capexPerM2: 900, capexAddon: 850000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 63, energyOverhead: 1.15, yield: 8.5, productFraction: 0.08, sidestreamMass: 24240, nutrientCost: 3.8, processingCost: 22, personnel: 380000, maintenance: 0, rent: 9, otherOpex: 0, licenseFee: 5.5, productPrice: 350, sidestreamRevenue: 300000, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 2.02 },
+  "Urtica dioica (Stinging Nettle)": { category: "Pharma", productName: "\u03b2-Sitosterol Root Extract", modules: 5, loops: 10, reserveLoops: 0, loopHeight: 12, loopWidth: 4, capexPerM2: 900, capexAddon: 1100000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 69, energyOverhead: 1.15, yield: 9.5, productFraction: 0.2, sidestreamMass: 22700, nutrientCost: 3.5, processingCost: 25, personnel: 380000, maintenance: 0, rent: 9, otherOpex: 0, licenseFee: 5.5, productPrice: 180, sidestreamRevenue: 420000, co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 2.02 },
+  "Wheatgrass (Triticum aestivum)": { category: "Food", productName: "Organic Wheatgrass Powder", modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4, capexPerM2: 350, capexAddon: 1000000, electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 56, energyOverhead: 1.2, yield: 20, productFraction: 0.85, sidestreamMass: 40000, nutrientCost: 0.4, processingCost: 1.5, personnel: 200000, maintenance: 5, rent: 5, otherOpex: 80000, licenseFee: 10, productPrice: 22, sidestreamRevenue: 20000, co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4 }
+};
+
+// ==================== CALCULATION ENGINE ====================
+function calcAreaPerLoop(h, w) { return Math.round(h * w * (101 / 48)); }
+
+function calculate(inp) {
+  const areaPerLoop = inp.areaPerLoop || calcAreaPerLoop(inp.loopHeight || 12, inp.loopWidth || 4);
+  const productiveArea = inp.modules * inp.loops * areaPerLoop;
+  const capexArea = inp.modules * (inp.loops + inp.reserveLoops) * areaPerLoop;
+  const loopFootprint = (inp.loopWidth || 4) * 2.5;
+  const floorSpace = inp.modules * (inp.loops + inp.reserveLoops) * loopFootprint * (inp.auxFactor || 1.4);
+  const totalCapex = capexArea * inp.capexPerM2 + inp.capexAddon;
+  const lightingKW = ((inp.lightingIntensity || 0) / 1000) * (inp.lightingHours || 0);
+  const annualEnergy = productiveArea * lightingKW * inp.energyOverhead * 365;
+  const annualEnergyCost = annualEnergy * inp.electricityPrice;
+  const annualBiomass = productiveArea * inp.yield;
+  const primaryOutput = annualBiomass * inp.productFraction;
+  const opexEnergy = annualEnergyCost;
+  const opexMaterials = primaryOutput * inp.nutrientCost;
+  const opexProcessing = primaryOutput * inp.processingCost;
+  const opexMaintenance = totalCapex * (inp.maintenance / 100);
+  const opexPersonnel = inp.personnel;
+  const opexRent = floorSpace * inp.rent * 12;
+  const opexOther = inp.otherOpex;
+  const revPrimary = primaryOutput * inp.productPrice;
+  const revSidestream = inp.sidestreamRevenue;
+  const revCO2 = (inp.co2Factor > 0 && inp.co2Price > 0) ? (annualBiomass / 1000) * inp.co2Factor * inp.co2Price : 0;
+  const totalRevenue = revPrimary + revSidestream + revCO2;
+  const opexLicense = totalRevenue * (inp.licenseFee / 100);
+  const totalOpex = opexEnergy + opexMaterials + opexProcessing + opexMaintenance + opexPersonnel + opexRent + opexOther + opexLicense;
+  const ebitda = totalRevenue - totalOpex;
+  const ebitdaMargin = totalRevenue > 0 ? ebitda / totalRevenue : 0;
+  const roi = totalCapex > 0 ? ebitda / totalCapex : 0;
+  const payback = ebitda > 0 ? totalCapex / ebitda : Infinity;
+  const costPerKg = primaryOutput > 0 ? totalOpex / primaryOutput : 0;
+  return { productiveArea, floorSpace, totalCapex, primaryOutput, totalRevenue, totalOpex, ebitda, ebitdaMargin, roi, payback, costPerKg };
+}
+
+// ==================== FORMATTING ====================
+function fmt(n, dec = 0) {
+  if (n === Infinity || isNaN(n)) return '\u2013';
+  return n.toLocaleString('de-DE', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+}
+function fmtEur(n) {
+  if (n === Infinity || isNaN(n)) return '\u2013';
+  if (Math.abs(n) >= 1e6) return fmt(n / 1e6, 2) + ' M\u20ac';
+  if (Math.abs(n) >= 1e3) return fmt(n / 1e3, 0) + ' k\u20ac';
+  return fmt(n, 0) + ' \u20ac';
+}
+
+// ==================== FREEMIUM GATING ====================
+const FREE_PLANTS = [
+  "Matcha (Camellia sinensis)",
+  "Peas \u2192 TVP",
+  "Cannabis sativa (GMP Pharma)",
+  "Saffron (Crocus sativus)",
+  "Matricaria chamomilla (Pharma Extract)"
+];
+const FREE_KPIS = ['kpiRevenue','kpiEbitda','kpiOpex','kpiCapex','kpiRoi','kpiPayback'];
+let isUnlocked = localStorage.getItem('orbifarm_registered') === 'true';
+
+// ==================== CALCULATOR UI ====================
+function populatePlantSelect() {
+  const sel = document.getElementById('calcPlant');
+  const prevVal = sel.value;
+  if (isUnlocked) {
+    const pharma = [], food = [];
+    Object.keys(PLANTS).sort().forEach(name => { (PLANTS[name].category === 'Pharma' ? pharma : food).push(name); });
+    let html = '<optgroup label="\uD83E\uDDEC Pharma">';
+    pharma.forEach(n => { html += '<option value="' + n + '">' + n + '</option>'; });
+    html += '</optgroup><optgroup label="\uD83C\uDF3F Food">';
+    food.forEach(n => { html += '<option value="' + n + '">' + n + '</option>'; });
+    html += '</optgroup>';
+    sel.innerHTML = html;
+  } else {
+    let html = '';
+    FREE_PLANTS.forEach(n => { if (PLANTS[n]) html += '<option value="' + n + '">' + n + '</option>'; });
+    const moreText = LANG[currentLang] && LANG[currentLang]['calc.morePlants'] ? LANG[currentLang]['calc.morePlants'] : '17 more plants \u2014 Registration required';
+    html += '<option disabled>\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500</option>';
+    html += '<option disabled>\uD83D\uDD12 ' + moreText + '</option>';
+    sel.innerHTML = html;
+  }
+  if (prevVal && PLANTS[prevVal]) sel.value = prevVal;
+}
+
+function applyGating() {
+  populatePlantSelect();
+  // KPI lock/unlock
+  document.querySelectorAll('.kpi-card[data-kpi]').forEach(card => {
+    const kpiId = card.getAttribute('data-kpi');
+    if (isUnlocked || FREE_KPIS.includes(kpiId)) {
+      card.classList.remove('kpi-locked');
+      card.removeAttribute('onclick');
+      const badge = card.querySelector('.lock-badge');
+      if (badge) badge.remove();
+    } else {
+      card.classList.add('kpi-locked');
+      card.setAttribute('onclick', 'openRegisterModal()');
+      if (!card.querySelector('.lock-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'lock-badge';
+        badge.textContent = '\uD83D\uDD12';
+        card.appendChild(badge);
+      }
+    }
+  });
+  // Unlock hint
+  const hint = document.getElementById('unlockHint');
+  if (hint) hint.style.display = isUnlocked ? 'none' : 'block';
+}
+
+// Registration Modal
+function openRegisterModal() { document.getElementById('registerModal').classList.add('active'); }
+function closeRegisterModal() { document.getElementById('registerModal').classList.remove('active'); }
+
+function handleRegister(e) {
+  e.preventDefault();
+  const name = document.getElementById('regName').value.trim();
+  const company = document.getElementById('regCompany').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  localStorage.setItem('orbifarm_registered', 'true');
+  localStorage.setItem('orbifarm_user', JSON.stringify({ name, company, email, date: new Date().toISOString() }));
+  isUnlocked = true;
+  closeRegisterModal();
+  applyGating();
+  updateCalc();
+}
+
+// Close modal on overlay click
+document.getElementById('registerModal').addEventListener('click', function(e) {
+  if (e.target === this) closeRegisterModal();
+});
+
+function updateCalc() {
+  const plantName = document.getElementById('calcPlant').value;
+  const p = PLANTS[plantName];
+  if (!p) return;
+  const modules = parseInt(document.getElementById('calcModules').value);
+  const electricityPrice = parseFloat(document.getElementById('calcElectricity').value);
+  const rent = parseFloat(document.getElementById('calcRent').value);
+  document.getElementById('modulesVal').textContent = modules;
+  document.getElementById('elecVal').textContent = electricityPrice.toFixed(2).replace('.', ',') + ' \u20ac/kWh';
+  document.getElementById('rentVal').textContent = rent.toFixed(2).replace('.', ',') + ' \u20ac/m\u00b2';
+  const inp = { modules, loops: p.loops, reserveLoops: p.reserveLoops, loopHeight: p.loopHeight, loopWidth: p.loopWidth, auxFactor: p.auxFactor || 1.4, areaPerLoop: calcAreaPerLoop(p.loopHeight, p.loopWidth), capexPerM2: p.capexPerM2, capexAddon: p.capexAddon, electricityPrice, lightingHours: p.lightingHours, lightingIntensity: p.lightingIntensity, energyOverhead: p.energyOverhead, yield: p.yield, productFraction: p.productFraction, sidestreamMass: p.sidestreamMass, nutrientCost: p.nutrientCost, processingCost: p.processingCost, personnel: p.personnel, maintenance: p.maintenance, rent, otherOpex: p.otherOpex, licenseFee: p.licenseFee, productPrice: p.productPrice, sidestreamRevenue: p.sidestreamRevenue, co2Factor: p.co2Factor, co2Price: p.co2Price, depreciation: p.depreciation };
+  const r = calculate(inp);
+  document.getElementById('infoProduct').textContent = p.productName;
+  document.getElementById('infoCategory').textContent = p.category;
+  document.getElementById('infoArea').textContent = fmt(r.productiveArea, 0) + ' m\u00b2';
+  document.getElementById('infoFloor').textContent = fmt(r.floorSpace, 0) + ' m\u00b2';
+  setKPI('kpiRevenue', fmtEur(r.totalRevenue), r.totalRevenue >= 0);
+  setKPI('kpiEbitda', fmtEur(r.ebitda), r.ebitda >= 0);
+  setKPI('kpiOpex', fmtEur(r.totalOpex), true);
+  setKPI('kpiCapex', fmtEur(r.totalCapex), true);
+  setKPI('kpiMargin', fmt(r.ebitdaMargin * 100, 1) + '%', r.ebitdaMargin >= 0);
+  setKPI('kpiRoi', fmt(r.roi * 100, 1) + '%', r.roi >= 0);
+  setKPI('kpiPayback', r.payback === Infinity ? '\u2013' : fmt(r.payback, 1), r.payback < 10);
+  setKPI('kpiProduction', fmt(r.primaryOutput, 0), true);
+  setKPI('kpiCostKg', fmt(r.costPerKg, 2) + ' \u20ac', true);
+}
+
+function setKPI(id, value, positive) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = value;
+  el.className = 'kpi-value' + (positive ? ' positive' : ' negative');
+}
+
+document.getElementById('calcPlant').addEventListener('change', function() {
+  const p = PLANTS[this.value];
+  if (p) { document.getElementById('calcModules').value = p.modules; document.getElementById('calcElectricity').value = p.electricityPrice; document.getElementById('calcRent').value = p.rent; }
+  updateCalc();
+});
+
+// ==================== MOBILE MENU ====================
+function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { document.getElementById('navLinks').classList.remove('open'); }); });
+
+// ==================== VIDEO AUTOPLAY FALLBACK ====================
+// Video currently hidden (display:none) — re-enable when logo-free video is available
+// const heroVideo = document.querySelector('.hero-bg video');
+// if (heroVideo) { heroVideo.play().catch(() => {}); document.addEventListener('scroll', function startVid() { heroVideo.play().catch(() => {}); document.removeEventListener('scroll', startVid); }, { once: true }); }
+
+// ==================== SCROLL REVEAL (with Stagger + Counter support) ====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+
+    // Stagger children if data-stagger is set
+    if (entry.target.hasAttribute('data-stagger')) {
+      const children = entry.target.children;
+      Array.from(children).forEach((child, i) => {
+        setTimeout(() => { child.classList.add('stagger-visible'); }, i * 120);
+      });
+    }
+
+    // Animated counters for data-count-to elements inside this revealed block
+    entry.target.querySelectorAll('[data-count-to]').forEach(el => {
+      if (el.dataset.counted) return;
+      el.dataset.counted = '1';
+      const target = parseInt(el.getAttribute('data-count-to'), 10);
+      const suffix = el.getAttribute('data-count-suffix') || '';
+      if (target === 0) { el.textContent = '0' + suffix; return; }
+      const duration = 1800;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
+        const val = Math.round(ease * target);
+        el.textContent = val + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+
+    observer.unobserve(entry.target);
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ==================== PLANT CHAIN GENERATOR ====================
+(function buildPlantChain() {
+  const group = document.getElementById('plantChain');
+  if (!group) return;
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const count = 200;   // very dense chain: ~16px between plants on ~3140px path
+  const dur = 120;     // very slow, meditative movement
+  const interval = dur / count; // 0.6s spacing
+
+  for (let i = 0; i < count; i++) {
+    const t = -(i * interval).toFixed(2);
+
+    const c = document.createElementNS(svgNS, 'circle');
+    c.setAttribute('r', '4');
+    c.setAttribute('class', 'loop-plant');
+
+    // Follow belt path
+    const motion = document.createElementNS(svgNS, 'animateMotion');
+    motion.setAttribute('dur', dur + 's');
+    motion.setAttribute('repeatCount', 'indefinite');
+    motion.setAttribute('begin', t + 's');
+    const mp = document.createElementNS(svgNS, 'mpath');
+    mp.setAttribute('href', '#beltPath');
+    motion.appendChild(mp);
+    c.appendChild(motion);
+
+    // Grow from seed to mature plant along the path
+    const grow = document.createElementNS(svgNS, 'animate');
+    grow.setAttribute('attributeName', 'r');
+    grow.setAttribute('values', '2;4;7;10');
+    grow.setAttribute('dur', dur + 's');
+    grow.setAttribute('repeatCount', 'indefinite');
+    grow.setAttribute('begin', t + 's');
+    c.appendChild(grow);
+
+    // Fade in at start, fade out at end
+    const fade = document.createElementNS(svgNS, 'animate');
+    fade.setAttribute('attributeName', 'opacity');
+    fade.setAttribute('values', '0;1;1;0');
+    fade.setAttribute('keyTimes', '0;0.015;0.96;1');
+    fade.setAttribute('dur', dur + 's');
+    fade.setAttribute('repeatCount', 'indefinite');
+    fade.setAttribute('begin', t + 's');
+    c.appendChild(fade);
+
+    group.appendChild(c);
+  }
+})();
+
+// ==================== INIT ====================
+applyGating();
+updateCalc();
+</script>
+</body>
+</html>
