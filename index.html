@@ -847,7 +847,7 @@ section { padding: 100px 24px; }
           <input type="range" class="control-range" id="calcRent" min="2" max="15" step="0.5" value="5" oninput="updateCalc()">
         </div>
         <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);">
-          <a href="OrbiFarm_Calculation_Tool.html" target="_blank" style="font-size: 0.85rem; display:flex; align-items:center; gap:6px;">
+          <a href="javascript:void(0)" onclick="handleFullToolClick()" id="fullToolLink" style="font-size: 0.85rem; display:flex; align-items:center; gap:6px; cursor:pointer;">
             &#x1F4CA; <span data-i18n="calc.fullTool">Open Full Calculation Tool</span> &rarr;
           </a>
         </div>
@@ -1191,6 +1191,14 @@ function applyGating() {
 // Registration Modal
 function openRegisterModal() { document.getElementById('registerModal').classList.add('active'); }
 function closeRegisterModal() { document.getElementById('registerModal').classList.remove('active'); }
+
+function handleFullToolClick() {
+  if (isUnlocked) {
+    window.open('OrbiFarm_Calculation_Tool.html', '_blank');
+  } else {
+    openRegisterModal();
+  }
+}
 
 function handleRegister(e) {
   e.preventDefault();
