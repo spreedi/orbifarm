@@ -367,18 +367,27 @@ section { padding: 100px 24px; }
 
 /* ==================== CTA / CONTACT ==================== */
 #contact { background: var(--bg-dark); text-align: center; }
-.cta-box {
-  max-width: 600px; margin: 0 auto; padding: 60px 40px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); position: relative; overflow: hidden;
+/* ==================== CONTACT FORM ==================== */
+.contact-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; max-width: 900px; margin: 0 auto; }
+.contact-form-wrap input, .contact-form-wrap textarea {
+  width: 100%; padding: 14px 16px; margin-bottom: 14px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); font-size: 0.95rem; font-family: inherit; box-sizing: border-box;
 }
-.cta-box::before {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: radial-gradient(circle at center, rgba(0,200,83,0.04), transparent 60%); pointer-events: none;
+.contact-form-wrap input:focus, .contact-form-wrap textarea:focus {
+  outline: none; border-color: var(--accent);
 }
-.cta-box h2 { font-size: 2rem; margin-bottom: 16px; position: relative; }
-.cta-box p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.05rem; position: relative; }
-.cta-box .btn { position: relative; }
+.contact-form-wrap textarea { resize: vertical; min-height: 120px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.contact-info { padding-top: 8px; }
+.contact-info h3 { margin-bottom: 24px; font-size: 1.1rem; }
+.contact-info-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 20px; color: var(--text-muted); line-height: 1.6; }
+.contact-info-item a { color: var(--accent); }
+.contact-info-icon { font-size: 1.3rem; margin-top: 2px; }
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+  .form-row { grid-template-columns: 1fr; }
+}
 
 /* ==================== FOOTER ==================== */
 .footer { padding: 32px 24px; border-top: 1px solid var(--border); background: var(--bg-dark); }
@@ -760,8 +769,8 @@ section { padding: 100px 24px; }
         <div class="key-fact-label" data-i18n="tech.fact1">Less Water</div>
       </div>
       <div class="key-fact">
-        <div class="key-fact-value" data-count-to="80" data-count-suffix="%">0</div>
-        <div class="key-fact-label" data-i18n="tech.fact2">Less Energy</div>
+        <div class="key-fact-value" data-count-to="80" data-count-prefix="-" data-count-suffix="%">0</div>
+        <div class="key-fact-label" data-i18n="tech.fact2">CAPEX vs. Indoor Farming</div>
       </div>
       <div class="key-fact">
         <div class="key-fact-value" data-count-to="365">0</div>
@@ -785,34 +794,44 @@ section { padding: 100px 24px; }
     </div>
     <div class="adv-grid" data-stagger>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F331;</span>
-        <h3 data-i18n="adv.card1.title">Highest Yields</h3>
-        <p data-i18n="adv.card1.desc">6&#x2013;120x more yield per m&#xb2; compared to outdoor cultivation, thanks to year-round multi-harvest cycles and optimised growing conditions.</p>
-      </div>
-      <div class="adv-card reveal">
         <span class="adv-icon">&#x1F3ED;</span>
-        <h3 data-i18n="adv.card2.title">Pharma &amp; Food Grade</h3>
-        <p data-i18n="adv.card2.desc">GMP-capable production environment for pharmaceutical-grade crops. From cannabis to artemisinin &#x2014; with full traceability and standardised quality.</p>
+        <h3 data-i18n="adv.card1.title">Factory, Not Farm</h3>
+        <p data-i18n="adv.card1.desc">Designed as a continuous industrial process with conveyor logic, automation and QA gates &#x2014; not a greenhouse with sensors.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F527;</span>
-        <h3 data-i18n="adv.card3.title">Complete Platform</h3>
-        <p data-i18n="adv.card3.desc">Hardware (loop system), software (farm management), and downstream processing &#x2014; everything from seed to final product, from a single source.</p>
+        <span class="adv-icon">&#x1F4B0;</span>
+        <h3 data-i18n="adv.card2.title">Superior ROI</h3>
+        <p data-i18n="adv.card2.desc">~115% ROI in ~10 months for medicinal plants, ~51% ROI in ~23 months for protein crops. Short payback periods and de-risked economics.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F331;</span>
+        <h3 data-i18n="adv.card3.title">Up to 120x Yield</h3>
+        <p data-i18n="adv.card3.desc">Up to 120x higher yield per m&#xb2; vs. outdoor cultivation through full-plant utilisation and year-round multi-harvest cycles.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F9EC;</span>
+        <h3 data-i18n="adv.card4.title">Recipe-Driven Production</h3>
+        <p data-i18n="adv.card4.desc">Standardised grow recipes tuned for actives, purity and particle properties &#x2014; specification-driven output at pharma grade.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F4CA;</span>
+        <h3 data-i18n="adv.card5.title">Digital Twin</h3>
+        <p data-i18n="adv.card5.desc">Process digitalisation with simulation, optimisation and predictive maintenance across the entire installed base.</p>
+      </div>
+      <div class="adv-card reveal">
+        <span class="adv-icon">&#x1F91D;</span>
+        <h3 data-i18n="adv.card6.title">Strategic Partners</h3>
+        <p data-i18n="adv.card6.desc">Backed by Fraunhofer (R&amp;D) and Flottweg (downstream processing) &#x2014; a strong ecosystem enabling rapid industrial scale-up.</p>
       </div>
       <div class="adv-card reveal">
         <span class="adv-icon">&#x1F4C8;</span>
-        <h3 data-i18n="adv.card4.title">Licensing Model</h3>
-        <p data-i18n="adv.card4.desc">Scale rapidly through licensing. OrbiFarm provides the platform and know-how &#x2014; partners operate the farms locally with proven economics.</p>
-      </div>
-      <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F30D;</span>
-        <h3 data-i18n="adv.card5.title">Carbon Credits</h3>
-        <p data-i18n="adv.card5.desc">CO&#x2082; captured during growth generates tradeable carbon credits &#x2014; an additional revenue stream on top of product sales.</p>
+        <h3 data-i18n="adv.card7.title">Platform Business Model</h3>
+        <p data-i18n="adv.card7.desc">Hardware margin plus growing recurring revenue from licenses, software and maintenance &#x2014; scalable ARR from every installed module.</p>
       </div>
       <div class="adv-card reveal">
         <span class="adv-icon">&#x267B;</span>
-        <h3 data-i18n="adv.card6.title">Zero Waste</h3>
-        <p data-i18n="adv.card6.desc">Full biomass utilisation: primary product, sidestream revenue from extracts, biomass, and by-products. Nothing goes to waste.</p>
+        <h3 data-i18n="adv.card8.title">Whole Plant Utilisation</h3>
+        <p data-i18n="adv.card8.desc">Leaves, stems and roots across multiple SKUs and sidestreams. Zero waste, maximum value extraction from every harvest.</p>
       </div>
     </div>
   </div>
@@ -914,10 +933,67 @@ section { padding: 100px 24px; }
 <!-- ==================== CONTACT ==================== -->
 <section id="contact">
   <div class="section-inner">
-    <div class="cta-box reveal">
-      <h2 data-i18n="cta.title">Ready to Grow?</h2>
-      <p data-i18n="cta.subtitle">Get in touch to discuss how OrbiFarm can transform your agricultural or pharmaceutical production.</p>
-      <a href="mailto:info@orbi.farm" class="btn btn-primary" data-i18n="cta.button">Contact Us</a>
+    <div class="section-header reveal">
+      <div class="section-label" data-i18n="contact.label">Get in Touch</div>
+      <h2 data-i18n="contact.title">Ready to Grow?</h2>
+      <p data-i18n="contact.subtitle">Have questions about OrbiFarm or want to discuss a project? Send us a message and we&#x2019;ll get back to you shortly.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-form-wrap">
+        <form id="contactForm" onsubmit="handleContact(event)">
+          <div class="form-row">
+            <input type="text" id="contactName" placeholder="Name *" required>
+            <input type="text" id="contactCompany" placeholder="Company">
+          </div>
+          <input type="email" id="contactEmail" placeholder="Email *" required>
+          <input type="text" id="contactSubject" placeholder="Subject">
+          <textarea id="contactMessage" rows="5" placeholder="Your message *" required></textarea>
+          <button type="submit" class="btn btn-primary" style="animation:none; width:100%;"><span data-i18n="contact.send">Send Message</span></button>
+          <div id="contactStatus" style="margin-top:12px; text-align:center; font-size:0.9rem; display:none;"></div>
+        </form>
+      </div>
+      <div class="contact-info">
+        <h3 data-i18n="contact.infoTitle">Contact Information</h3>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#x1F4E7;</span>
+          <div><strong>Email</strong><br><a href="mailto:info@orbi.farm">info@orbi.farm</a></div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#x1F4DE;</span>
+          <div><strong data-i18n="contact.phone">Phone</strong><br><a href="tel:+491755996828">+49 175 599 6828</a></div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">&#x1F4CD;</span>
+          <div><strong data-i18n="contact.address">Address</strong><br>OrbiFarm GmbH<br>Schwedter Stra&#xDF;e 36A<br>10435 Berlin, Germany</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== IMPRINT ==================== -->
+<section id="imprint" style="padding: 60px 0 30px;">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <h2 data-i18n="imprint.title">Imprint</h2>
+    </div>
+    <div class="imprint-content reveal" style="max-width:700px; margin:0 auto; font-size:0.92rem; line-height:1.7; color: var(--text-muted);">
+      <p><strong>OrbiFarm GmbH</strong><br>
+      Schwedter Stra&#xDF;e 36A<br>
+      10435 Berlin, Germany</p>
+      <p><strong data-i18n="imprint.represented">Represented by:</strong><br>
+      Jan Bredack (CEO / Managing Director)</p>
+      <p><strong data-i18n="imprint.contact">Contact:</strong><br>
+      Email: <a href="mailto:info@orbi.farm" style="color:var(--accent);">info@orbi.farm</a><br>
+      Phone: <a href="tel:+491755996828" style="color:var(--accent);">+49 175 599 6828</a></p>
+      <p><strong data-i18n="imprint.register">Commercial Register:</strong><br>
+      <span data-i18n="imprint.registerText">Amtsgericht Charlottenburg, Berlin<br>HRB &#x2014; (registration pending)</span></p>
+      <p><strong data-i18n="imprint.vatId">VAT ID:</strong><br>
+      <span data-i18n="imprint.vatIdText">VAT identification number according to &#xA7;27a UStG: pending</span></p>
+      <p><strong data-i18n="imprint.responsible">Responsible for content (&#xA7;18 Abs. 2 MStV):</strong><br>
+      Jan Bredack<br>
+      Schwedter Stra&#xDF;e 36A, 10435 Berlin</p>
+      <p style="margin-top:24px; font-size:0.85rem;" data-i18n="imprint.disclaimer"><strong>Disclaimer:</strong> Despite careful content control, we assume no liability for the content of external links. The operators of linked sites are solely responsible for their content.</p>
     </div>
   </div>
 </section>
@@ -927,7 +1003,7 @@ section { padding: 100px 24px; }
   <div class="footer-inner">
     <div class="footer-copy">&copy; 2025 OrbiFarm GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
     <div class="footer-links">
-      <a href="#" data-i18n="footer.imprint">Imprint</a>
+      <a href="#imprint" data-i18n="footer.imprint">Imprint</a>
       <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
     </div>
   </div>
@@ -965,7 +1041,7 @@ const LANG = {
     "tech.card2.desc2": "Roots are misted with nutrient solution \u2014 no soil, no substrate. 90% less water, faster uptake, higher yields.",
     "tech.card3.title": "Modular & Scalable",
     "tech.card3.desc": "Start with a single module, scale to industrial farms. Each module operates independently \u2014 grow different crops simultaneously.",
-    "tech.fact1": "Less Water", "tech.fact2": "Less Energy", "tech.fact3": "Days / Year", "tech.fact4": "Pesticides",
+    "tech.fact1": "Less Water", "tech.fact2": "CAPEX vs. Indoor Farming", "tech.fact3": "Days / Year", "tech.fact4": "Pesticides",
     "photo.render1.title": "Farm Facility", "photo.render1.desc": "Industrial-scale vertical farming facility with multiple loop modules",
     "photo.render2.title": "Inside the Farm", "photo.render2.desc": "Rotating loop modules with optimised LED lighting for maximum growth",
     "photo.render3.title": "Module Detail", "photo.render3.desc": "Close-up view of the patented loop system in operation",
@@ -973,12 +1049,14 @@ const LANG = {
     "loop.aeroponics": "Aeroponics", "loop.reservoir": "Nutrient Reservoir", "loop.belt": "Conveyor Belt",
     "adv.label": "Why OrbiFarm", "adv.title": "Built for Profitability",
     "adv.subtitle": "A complete platform that combines hardware, software and bioprocessing to deliver unmatched unit economics.",
-    "adv.card1.title": "Highest Yields", "adv.card1.desc": "6\u2013120x more yield per m\u00b2 compared to outdoor cultivation, thanks to year-round multi-harvest cycles and optimised growing conditions.",
-    "adv.card2.title": "Pharma & Food Grade", "adv.card2.desc": "GMP-capable production environment for pharmaceutical-grade crops. From cannabis to artemisinin \u2014 with full traceability and standardised quality.",
-    "adv.card3.title": "Complete Platform", "adv.card3.desc": "Hardware (loop system), software (farm management), and downstream processing \u2014 everything from seed to final product, from a single source.",
-    "adv.card4.title": "Licensing Model", "adv.card4.desc": "Scale rapidly through licensing. OrbiFarm provides the platform and know-how \u2014 partners operate the farms locally with proven economics.",
-    "adv.card5.title": "Carbon Credits", "adv.card5.desc": "CO\u2082 captured during growth generates tradeable carbon credits \u2014 an additional revenue stream on top of product sales.",
-    "adv.card6.title": "Zero Waste", "adv.card6.desc": "Full biomass utilisation: primary product, sidestream revenue from extracts, biomass, and by-products. Nothing goes to waste.",
+    "adv.card1.title": "Factory, Not Farm", "adv.card1.desc": "Designed as a continuous industrial process with conveyor logic, automation and QA gates \u2014 not a greenhouse with sensors.",
+    "adv.card2.title": "Superior ROI", "adv.card2.desc": "~115% ROI in ~10 months for medicinal plants, ~51% ROI in ~23 months for protein crops. Short payback periods and de-risked economics.",
+    "adv.card3.title": "Up to 120x Yield", "adv.card3.desc": "Up to 120x higher yield per m\u00b2 vs. outdoor cultivation through full-plant utilisation and year-round multi-harvest cycles.",
+    "adv.card4.title": "Recipe-Driven Production", "adv.card4.desc": "Standardised grow recipes tuned for actives, purity and particle properties \u2014 specification-driven output at pharma grade.",
+    "adv.card5.title": "Digital Twin", "adv.card5.desc": "Process digitalisation with simulation, optimisation and predictive maintenance across the entire installed base.",
+    "adv.card6.title": "Strategic Partners", "adv.card6.desc": "Backed by Fraunhofer (R&D) and Flottweg (downstream processing) \u2014 a strong ecosystem enabling rapid industrial scale-up.",
+    "adv.card7.title": "Platform Business Model", "adv.card7.desc": "Hardware margin plus growing recurring revenue from licenses, software and maintenance \u2014 scalable ARR from every installed module.",
+    "adv.card8.title": "Whole Plant Utilisation", "adv.card8.desc": "Leaves, stems and roots across multiple SKUs and sidestreams. Zero waste, maximum value extraction from every harvest.",
     "calc.label": "Crop Calculator", "calc.title": "Explore the Economics",
     "calc.subtitle": "Select a crop and adjust key parameters to see the projected financial performance of an OrbiFarm installation.",
     "calc.controls": "Parameters", "calc.plant": "Crop", "calc.modules": "Modules", "calc.electricity": "Electricity Price", "calc.rent": "Rent",
@@ -988,7 +1066,13 @@ const LANG = {
     "calc.unlock": "Unlock all 22 plants & full KPIs", "calc.morePlants": "17 more plants \u2014 Registration required",
     "reg.title": "Unlock Full Calculator", "reg.subtitle": "Register to access all 22 plants and detailed KPIs.", "reg.button": "Unlock Full Access",
     "calc.disclaimer": "Values are projections based on default parameters. Open the full tool for detailed analysis.",
-    "cta.title": "Ready to Grow?", "cta.subtitle": "Get in touch to discuss how OrbiFarm can transform your agricultural or pharmaceutical production.", "cta.button": "Contact Us",
+    "contact.label": "Get in Touch", "contact.title": "Ready to Grow?",
+    "contact.subtitle": "Have questions about OrbiFarm or want to discuss a project? Send us a message and we\u2019ll get back to you shortly.",
+    "contact.send": "Send Message", "contact.infoTitle": "Contact Information", "contact.phone": "Phone", "contact.address": "Address",
+    "imprint.title": "Imprint", "imprint.represented": "Represented by:", "imprint.contact": "Contact:",
+    "imprint.register": "Commercial Register:", "imprint.registerText": "Amtsgericht Charlottenburg, Berlin\nHRB \u2014 (registration pending)",
+    "imprint.vatId": "VAT ID:", "imprint.vatIdText": "VAT identification number according to \u00a727a UStG: pending",
+    "imprint.responsible": "Responsible for content (\u00a718 Abs. 2 MStV):",
     "footer.rights": "All rights reserved.", "footer.imprint": "Imprint", "footer.privacy": "Privacy Policy",
   },
   de: {
@@ -1005,7 +1089,7 @@ const LANG = {
     "tech.card2.desc2": "Wurzeln werden mit N\u00e4hrl\u00f6sung benebelt \u2014 kein Boden, kein Substrat. 90% weniger Wasser, schnellere Aufnahme, h\u00f6here Ertr\u00e4ge.",
     "tech.card3.title": "Modular & Skalierbar",
     "tech.card3.desc": "Starten Sie mit einem einzelnen Modul, skalieren Sie bis zur Industrieanlage. Jedes Modul arbeitet unabh\u00e4ngig \u2014 verschiedene Pflanzen gleichzeitig anbauen.",
-    "tech.fact1": "Weniger Wasser", "tech.fact2": "Weniger Energie", "tech.fact3": "Tage / Jahr", "tech.fact4": "Pestizide",
+    "tech.fact1": "Weniger Wasser", "tech.fact2": "CAPEX vs. Indoor Farming", "tech.fact3": "Tage / Jahr", "tech.fact4": "Pestizide",
     "photo.render1.title": "Farm-Anlage", "photo.render1.desc": "Industrielle Vertical-Farming-Anlage mit mehreren Loop-Modulen",
     "photo.render2.title": "Im Inneren der Farm", "photo.render2.desc": "Rotierende Loop-Module mit optimierter LED-Beleuchtung für maximales Wachstum",
     "photo.render3.title": "Modul-Detail", "photo.render3.desc": "Nahaufnahme des patentierten Loop-Systems im Betrieb",
@@ -1013,12 +1097,14 @@ const LANG = {
     "loop.aeroponics": "Aeroponik", "loop.reservoir": "N\u00e4hrstoffreservoir", "loop.belt": "F\u00f6rderband",
     "adv.label": "Warum OrbiFarm", "adv.title": "Gebaut f\u00fcr Profitabilit\u00e4t",
     "adv.subtitle": "Eine Komplettplattform aus Hardware, Software und Bioprocessing f\u00fcr unerreichte Wirtschaftlichkeit.",
-    "adv.card1.title": "H\u00f6chste Ertr\u00e4ge", "adv.card1.desc": "6\u2013120x mehr Ertrag pro m\u00b2 im Vergleich zum Freilandanbau \u2014 dank ganzj\u00e4hriger Mehrfachernten und optimierter Wachstumsbedingungen.",
-    "adv.card2.title": "Pharma- & Lebensmittelqualit\u00e4t", "adv.card2.desc": "GMP-f\u00e4hige Produktionsumgebung f\u00fcr pharmazeutische Pflanzen. Von Cannabis bis Artemisinin \u2014 mit vollst\u00e4ndiger R\u00fcckverfolgbarkeit und standardisierter Qualit\u00e4t.",
-    "adv.card3.title": "Komplettplattform", "adv.card3.desc": "Hardware (Loop-System), Software (Farm-Management) und Downstream-Processing \u2014 alles vom Saatgut bis zum Endprodukt aus einer Hand.",
-    "adv.card4.title": "Lizenzmodell", "adv.card4.desc": "Schnelle Skalierung durch Lizenzierung. OrbiFarm liefert Plattform und Know-how \u2014 Partner betreiben die Farmen lokal mit bew\u00e4hrter Wirtschaftlichkeit.",
-    "adv.card5.title": "CO\u2082-Zertifikate", "adv.card5.desc": "W\u00e4hrend des Wachstums gebundenes CO\u2082 generiert handelbare Emissionszertifikate \u2014 eine zus\u00e4tzliche Erl\u00f6squelle neben dem Produktverkauf.",
-    "adv.card6.title": "Zero Waste", "adv.card6.desc": "Vollst\u00e4ndige Biomassenutzung: Hauptprodukt, Sidestream-Erl\u00f6se aus Extrakten, Biomasse und Nebenprodukten. Nichts wird verschwendet.",
+    "adv.card1.title": "Fabrik, keine Farm", "adv.card1.desc": "Konzipiert als kontinuierlicher Industrieprozess mit F\u00f6rderlogik, Automatisierung und QA-Gates \u2014 kein Gew\u00e4chshaus mit Sensoren.",
+    "adv.card2.title": "\u00dcberlegener ROI", "adv.card2.desc": "~115% ROI in ~10 Monaten f\u00fcr Medizinalpflanzen, ~51% ROI in ~23 Monaten f\u00fcr Protein-Crops. Kurze Amortisationszeiten und risikoarme Wirtschaftlichkeit.",
+    "adv.card3.title": "Bis zu 120x Ertrag", "adv.card3.desc": "Bis zu 120x h\u00f6herer Ertrag pro m\u00b2 vs. Freilandanbau durch Ganzen-Pflanzen-Nutzung und ganzj\u00e4hrige Mehrfachernten.",
+    "adv.card4.title": "Rezeptgesteuerte Produktion", "adv.card4.desc": "Standardisierte Grow-Rezepte optimiert f\u00fcr Wirkstoffe, Reinheit und Partikelgr\u00f6\u00dfe \u2014 spezifikationsgetriebener Output in Pharma-Qualit\u00e4t.",
+    "adv.card5.title": "Digitaler Zwilling", "adv.card5.desc": "Prozessdigitalisierung mit Simulation, Optimierung und vorausschauender Wartung \u00fcber die gesamte installierte Basis.",
+    "adv.card6.title": "Strategische Partner", "adv.card6.desc": "Unterst\u00fctzt von Fraunhofer (F&E) und Flottweg (Downstream Processing) \u2014 ein starkes \u00d6kosystem f\u00fcr schnellen industriellen Scale-up.",
+    "adv.card7.title": "Plattform-Gesch\u00e4ftsmodell", "adv.card7.desc": "Hardware-Marge plus wachsende wiederkehrende Erl\u00f6se aus Lizenzen, Software und Wartung \u2014 skalierbarer ARR von jedem installierten Modul.",
+    "adv.card8.title": "Ganze-Pflanzen-Nutzung", "adv.card8.desc": "Bl\u00e4tter, St\u00e4ngel und Wurzeln \u00fcber mehrere SKUs und Seitenstr\u00f6me. Zero Waste, maximale Wertsch\u00f6pfung aus jeder Ernte.",
     "calc.label": "Ertrags-Kalkulator", "calc.title": "Wirtschaftlichkeit entdecken",
     "calc.subtitle": "W\u00e4hlen Sie eine Pflanze und passen Sie die Schl\u00fcsselparameter an, um die projizierte finanzielle Performance einer OrbiFarm-Anlage zu sehen.",
     "calc.controls": "Parameter", "calc.plant": "Pflanze", "calc.modules": "Module", "calc.electricity": "Strompreis", "calc.rent": "Miete",
@@ -1028,7 +1114,13 @@ const LANG = {
     "calc.unlock": "Alle 22 Pflanzen & alle KPIs freischalten", "calc.morePlants": "17 weitere Pflanzen \u2014 Registrierung erforderlich",
     "reg.title": "Kalkulator freischalten", "reg.subtitle": "Registrieren Sie sich f\u00fcr Zugang zu allen 22 Pflanzen und detaillierten KPIs.", "reg.button": "Vollen Zugang freischalten",
     "calc.disclaimer": "Werte sind Projektionen auf Basis der Standardparameter. \u00d6ffnen Sie das vollst\u00e4ndige Tool f\u00fcr detaillierte Analysen.",
-    "cta.title": "Bereit zu wachsen?", "cta.subtitle": "Kontaktieren Sie uns und erfahren Sie, wie OrbiFarm Ihre landwirtschaftliche oder pharmazeutische Produktion transformieren kann.", "cta.button": "Kontakt aufnehmen",
+    "contact.label": "Kontakt", "contact.title": "Bereit zu wachsen?",
+    "contact.subtitle": "Fragen zu OrbiFarm oder ein Projekt besprechen? Senden Sie uns eine Nachricht und wir melden uns zeitnah.",
+    "contact.send": "Nachricht senden", "contact.infoTitle": "Kontaktinformationen", "contact.phone": "Telefon", "contact.address": "Adresse",
+    "imprint.title": "Impressum", "imprint.represented": "Vertreten durch:", "imprint.contact": "Kontakt:",
+    "imprint.register": "Handelsregister:", "imprint.registerText": "Amtsgericht Charlottenburg, Berlin\nHRB \u2014 (Eintragung ausstehend)",
+    "imprint.vatId": "USt-IdNr.:", "imprint.vatIdText": "Umsatzsteuer-Identifikationsnummer gem\u00e4\u00df \u00a727a UStG: ausstehend",
+    "imprint.responsible": "Verantwortlich f\u00fcr den Inhalt (\u00a718 Abs. 2 MStV):",
     "footer.rights": "Alle Rechte vorbehalten.", "footer.imprint": "Impressum", "footer.privacy": "Datenschutz",
   }
 };
@@ -1250,6 +1342,52 @@ async function handleRegister(e) {
   }
 }
 
+// Contact Form
+async function handleContact(e) {
+  e.preventDefault();
+  const name = document.getElementById('contactName').value.trim();
+  const company = document.getElementById('contactCompany').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const subject = document.getElementById('contactSubject').value.trim();
+  const message = document.getElementById('contactMessage').value.trim();
+  if (!name || !email || !message) return;
+
+  const btn = e.target.querySelector('button[type="submit"]');
+  const origText = btn ? btn.textContent : '';
+  const status = document.getElementById('contactStatus');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        access_key: 'f3ff7398-1b39-4e20-9a15-8021516b701b',
+        subject: subject || 'OrbiFarm Contact: ' + name,
+        from_name: 'OrbiFarm Website Contact',
+        name, company, email, message
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      status.style.display = 'block';
+      status.style.color = 'var(--accent)';
+      status.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+      e.target.reset();
+    } else {
+      status.style.display = 'block';
+      status.style.color = '#ef5350';
+      status.textContent = 'Failed to send. Please try again or email us directly.';
+    }
+  } catch (err) {
+    status.style.display = 'block';
+    status.style.color = '#ef5350';
+    status.textContent = 'Network error. Please email info@orbi.farm directly.';
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = origText; }
+  }
+}
+
 // Close modal on overlay click
 document.getElementById('registerModal').addEventListener('click', function(e) {
   if (e.target === this) closeRegisterModal();
@@ -1324,14 +1462,15 @@ const observer = new IntersectionObserver((entries) => {
       el.dataset.counted = '1';
       const target = parseInt(el.getAttribute('data-count-to'), 10);
       const suffix = el.getAttribute('data-count-suffix') || '';
-      if (target === 0) { el.textContent = '0' + suffix; return; }
+      const prefix = el.getAttribute('data-count-prefix') || '';
+      if (target === 0) { el.textContent = prefix + '0' + suffix; return; }
       const duration = 1800;
       const start = performance.now();
       function tick(now) {
         const t = Math.min((now - start) / duration, 1);
         const ease = 1 - Math.pow(1 - t, 3); // ease-out cubic
         const val = Math.round(ease * target);
-        el.textContent = val + suffix;
+        el.textContent = prefix + val + suffix;
         if (t < 1) requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
