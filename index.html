@@ -210,7 +210,7 @@ section { padding: 100px 24px; }
 /* Tech feature grid below animation */
 .tech-features {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin-top: 48px;
 }
@@ -480,9 +480,9 @@ section { padding: 100px 24px; }
     padding: 24px; gap: 20px; border-bottom: 1px solid var(--border);
   }
   .mobile-menu-btn { display: block; }
-  .tech-features { grid-template-columns: 1fr; }
+  .tech-features { grid-template-columns: repeat(2, 1fr); }
   .key-facts { grid-template-columns: repeat(2, 1fr); }
-  .adv-grid { grid-template-columns: 1fr; }
+  .adv-grid { grid-template-columns: repeat(2, 1fr); }
   .kpi-grid { grid-template-columns: 1fr; }
   .photo-gallery { grid-template-columns: 1fr; }
   .hero { padding: 100px 20px 60px; }
@@ -533,7 +533,7 @@ section { padding: 100px 24px; }
         <span data-i18n="hero.title1">The Most Profitable</span><br>
         <span class="highlight" data-i18n="hero.title2">Indoor Farming Platform</span>
       </h1>
-      <p data-i18n="hero.subtitle">Our patented conveyor-based system keeps plants in constant motion &#x2014; triggering gravitropism for higher biomass, richer active ingredients and up to 18x more yield. 95% less water, -80% CAPEX, zero pesticides.</p>
+      <p data-i18n="hero.subtitle">Our patented conveyor-based system keeps plants in constant motion &#x2014; triggering gravitropism for higher biomass, richer active ingredients and up to 120x more yield. 95% less water, -80% CAPEX, zero pesticides.</p>
       <div class="hero-buttons">
         <a href="#calculator" class="btn btn-primary" data-i18n="hero.cta1">Explore Crops</a>
         <a href="#technology" class="btn btn-outline" data-i18n="hero.cta2">Learn More</a>
@@ -725,7 +725,7 @@ section { padding: 100px 24px; }
       <div class="tech-feat">
         <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-9 6 18 3-9h4"/></svg></div>
         <h4 data-i18n="tech.card1.title">Moving Conveyor Belt</h4>
-        <p data-i18n="tech.card1.desc">The game changer: plants travel on a continuously moving belt through different growth zones. Constant motion triggers gravitropism &#x2014; producing higher biomass, richer active ingredients and up to 18x more yield on less space.</p>
+        <p data-i18n="tech.card1.desc">The game changer: plants travel on a continuously moving belt through different growth zones. Constant motion triggers gravitropism &#x2014; producing higher biomass, richer active ingredients and up to 120x more yield on less space.</p>
       </div>
       <div class="tech-feat">
         <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
@@ -1039,12 +1039,12 @@ const LANG = {
     "nav.technology": "Technology", "nav.advantages": "Advantages", "nav.calculator": "Calculator", "nav.contact": "Contact",
     "hero.badge": "Vertical Farming Platform",
     "hero.title1": "The Most Profitable", "hero.title2": "Indoor Farming Platform",
-    "hero.subtitle": "Our patented conveyor-based system keeps plants in constant motion \u2014 triggering gravitropism for higher biomass, richer active ingredients and up to 18x more yield. 95% less water, -80% CAPEX, zero pesticides.",
+    "hero.subtitle": "Our patented conveyor-based system keeps plants in constant motion \u2014 triggering gravitropism for higher biomass, richer active ingredients and up to 120x more yield. 95% less water, -80% CAPEX, zero pesticides.",
     "hero.cta1": "Explore Crops", "hero.cta2": "Learn More",
     "tech.label": "How It Works", "tech.title": "Revolutionary Growing Technology",
     "tech.subtitle": "Our patented loop system maximises growing area within minimal floor space, enabling industrial-scale production of high-value crops.",
     "tech.card1.title": "Moving Conveyor Belt",
-    "tech.card1.desc": "The game changer: plants travel on a continuously moving belt through different growth zones. Constant motion triggers gravitropism \u2014 producing higher biomass, richer active ingredients and up to 18x more yield on less space.",
+    "tech.card1.desc": "The game changer: plants travel on a continuously moving belt through different growth zones. Constant motion triggers gravitropism \u2014 producing higher biomass, richer active ingredients and up to 120x more yield on less space.",
     "tech.card2.title": "100% Soilless & Clean",
     "tech.card2.desc2": "Aeroponic misting with zero soil, zero substrate, zero contamination. 95% less water and pharma-grade purity \u2014 enabling complete biomass utilisation from roots to leaves.",
     "tech.card3.title": "Lowest CAPEX & OPEX",
@@ -1088,12 +1088,12 @@ const LANG = {
     "nav.technology": "Technologie", "nav.advantages": "Vorteile", "nav.calculator": "Kalkulator", "nav.contact": "Kontakt",
     "hero.badge": "Vertical Farming Plattform",
     "hero.title1": "Die profitabelste", "hero.title2": "Indoor-Farming-Plattform",
-    "hero.subtitle": "Unser patentiertes F\u00f6rderband-System h\u00e4lt Pflanzen in st\u00e4ndiger Bewegung \u2014 Gravitropismus f\u00fcr mehr Biomasse, reichere Wirkstoffe und bis zu 18x mehr Ertrag. 95% weniger Wasser, -80% CAPEX, null Pestizide.",
+    "hero.subtitle": "Unser patentiertes F\u00f6rderband-System h\u00e4lt Pflanzen in st\u00e4ndiger Bewegung \u2014 Gravitropismus f\u00fcr mehr Biomasse, reichere Wirkstoffe und bis zu 120x mehr Ertrag. 95% weniger Wasser, -80% CAPEX, null Pestizide.",
     "hero.cta1": "Pflanzen entdecken", "hero.cta2": "Mehr erfahren",
     "tech.label": "So funktioniert es", "tech.title": "Revolution\u00e4re Anbau-Technologie",
     "tech.subtitle": "Unser patentiertes Loop-System maximiert die Anbaufl\u00e4che auf minimaler Grundfl\u00e4che und erm\u00f6glicht die industrielle Produktion hochwertiger Pflanzen.",
     "tech.card1.title": "Bewegendes F\u00f6rderband",
-    "tech.card1.desc": "Der Game Changer: Pflanzen bewegen sich auf einem kontinuierlich laufenden Band durch verschiedene Wachstumszonen. Die st\u00e4ndige Bewegung aktiviert Gravitropismus \u2014 mehr Biomasse, reichere Wirkstoffe und bis zu 18x mehr Ertrag auf weniger Fl\u00e4che.",
+    "tech.card1.desc": "Der Game Changer: Pflanzen bewegen sich auf einem kontinuierlich laufenden Band durch verschiedene Wachstumszonen. Die st\u00e4ndige Bewegung aktiviert Gravitropismus \u2014 mehr Biomasse, reichere Wirkstoffe und bis zu 120x mehr Ertrag auf weniger Fl\u00e4che.",
     "tech.card2.title": "100% Erdlos & Rein",
     "tech.card2.desc2": "Aeroponische Benebelung ohne Erde, ohne Substrat, ohne Kontamination. 95% weniger Wasser und Pharma-Reinheit \u2014 erm\u00f6glicht die komplette Biomasse-Verwertung von Wurzel bis Blatt.",
     "tech.card3.title": "Niedrigste CAPEX & OPEX",
