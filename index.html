@@ -223,7 +223,8 @@ section { padding: 100px 24px; }
   transition: border-color var(--transition);
 }
 .tech-feat:hover { border-color: var(--accent-dim); }
-.tech-feat-icon { font-size: 2rem; margin-bottom: 12px; }
+.tech-feat-icon { width: 40px; height: 40px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(0,200,83,0.08); }
+.tech-feat-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .tech-feat h4 { font-size: 1rem; margin-bottom: 6px; color: var(--text); }
 .tech-feat p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
@@ -247,7 +248,8 @@ section { padding: 100px 24px; }
   transition: all var(--transition);
 }
 .adv-card:hover { border-color: var(--border-accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,200,83,0.06); }
-.adv-icon { font-size: 1.6rem; margin-bottom: 16px; display: block; }
+.adv-icon { width: 44px; height: 44px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(0,200,83,0.08); }
+.adv-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .adv-card h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text); }
 .adv-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
 
@@ -721,22 +723,22 @@ section { padding: 100px 24px; }
     <!-- Tech Feature Cards -->
     <div class="tech-features reveal" data-stagger>
       <div class="tech-feat">
-        <div class="tech-feat-icon">&#x1F504;</div>
+        <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-9 6 18 3-9h4"/></svg></div>
         <h4 data-i18n="tech.card1.title">Moving Conveyor Belt</h4>
         <p data-i18n="tech.card1.desc">The game changer: plants travel on a continuously moving belt through different growth zones. Constant motion triggers gravitropism &#x2014; producing higher biomass, richer active ingredients and up to 18x more yield on less space.</p>
       </div>
       <div class="tech-feat">
-        <div class="tech-feat-icon">&#x1F4A7;</div>
+        <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
         <h4 data-i18n="tech.card2.title">100% Soilless &amp; Clean</h4>
         <p data-i18n="tech.card2.desc2">Aeroponic misting with zero soil, zero substrate, zero contamination. 95% less water and pharma-grade purity &#x2014; enabling complete biomass utilisation from roots to leaves.</p>
       </div>
       <div class="tech-feat">
-        <div class="tech-feat-icon">&#x1F4B5;</div>
+        <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <h4 data-i18n="tech.card3.title">Lowest CAPEX &amp; OPEX</h4>
         <p data-i18n="tech.card3.desc">80% lower CAPEX than conventional indoor farming. Minimal energy consumption, low labour costs, and maximum automation &#x2014; the most cost-efficient vertical farming system on the market.</p>
       </div>
       <div class="tech-feat">
-        <div class="tech-feat-icon">&#x1F9E9;</div>
+        <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg></div>
         <h4 data-i18n="tech.card4.title">Modular &amp; Scalable</h4>
         <p data-i18n="tech.card4.desc">Start with a single module, scale to industrial farms. Each module operates independently &#x2014; grow different crops simultaneously. Worldwide IP secured.</p>
       </div>
@@ -799,47 +801,47 @@ section { padding: 100px 24px; }
     </div>
     <div class="adv-grid" data-stagger>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F3ED;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><path d="M9 20v-5h6v5"/></svg></span>
         <h3 data-i18n="adv.card1.title">Factory, Not Farm</h3>
         <p data-i18n="adv.card1.desc">Designed as a continuous industrial process with conveyor logic, automation and QA gates &#x2014; not a greenhouse with sensors.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F4B0;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/><path d="M17 7l-5 5-5-5"/><circle cx="12" cy="12" r="10"/></svg></span>
         <h3 data-i18n="adv.card2.title">Superior ROI</h3>
         <p data-i18n="adv.card2.desc">~115% ROI in ~10 months for medicinal plants, ~51% ROI in ~23 months for protein crops. Short payback periods and de-risked economics.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F331;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
         <h3 data-i18n="adv.card3.title">Up to 120x Yield</h3>
         <p data-i18n="adv.card3.desc">Up to 120x higher yield per m&#xb2; vs. outdoor cultivation through full-plant utilisation and year-round multi-harvest cycles.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F9EC;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="16" y2="7"/><line x1="9" y1="11" x2="14" y2="11"/></svg></span>
         <h3 data-i18n="adv.card4.title">Recipe-Driven Production</h3>
         <p data-i18n="adv.card4.desc">Standardised grow recipes tuned for actives, purity and particle properties &#x2014; specification-driven output at pharma grade.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F4CA;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="6 10 10 7 14 11 18 8"/></svg></span>
         <h3 data-i18n="adv.card5.title">Digital Twin</h3>
         <p data-i18n="adv.card5.desc">Process digitalisation with simulation, optimisation and predictive maintenance across the entire installed base.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F91D;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
         <h3 data-i18n="adv.card6.title">Strategic Partners</h3>
         <p data-i18n="adv.card6.desc">Backed by Fraunhofer (R&amp;D) and Flottweg (downstream processing) &#x2014; a strong ecosystem enabling rapid industrial scale-up.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x2728;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></span>
         <h3 data-i18n="adv.card7.title">100% Clean Cultivation</h3>
         <p data-i18n="adv.card7.desc">No soil, no contamination &#x2014; fully soilless aeroponics ensures pharma-grade purity. Critical for medicinal plants and regulated markets.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x267B;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
         <h3 data-i18n="adv.card8.title">Whole Plant Utilisation</h3>
         <p data-i18n="adv.card8.desc">Leaves, stems and roots across multiple SKUs and sidestreams. Zero waste, maximum value extraction from every harvest.</p>
       </div>
       <div class="adv-card reveal">
-        <span class="adv-icon">&#x1F30D;</span>
+        <span class="adv-icon"><svg viewBox="0 0 24 24"><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><path d="M8 5l4-3 4 3"/><path d="M8 5c0 3 2 5 4 5s4-2 4-5"/></svg></span>
         <h3 data-i18n="adv.card9.title">Gravitropism Effect</h3>
         <p data-i18n="adv.card9.desc">Continuous rotation triggers natural gravitropism &#x2014; boosting biomass growth, enhancing active ingredient concentration and increasing overall yield.</p>
       </div>
@@ -890,45 +892,45 @@ section { padding: 100px 24px; }
         </div>
         <div class="kpi-grid" style="margin-top: 20px;">
           <div class="kpi-card highlight" data-kpi="kpiRevenue">
-            <div class="kpi-label">&#x1F4B0; <span data-i18n="kpi.revenue">Total Revenue</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.revenue">Total Revenue</span></div>
             <div class="kpi-value" id="kpiRevenue">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.perYear">per year</div>
           </div>
           <div class="kpi-card highlight" data-kpi="kpiEbitda">
-            <div class="kpi-label">&#x1F4C8; <span data-i18n="kpi.ebitda">EBITDA</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.ebitda">EBITDA</span></div>
             <div class="kpi-value" id="kpiEbitda">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.perYear">per year</div>
           </div>
           <div class="kpi-card" data-kpi="kpiOpex">
-            <div class="kpi-label">&#x1F527; <span data-i18n="kpi.opex">Total OPEX</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.opex">Total OPEX</span></div>
             <div class="kpi-value" id="kpiOpex">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.perYear">per year</div>
           </div>
           <div class="kpi-card" data-kpi="kpiCapex">
-            <div class="kpi-label">&#x1F3D7; <span data-i18n="kpi.capex">Total CAPEX</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.capex">Total CAPEX</span></div>
             <div class="kpi-value" id="kpiCapex">&#x2014;</div>
           </div>
           <div class="kpi-card" data-kpi="kpiRoi">
-            <div class="kpi-label">&#x1F4B9; <span data-i18n="kpi.roi">ROI</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.roi">ROI</span></div>
             <div class="kpi-value" id="kpiRoi">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.annual">annual</div>
           </div>
           <div class="kpi-card" data-kpi="kpiPayback">
-            <div class="kpi-label">&#x23F1; <span data-i18n="kpi.payback">Payback Period</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.payback">Payback Period</span></div>
             <div class="kpi-value" id="kpiPayback">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.years">years</div>
           </div>
           <div class="kpi-card" data-kpi="kpiMargin">
-            <div class="kpi-label">&#x1F4CA; <span data-i18n="kpi.margin">EBITDA Margin</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.margin">EBITDA Margin</span></div>
             <div class="kpi-value" id="kpiMargin">&#x2014;</div>
           </div>
           <div class="kpi-card" data-kpi="kpiProduction">
-            <div class="kpi-label">&#x1F4E6; <span data-i18n="kpi.production">Annual Production</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.production">Annual Production</span></div>
             <div class="kpi-value" id="kpiProduction">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.kgYear">kg / year</div>
           </div>
           <div class="kpi-card" data-kpi="kpiCostKg">
-            <div class="kpi-label">&#x1F4B2; <span data-i18n="kpi.costKg">Cost per kg</span></div>
+            <div class="kpi-label"><span data-i18n="kpi.costKg">Cost per kg</span></div>
             <div class="kpi-value" id="kpiCostKg">&#x2014;</div>
           </div>
         </div>
@@ -1235,7 +1237,7 @@ const FREE_PLANTS = [
   "Saffron (Crocus sativus)",
   "Matricaria chamomilla (Pharma Extract)"
 ];
-const FREE_KPIS = ['kpiRevenue','kpiEbitda','kpiOpex','kpiCapex','kpiRoi','kpiPayback'];
+const FREE_KPIS = ['kpiRevenue','kpiEbitda'];
 let isUnlocked = localStorage.getItem('orbifarm_registered') === 'true';
 
 // ==================== CALCULATOR UI ====================
