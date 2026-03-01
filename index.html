@@ -391,6 +391,9 @@ section { padding: 100px 24px; }
   .form-row { grid-template-columns: 1fr; }
 }
 
+/* ==================== IMPRINT ==================== */
+.imprint-content p { margin-bottom: 14px; }
+.imprint-content p:last-child { margin-bottom: 0; }
 /* ==================== FOOTER ==================== */
 .footer { padding: 32px 24px; border-top: 1px solid var(--border); background: var(--bg-dark); }
 .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
@@ -488,6 +491,12 @@ section { padding: 100px 24px; }
   .hero { padding: 100px 20px 60px; }
   section { padding: 60px 16px; }
   .plant-info { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .contact-info { text-align: left; }
+  .contact-info-item { font-size: 0.9rem; }
+  .imprint-content { padding: 0 12px; text-align: left; font-size: 0.85rem !important; }
+  .imprint-content p { margin-bottom: 12px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-links { justify-content: center; }
 }
 @media (max-width: 480px) {
   .key-facts { grid-template-columns: 1fr; }
@@ -501,7 +510,7 @@ section { padding: 100px 24px; }
 <!-- ==================== NAVBAR ==================== -->
 <nav class="navbar">
   <div class="navbar-inner">
-    <a href="#" class="logo">Orbi<span>Farm</span></a>
+    <a href="#" class="logo">Orbi<span>Farm</span><sup style="font-size:0.45em; vertical-align:super; margin-left:1px;">®</sup></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#technology" data-i18n="nav.technology">Technology</a></li>
       <li><a href="#advantages" data-i18n="nav.advantages">Advantages</a></li>
