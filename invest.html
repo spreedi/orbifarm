@@ -195,7 +195,7 @@ section p { color: var(--text-muted); }
     <span data-i18n="invest.heroTitle1">Invest in</span><br>
     <span class="highlight" data-i18n="invest.heroTitle2">OrbiFarm&#xAE;</span>
   </h1>
-  <p data-i18n="invest.heroSubtitle">A platform business with EUR 205M revenue potential, up to 85% licensing margins or 35% hardware margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and EUR 3M+ in signed LOIs.</p>
+  <p data-i18n="invest.heroSubtitle">A platform business with EUR 205M revenue potential, up to 85% licensing margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.</p>
   <div class="tokenize-wrap">
     <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
   </div>
@@ -245,7 +245,7 @@ section p { color: var(--text-muted); }
       <div class="biz-card">
         <div class="biz-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 6V2M7 6V4M17 6V4"/><line x1="6" y1="10" x2="18" y2="10"/><line x1="6" y1="14" x2="18" y2="14"/></svg></div>
         <h3 data-i18n="invest.biz1.title">Hardware Sales</h3>
-        <div class="biz-margin">35%+</div>
+        <div class="biz-margin" data-i18n="invest.biz1.margin">Volume Driver</div>
         <p data-i18n="invest.biz1.desc">OrbiFarm&#xAE; Loop Systems &#x2014; modular, scalable production units. Up to 95% lower CAPEX than conventional indoor farming.</p>
       </div>
       <div class="biz-card">
@@ -278,23 +278,19 @@ section p { color: var(--text-muted); }
       </div>
       <div class="traction-item">
         <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="traction-text"><strong data-i18n="invest.traction2a">&euro;3M+ in LOIs</strong><br><span data-i18n="invest.traction2b">Signed letters of intent for first-year revenue</span></div>
+        <div class="traction-text"><strong data-i18n="invest.traction2a">Worldwide Patents</strong><br><span data-i18n="invest.traction2b">Core technology IP granted &amp; secured</span></div>
       </div>
       <div class="traction-item">
         <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="traction-text"><strong data-i18n="invest.traction3a">Worldwide Patents</strong><br><span data-i18n="invest.traction3b">Core technology IP granted &amp; secured</span></div>
+        <div class="traction-text"><strong data-i18n="invest.traction3a">Break-even FY28</strong><br><span data-i18n="invest.traction3b">Clear path to profitability within 3 years</span></div>
       </div>
       <div class="traction-item">
         <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="traction-text"><strong data-i18n="invest.traction4a">Break-even FY28</strong><br><span data-i18n="invest.traction4b">Clear path to profitability within 3 years</span></div>
+        <div class="traction-text"><strong data-i18n="invest.traction4a">3 Strategic Partners</strong><br><span data-i18n="invest.traction4b">R&amp;D, engineering &amp; downstream processing</span></div>
       </div>
       <div class="traction-item">
         <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="traction-text"><strong data-i18n="invest.traction5a">5 Strategic Partners</strong><br><span data-i18n="invest.traction5b">Industry leaders for R&amp;D, engineering &amp; processing</span></div>
-      </div>
-      <div class="traction-item">
-        <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="traction-text"><strong data-i18n="invest.traction6a">50x Better Margins</strong><br><span data-i18n="invest.traction6b">vs. commodity crops &#x2014; medicinal &amp; specialty plants</span></div>
+        <div class="traction-text"><strong data-i18n="invest.traction5a">50x Better Margins</strong><br><span data-i18n="invest.traction5b">vs. commodity crops &#x2014; medicinal &amp; specialty plants</span></div>
       </div>
     </div>
     <!-- Strategic Partners -->
@@ -302,9 +298,7 @@ section p { color: var(--text-muted); }
       <div class="section-label" data-i18n="invest.partnersLabel">Strategic Partners</div>
       <div class="partners-row">
         <div class="partner-name">Fraunhofer IME</div>
-        <div class="partner-name">Toyo Engineering</div>
-        <div class="partner-name">KWS Saatgut</div>
-        <div class="partner-name">Theilen</div>
+        <div class="partner-name">Theilen Maschinenbau</div>
         <div class="partner-name">Flottweg</div>
       </div>
     </div>
@@ -426,7 +420,7 @@ const LANG = {
     "nav.back": "\u2190 Back to Website", "nav.investNow": "Invest Now",
     "invest.badge": "Seed Round \u2014 tokenize.it",
     "invest.heroTitle1": "Invest in", "invest.heroTitle2": "OrbiFarm\u00ae",
-    "invest.heroSubtitle": "A platform business with EUR 205M revenue potential, up to 85% licensing margins or 35% hardware margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and EUR 3M+ in signed LOIs.",
+    "invest.heroSubtitle": "A platform business with EUR 205M revenue potential, up to 85% licensing margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.",
 
     "invest.factsLabel": "Key Financial Metrics", "invest.factsTitle": "The Investment Case",
     "invest.fact1": "7-Year Revenue Target", "invest.fact1sub": "Hardware + Licensing + Service",
@@ -436,17 +430,16 @@ const LANG = {
 
     "invest.bizLabel": "Business Model", "invest.bizTitle": "Three Revenue Streams",
     "invest.bizSubtitle": "OrbiFarm\u00ae combines hardware sales with recurring service contracts and high-margin IP licensing \u2014 creating a scalable platform business.",
-    "invest.biz1.title": "Hardware Sales", "invest.biz1.desc": "OrbiFarm\u00ae Loop Systems \u2014 modular, scalable production units. Up to 95% lower CAPEX than conventional indoor farming.",
+    "invest.biz1.title": "Hardware Sales", "invest.biz1.margin": "Volume Driver", "invest.biz1.desc": "OrbiFarm\u00ae Loop Systems \u2014 modular, scalable production units. Up to 95% lower CAPEX than conventional indoor farming.",
     "invest.biz2.title": "Service & Maintenance", "invest.biz2.margin": "Recurring", "invest.biz2.desc": "Long-term service contracts for ongoing operation, calibration and optimization. Predictable recurring revenue.",
     "invest.biz3.title": "Licensing & Royalties", "invest.biz3.desc": "IP licenses, proprietary plant protocols and grow recipes. Highest margin stream \u2014 scaling with every deployed system worldwide.",
 
     "invest.tractionLabel": "Traction & Validation", "invest.tractionTitle": "Proven, Not Promised",
     "invest.traction1a": "3 Pilot Systems", "invest.traction1b": "Operational at Fraunhofer IME",
-    "invest.traction2a": "\u20ac3M+ in LOIs", "invest.traction2b": "Signed letters of intent for first-year revenue",
-    "invest.traction3a": "Worldwide Patents", "invest.traction3b": "Core technology IP granted & secured",
-    "invest.traction4a": "Break-even FY28", "invest.traction4b": "Clear path to profitability within 3 years",
-    "invest.traction5a": "5 Strategic Partners", "invest.traction5b": "Industry leaders for R&D, engineering & processing",
-    "invest.traction6a": "50x Better Margins", "invest.traction6b": "vs. commodity crops \u2014 medicinal & specialty plants",
+    "invest.traction2a": "Worldwide Patents", "invest.traction2b": "Core technology IP granted & secured",
+    "invest.traction3a": "Break-even FY28", "invest.traction3b": "Clear path to profitability within 3 years",
+    "invest.traction4a": "3 Strategic Partners", "invest.traction4b": "R&D, engineering & downstream processing",
+    "invest.traction5a": "50x Better Margins", "invest.traction5b": "vs. commodity crops \u2014 medicinal & specialty plants",
     "invest.partnersLabel": "Strategic Partners",
 
     "invest.techLabel": "Technology Edge", "invest.techTitle": "The Competitive Moat",
@@ -470,7 +463,7 @@ const LANG = {
     "nav.back": "\u2190 Zur\u00fcck zur Website", "nav.investNow": "Jetzt investieren",
     "invest.badge": "Seed-Runde \u2014 tokenize.it",
     "invest.heroTitle1": "Investieren Sie in", "invest.heroTitle2": "OrbiFarm\u00ae",
-    "invest.heroSubtitle": "Ein Plattform-Gesch\u00e4ftsmodell mit EUR 205 Mio. Umsatzpotenzial, bis zu 85% Lizenzmargen oder 35% Hardware-Margen und einem klaren Weg zum Break-even bis FY28. Gest\u00fctzt durch Fraunhofer-validierte Technologie und EUR 3 Mio.+ in unterzeichneten LOIs.",
+    "invest.heroSubtitle": "Ein Plattform-Gesch\u00e4ftsmodell mit EUR 205 Mio. Umsatzpotenzial, bis zu 85% Lizenzmargen und einem klaren Weg zum Break-even bis FY28. Gest\u00fctzt durch Fraunhofer-validierte Technologie und weltweiten Patentschutz.",
 
     "invest.factsLabel": "Finanzielle Kennzahlen", "invest.factsTitle": "Das Investment-Case",
     "invest.fact1": "7-Jahres-Umsatzziel", "invest.fact1sub": "Hardware + Lizenzierung + Service",
@@ -480,17 +473,16 @@ const LANG = {
 
     "invest.bizLabel": "Gesch\u00e4ftsmodell", "invest.bizTitle": "Drei Erl\u00f6sstr\u00f6me",
     "invest.bizSubtitle": "OrbiFarm\u00ae kombiniert Hardware-Verk\u00e4ufe mit wiederkehrenden Servicevertr\u00e4gen und margenstarker IP-Lizenzierung \u2014 ein skalierbares Plattform-Gesch\u00e4ftsmodell.",
-    "invest.biz1.title": "Hardware-Verkauf", "invest.biz1.desc": "OrbiFarm\u00ae Loop-Systeme \u2014 modulare, skalierbare Produktionseinheiten. Bis zu 95% geringere CAPEX als herk\u00f6mmliches Indoor Farming.",
+    "invest.biz1.title": "Hardware-Verkauf", "invest.biz1.margin": "Volumentreiber", "invest.biz1.desc": "OrbiFarm\u00ae Loop-Systeme \u2014 modulare, skalierbare Produktionseinheiten. Bis zu 95% geringere CAPEX als herk\u00f6mmliches Indoor Farming.",
     "invest.biz2.title": "Service & Wartung", "invest.biz2.margin": "Wiederkehrend", "invest.biz2.desc": "Langfristige Servicevertr\u00e4ge f\u00fcr laufenden Betrieb, Kalibrierung und Optimierung. Planbare wiederkehrende Erl\u00f6se.",
     "invest.biz3.title": "Lizenzierung & Royalties", "invest.biz3.desc": "IP-Lizenzen, propriet\u00e4re Pflanzenprotokolle und Grow Recipes. H\u00f6chster Margen-Strom \u2014 skaliert mit jedem weltweit installierten System.",
 
     "invest.tractionLabel": "Traktion & Validierung", "invest.tractionTitle": "Bewiesen, nicht versprochen",
     "invest.traction1a": "3 Pilotsysteme", "invest.traction1b": "In Betrieb am Fraunhofer IME",
-    "invest.traction2a": "\u20ac3 Mio.+ in LOIs", "invest.traction2b": "Unterzeichnete Absichtserkl\u00e4rungen f\u00fcr Erstjahres-Umsatz",
-    "invest.traction3a": "Weltweite Patente", "invest.traction3b": "Kerntechnologie-IP erteilt & gesichert",
-    "invest.traction4a": "Break-even FY28", "invest.traction4b": "Klarer Weg zur Profitabilit\u00e4t innerhalb von 3 Jahren",
-    "invest.traction5a": "5 Strategische Partner", "invest.traction5b": "Branchenf\u00fchrer f\u00fcr F&E, Engineering & Verarbeitung",
-    "invest.traction6a": "50x Bessere Margen", "invest.traction6b": "vs. Rohstoffpflanzen \u2014 Medizinal- & Spezialpflanzen",
+    "invest.traction2a": "Weltweite Patente", "invest.traction2b": "Kerntechnologie-IP erteilt & gesichert",
+    "invest.traction3a": "Break-even FY28", "invest.traction3b": "Klarer Weg zur Profitabilit\u00e4t innerhalb von 3 Jahren",
+    "invest.traction4a": "3 Strategische Partner", "invest.traction4b": "F&E, Engineering & Downstream-Verarbeitung",
+    "invest.traction5a": "50x Bessere Margen", "invest.traction5b": "vs. Rohstoffpflanzen \u2014 Medizinal- & Spezialpflanzen",
     "invest.partnersLabel": "Strategische Partner",
 
     "invest.techLabel": "Technologie-Vorsprung", "invest.techTitle": "Der Wettbewerbsvorsprung",
