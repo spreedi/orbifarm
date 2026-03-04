@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://orbi.farm/invest.html">
 <meta property="og:title" content="Invest in OrbiFarm® — EUR 205M Revenue Target">
-<meta property="og:description" content="Platform business with up to 85% licensing margins and break-even by FY28. Backed by Fraunhofer-validated technology and EUR 3M+ in signed LOIs.">
+<meta property="og:description" content="Platform business with up to 85% licensing margins and break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.">
 <meta property="og:image" content="https://orbi.farm/images/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -60,9 +60,11 @@ a { color: inherit; text-decoration: none; }
 /* HERO */
 .hero { padding: 140px 24px 80px; text-align: center; position: relative; overflow: visible; }
 
-/* tokenize.it widget must not be clipped by any parent */
-invest-now-button, invest-now-button * { z-index: 9999 !important; }
-.tokenize-wrap { position: relative; z-index: 9999; overflow: visible; }
+/* tokenize.it widget — global modal fix */
+.tokenize-global { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999999; display: flex; justify-content: center; padding: 16px 24px 24px; background: linear-gradient(0deg, rgba(8,13,10,0.95) 60%, transparent 100%); pointer-events: none; }
+.tokenize-global invest-now-button { pointer-events: auto; }
+.tokenize-wrap { display: flex; justify-content: center; margin: 40px auto; }
+.hero .tokenize-wrap { display: none; }
 section { overflow: visible; }
 .hero-bg {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
@@ -101,9 +103,6 @@ section { overflow: visible; }
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 10px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer; transition: all var(--transition); font-family: var(--font); text-decoration: none; }
 .btn-primary { background: var(--accent); color: var(--bg-dark); box-shadow: 0 0 30px rgba(0,200,83,0.2); }
 .btn-primary:hover { background: #00e65c; box-shadow: 0 0 40px rgba(0,200,83,0.35); transform: translateY(-2px); color: var(--bg-dark); }
-
-/* TOKENIZE WIDGET */
-.tokenize-wrap { display: flex; justify-content: center; margin: 40px auto; }
 
 /* SECTION */
 .section-inner { max-width: var(--max-w); margin: 0 auto; }
@@ -230,8 +229,8 @@ section p { color: var(--text-muted); }
       <span class="highlight" data-i18n="invest.heroTitle2">OrbiFarm&#xAE;</span>
     </h1>
     <p data-i18n="invest.heroSubtitle">A platform business with EUR 205M revenue potential, up to 85% licensing margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.</p>
-    <div class="tokenize-wrap">
-      <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
+    <div style="margin-top: 36px;">
+      <a href="#invest-now" class="btn btn-primary" style="font-size:1.05rem; padding:16px 36px;" data-i18n="invest.heroCta">Invest Now &#x2193;</a>
     </div>
   </div>
 </section>
@@ -430,8 +429,13 @@ section p { color: var(--text-muted); }
   </div>
 </section>
 
+<!-- FLOATING INVEST BUTTON (outside all sections = no stacking context issues) -->
+<div class="tokenize-global" id="tokenizeFloat">
+  <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
+</div>
+
 <!-- FOOTER -->
-<footer class="footer">
+<footer class="footer" style="padding-bottom: 100px;">
   <div class="footer-inner">
     <div class="footer-copy">&copy; 2026 OrbiFarm&#xAE; GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
     <div class="footer-links">
@@ -451,6 +455,7 @@ const LANG = {
     "invest.badge": "Seed Round \u2014 tokenize.it",
     "invest.heroTitle1": "Invest in", "invest.heroTitle2": "OrbiFarm\u00ae",
     "invest.heroSubtitle": "A platform business with EUR 205M revenue potential, up to 85% licensing margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.",
+    "invest.heroCta": "Invest Now \u2193",
 
     "invest.factsLabel": "Key Financial Metrics", "invest.factsTitle": "The Investment Case",
     "invest.fact1": "7-Year Revenue Target", "invest.fact1sub": "Hardware + Licensing + Service",
@@ -494,6 +499,7 @@ const LANG = {
     "invest.badge": "Seed-Runde \u2014 tokenize.it",
     "invest.heroTitle1": "Investieren Sie in", "invest.heroTitle2": "OrbiFarm\u00ae",
     "invest.heroSubtitle": "Ein Plattform-Gesch\u00e4ftsmodell mit EUR 205 Mio. Umsatzpotenzial, bis zu 85% Lizenzmargen und einem klaren Weg zum Break-even bis FY28. Gest\u00fctzt durch Fraunhofer-validierte Technologie und weltweiten Patentschutz.",
+    "invest.heroCta": "Jetzt investieren \u2193",
 
     "invest.factsLabel": "Finanzielle Kennzahlen", "invest.factsTitle": "Das Investment-Case",
     "invest.fact1": "7-Jahres-Umsatzziel", "invest.fact1sub": "Hardware + Lizenzierung + Service",
