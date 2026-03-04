@@ -156,10 +156,6 @@ section p { color: var(--text-muted); }
 .cta-section h2 { margin-bottom: 16px; }
 .cta-section p { margin-bottom: 32px; }
 
-/* PARTNERS */
-.partners-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 32px; margin-top: 16px; }
-.partner-name { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); }
-
 /* FOOTER */
 .footer { padding: 32px 24px; border-top: 1px solid var(--border); background: var(--bg-dark); }
 .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
@@ -187,7 +183,6 @@ section p { color: var(--text-muted); }
   .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
   .footer-links { justify-content: center; }
   .imprint-content { text-align: left; padding: 0 12px; font-size: 0.85rem !important; }
-  .partners-row { gap: 16px; }
 }
 @media (max-width: 480px) {
   .invest-facts { grid-template-columns: 1fr 1fr; }
@@ -327,14 +322,9 @@ section p { color: var(--text-muted); }
         <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
         <div class="traction-text"><strong data-i18n="invest.traction5a">50x Better Margins</strong><br><span data-i18n="invest.traction5b">vs. commodity crops &#x2014; medicinal &amp; specialty plants</span></div>
       </div>
-    </div>
-    <!-- Strategic Partners -->
-    <div style="text-align: center; margin-top: 40px;">
-      <div class="section-label" data-i18n="invest.partnersLabel">Strategic Partners</div>
-      <div class="partners-row">
-        <div class="partner-name">Fraunhofer IME</div>
-        <div class="partner-name">Theilen Maschinenbau</div>
-        <div class="partner-name">Flottweg</div>
+      <div class="traction-item">
+        <div class="traction-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="traction-text"><strong data-i18n="invest.traction6a">Strategic Partners</strong><br><span data-i18n="invest.traction6b">Fraunhofer IME &#x2022; Theilen Maschinenbau &#x2022; Flottweg</span></div>
       </div>
     </div>
   </div>
@@ -475,7 +465,7 @@ const LANG = {
     "invest.traction3a": "Break-even FY28", "invest.traction3b": "Clear path to profitability within 3 years",
     "invest.traction4a": "3 Strategic Partners", "invest.traction4b": "R&D, engineering & downstream processing",
     "invest.traction5a": "50x Better Margins", "invest.traction5b": "vs. commodity crops \u2014 medicinal & specialty plants",
-    "invest.partnersLabel": "Strategic Partners",
+    "invest.traction6a": "Strategic Partners", "invest.traction6b": "Fraunhofer IME \u2022 Theilen Maschinenbau \u2022 Flottweg",
 
     "invest.techLabel": "Technology Edge", "invest.techTitle": "The Competitive Moat",
     "invest.techSubtitle": "A patented conveyor-based production system that triggers gravitropism \u2014 delivering unmatched unit economics in controlled environment agriculture.",
@@ -518,7 +508,7 @@ const LANG = {
     "invest.traction3a": "Break-even FY28", "invest.traction3b": "Klarer Weg zur Profitabilit\u00e4t innerhalb von 3 Jahren",
     "invest.traction4a": "3 Strategische Partner", "invest.traction4b": "F&E, Engineering & Downstream-Verarbeitung",
     "invest.traction5a": "50x Bessere Margen", "invest.traction5b": "vs. Rohstoffpflanzen \u2014 Medizinal- & Spezialpflanzen",
-    "invest.partnersLabel": "Strategische Partner",
+    "invest.traction6a": "Strategische Partner", "invest.traction6b": "Fraunhofer IME \u2022 Theilen Maschinenbau \u2022 Flottweg",
 
     "invest.techLabel": "Technologie-Vorsprung", "invest.techTitle": "Der Wettbewerbsvorsprung",
     "invest.techSubtitle": "Ein patentiertes F\u00f6rderband-basiertes Produktionssystem, das Gravitropismus ausl\u00f6st \u2014 f\u00fcr unerreichte Wirtschaftlichkeit in der kontrollierten Pflanzenproduktion.",
