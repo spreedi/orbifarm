@@ -58,12 +58,39 @@ a { color: inherit; text-decoration: none; }
 .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
 
 /* HERO */
-.hero { padding: 140px 24px 80px; text-align: center; background: linear-gradient(180deg, var(--bg-section) 0%, var(--bg-dark) 100%); position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,200,83,0.08) 0%, transparent 70%); pointer-events: none; }
-.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; position: relative; }
-.hero .highlight { color: var(--accent); }
+.hero { padding: 140px 24px 80px; text-align: center; position: relative; overflow: hidden; }
+.hero-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 70% 60%, rgba(0,200,83,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 40%, rgba(0,200,83,0.05) 0%, transparent 50%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(0,200,83,0.06) 0%, transparent 60%);
+  animation: hero-glow 8s ease-in-out infinite alternate;
+}
+@keyframes hero-glow {
+  0%   { opacity: 0.3; transform: translate(0,0) scale(1); }
+  50%  { opacity: 0.7; transform: translate(-30px,20px) scale(1.1); }
+  100% { opacity: 0.4; transform: translate(30px,-10px) scale(1.05); }
+}
+.hero-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  filter: brightness(0.65);
+}
+.hero-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(8,13,10,0.55) 0%, rgba(8,13,10,0.25) 40%, rgba(8,13,10,0.3) 65%, rgba(8,13,10,0.95) 88%, rgba(8,13,10,1) 100%);
+}
+.hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; }
+.hero .highlight { background: linear-gradient(135deg, var(--accent), #66ffa6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero-badge { display: inline-block; padding: 6px 18px; border: 1px solid var(--border-accent); border-radius: 20px; font-size: 0.8rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; background: var(--accent-glow); }
-.hero p { color: var(--text-muted); max-width: 660px; margin: 0 auto 36px; font-size: 1.05rem; line-height: 1.7; position: relative; }
+.hero p { color: var(--text-muted); max-width: 660px; margin: 0 auto 36px; font-size: 1.05rem; line-height: 1.7; }
 
 /* BUTTONS */
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 10px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer; transition: all var(--transition); font-family: var(--font); text-decoration: none; }
@@ -155,7 +182,7 @@ section p { color: var(--text-muted); }
   .traction-grid { grid-template-columns: 1fr; }
   .tech-facts { grid-template-columns: repeat(2, 1fr); }
   .usp-grid { grid-template-columns: 1fr; }
-  .hero { padding: 120px 20px 60px; }
+  .hero { padding: 110px 20px 60px; }
   section { padding: 60px 16px; }
   .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
   .footer-links { justify-content: center; }
@@ -190,14 +217,22 @@ section p { color: var(--text-muted); }
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-badge" data-i18n="invest.badge">Seed Round &#x2014; tokenize.it</div>
-  <h1>
-    <span data-i18n="invest.heroTitle1">Invest in</span><br>
-    <span class="highlight" data-i18n="invest.heroTitle2">OrbiFarm&#xAE;</span>
-  </h1>
-  <p data-i18n="invest.heroSubtitle">A platform business with EUR 205M revenue potential, up to 85% licensing margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.</p>
-  <div class="tokenize-wrap">
-    <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="images/hero-video.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-badge" data-i18n="invest.badge">Seed Round &#x2014; tokenize.it</div>
+    <h1>
+      <span data-i18n="invest.heroTitle1">Invest in</span><br>
+      <span class="highlight" data-i18n="invest.heroTitle2">OrbiFarm&#xAE;</span>
+    </h1>
+    <p data-i18n="invest.heroSubtitle">A platform business with EUR 205M revenue potential, up to 85% licensing margins, and a clear path to break-even by FY28. Backed by Fraunhofer-validated technology and worldwide patent protection.</p>
+    <div class="tokenize-wrap">
+      <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
+    </div>
   </div>
 </section>
 
