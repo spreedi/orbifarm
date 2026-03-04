@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invest in OrbiFarm® — The Most Versatile TCEA Platform</title>
+<meta name="description" content="Invest in OrbiFarm® via tokenize.it. Patented conveyor-based TCEA platform with up to 120x yield, 95% less water, -80% CAPEX. Worldwide IP secured.">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://orbi.farm/invest.html">
+<meta property="og:title" content="Invest in OrbiFarm® — The Most Versatile TCEA Platform">
+<meta property="og:description" content="Invest in patented TCEA technology. Up to 120x yield, 95% less water, -80% CAPEX, zero pesticides. Join the future of agriculture.">
+<meta property="og:image" content="https://orbi.farm/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Invest in OrbiFarm® — TCEA Platform">
+<meta name="twitter:description" content="Patented conveyor-based production. Up to 120x yield, 95% less water. Invest via tokenize.it.">
+<meta name="twitter:image" content="https://orbi.farm/images/og-image.jpg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-dark: #080d0a;
+  --bg-section: #0c1410;
+  --bg-card: #121e17;
+  --bg-card-hover: #182a20;
+  --accent: #00c853;
+  --accent-dim: #00a844;
+  --accent-glow: rgba(0, 200, 83, 0.15);
+  --text: #e8f5e9;
+  --text-muted: #81c784;
+  --text-dim: #4a7a52;
+  --border: #1a2e22;
+  --border-accent: #1f3d28;
+  --max-w: 1200px;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --tk-primary: #00c853;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg-dark); color: var(--text); line-height: 1.6; }
+a { color: inherit; text-decoration: none; }
+
+/* NAVBAR */
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(8,13,10,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; }
+.navbar-inner { max-width: var(--max-w); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+.logo span { color: var(--accent); }
+.nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+.nav-links a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color var(--transition); }
+.nav-links a:hover { color: var(--accent); }
+.nav-back { color: var(--text-muted) !important; }
+.nav-invest-active { color: var(--accent) !important; font-weight: 600; }
+.lang-toggle { display: flex; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; font-size: 0.8rem; }
+.lang-btn { padding: 5px 12px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-weight: 600; transition: all var(--transition); font-family: var(--font); }
+.lang-btn.active { background: var(--accent); color: var(--bg-dark); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+/* HERO */
+.hero { padding: 140px 24px 80px; text-align: center; background: linear-gradient(180deg, var(--bg-section) 0%, var(--bg-dark) 100%); position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,200,83,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 20px; position: relative; }
+.hero .highlight { color: var(--accent); }
+.hero-badge { display: inline-block; padding: 6px 18px; border: 1px solid var(--border-accent); border-radius: 20px; font-size: 0.8rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; background: var(--accent-glow); }
+.hero p { color: var(--text-muted); max-width: 640px; margin: 0 auto 36px; font-size: 1.05rem; line-height: 1.7; position: relative; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 10px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer; transition: all var(--transition); font-family: var(--font); text-decoration: none; }
+.btn-primary { background: var(--accent); color: var(--bg-dark); box-shadow: 0 0 30px rgba(0,200,83,0.2); }
+.btn-primary:hover { background: #00e65c; box-shadow: 0 0 40px rgba(0,200,83,0.35); transform: translateY(-2px); color: var(--bg-dark); }
+.btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border-accent); }
+.btn-outline:hover { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); }
+
+/* TOKENIZE WIDGET */
+.tokenize-wrap { display: flex; justify-content: center; margin: 40px auto; }
+
+/* SECTION */
+.section-inner { max-width: var(--max-w); margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-label { color: var(--accent); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+section { padding: 80px 24px; }
+section h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+section p { color: var(--text-muted); }
+
+/* KEY FACTS */
+.invest-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 60px; }
+.invest-fact { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 20px; text-align: center; }
+.invest-fact-value { font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+.invest-fact-label { font-size: 0.85rem; color: var(--text-muted); }
+
+/* USP GRID */
+.usp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+.usp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; }
+.usp-card h3 { font-size: 1rem; margin-bottom: 8px; }
+.usp-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+.usp-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(0,200,83,0.08); margin-bottom: 14px; }
+.usp-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* CTA */
+.cta-section { text-align: center; background: var(--bg-section); border-top: 1px solid var(--border); }
+.cta-section h2 { margin-bottom: 16px; }
+.cta-section p { margin-bottom: 32px; }
+
+/* FOOTER */
+.footer { padding: 32px 24px; border-top: 1px solid var(--border); background: var(--bg-dark); }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-copy { color: var(--text-dim); font-size: 0.85rem; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--text-dim); font-size: 0.85rem; }
+.footer-links a:hover { color: var(--text-muted); }
+
+/* IMPRINT (inline) */
+.imprint-content p { margin-bottom: 14px; }
+.imprint-content p:last-child { margin-bottom: 0; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(8,13,10,0.97); padding: 24px; gap: 20px; border-bottom: 1px solid var(--border); }
+  .mobile-menu-btn { display: block; }
+  .invest-facts { grid-template-columns: repeat(2, 1fr); }
+  .usp-grid { grid-template-columns: 1fr; }
+  .hero { padding: 120px 20px 60px; }
+  section { padding: 60px 16px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .invest-facts { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="logo">Orbi<span>Farm</span><sup style="font-size:0.45em; vertical-align:super; margin-left:1px;">®</sup></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="nav-back" data-i18n="nav.back">← Back to Website</a></li>
+      <li><a href="#invest-now" class="nav-invest-active" data-i18n="nav.investNow">Invest Now</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" onclick="setLanguage('de')">DE</button>
+        </div>
+      </li>
+    </ul>
+    <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge" data-i18n="invest.badge">Investment Opportunity via tokenize.it</div>
+  <h1>
+    <span data-i18n="invest.heroTitle1">Invest in</span><br>
+    <span class="highlight" data-i18n="invest.heroTitle2">OrbiFarm®</span>
+  </h1>
+  <p data-i18n="invest.heroSubtitle">Join the most versatile TCEA platform &#x2014; patented conveyor-based technology, worldwide IP protection, and a clear path to profitability. Be part of the agricultural revolution.</p>
+  <div class="tokenize-wrap">
+    <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
+  </div>
+</section>
+
+<!-- KEY INVESTMENT FACTS -->
+<section style="background: var(--bg-section);">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label" data-i18n="invest.factsLabel">Key Investment Facts</div>
+      <h2 data-i18n="invest.factsTitle">Why OrbiFarm®?</h2>
+    </div>
+    <div class="invest-facts">
+      <div class="invest-fact">
+        <div class="invest-fact-value">-80%</div>
+        <div class="invest-fact-label" data-i18n="invest.fact1">CAPEX vs. Indoor Farming</div>
+      </div>
+      <div class="invest-fact">
+        <div class="invest-fact-value">120x</div>
+        <div class="invest-fact-label" data-i18n="invest.fact2">Yield vs. Outdoor</div>
+      </div>
+      <div class="invest-fact">
+        <div class="invest-fact-value">95%</div>
+        <div class="invest-fact-label" data-i18n="invest.fact3">Less Water</div>
+      </div>
+      <div class="invest-fact">
+        <div class="invest-fact-value">&#x1F30D;</div>
+        <div class="invest-fact-label" data-i18n="invest.fact4">Worldwide IP Secured</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY INVEST -->
+<section>
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label" data-i18n="invest.whyLabel">Your Investment</div>
+      <h2 data-i18n="invest.whyTitle">What Makes OrbiFarm® Unique</h2>
+    </div>
+    <div class="usp-grid">
+      <div class="usp-card">
+        <div class="usp-icon"><svg viewBox="0 0 24 24"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><path d="M9 20v-5h6v5"/></svg></div>
+        <h3 data-i18n="invest.usp1.title">Plant Factory, Not a Farm</h3>
+        <p data-i18n="invest.usp1.desc">Designed as a continuous industrial process with conveyor logic, automation and QA gates &#x2014; delivering consistent output at pharma grade.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-9 6 18 3-9h4"/></svg></div>
+        <h3 data-i18n="invest.usp2.title">Patented Core Technology</h3>
+        <p data-i18n="invest.usp2.desc">Moving conveyor belt triggers gravitropism &#x2014; a unique mechanism for higher biomass, richer active ingredients and up to 120x more yield.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h3 data-i18n="invest.usp3.title">Compelling Unit Economics</h3>
+        <p data-i18n="invest.usp3.desc">~115% ROI in ~10 months for medicinal plants. Lowest CAPEX &amp; OPEX in the industry with short payback periods.</p>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <h3 data-i18n="invest.usp4.title">Global Market Access</h3>
+        <p data-i18n="invest.usp4.desc">Worldwide IP secured. Strategic partners Fraunhofer (R&amp;D) and Flottweg (downstream processing) for rapid industrial scale-up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / INVEST NOW -->
+<section id="invest-now" class="cta-section">
+  <div class="section-inner">
+    <div class="section-label" data-i18n="invest.ctaLabel">Start Now</div>
+    <h2 data-i18n="invest.ctaTitle">Ready to Invest?</h2>
+    <p style="max-width:600px; margin:0 auto 32px;" data-i18n="invest.ctaSubtitle">Secure your position in the next generation of controlled environment agriculture. Invest easily and securely via tokenize.it.</p>
+    <div class="tokenize-wrap">
+      <invest-now-button apiKey="818ddea4-ac30-4e81-a47d-6936fda097ea"></invest-now-button>
+    </div>
+  </div>
+</section>
+
+<!-- IMPRINT -->
+<section id="imprint" style="padding: 60px 0 30px;">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 data-i18n="imprint.title">Imprint</h2>
+    </div>
+    <div class="imprint-content" style="max-width:700px; margin:0 auto; font-size:0.92rem; line-height:1.7; color: var(--text-muted); text-align: center;">
+      <p><strong>Jan Bredack</strong><br>
+      <span data-i18n="imprint.role">Managing Director</span></p>
+      <p><strong>OrbiFarm® GmbH</strong><br>
+      An den Kiefern 7<br>
+      14974 Ludwigsfelde</p>
+      <p><a href="mailto:jan.bredack@orbi.farm" style="color:var(--accent);">jan.bredack@orbi.farm</a><br>
+      <a href="tel:+491755996828" style="color:var(--accent);">+49 175 5996828</a><br>
+      <a href="https://orbi.farm/" style="color:var(--accent);">https://orbi.farm/</a></p>
+      <p><span data-i18n="imprint.registerText">Amtsgericht Berlin Charlottenburg</span><br>
+      HRB 278160 B</p>
+      <p><span data-i18n="imprint.vatLabel">Tax ID:</span> DE457202590</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-copy">&copy; 2026 OrbiFarm® GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
+    <div class="footer-links">
+      <a href="index.html" data-i18n="nav.back">← Back to Website</a>
+      <a href="#imprint" data-i18n="footer.imprint">Imprint</a>
+    </div>
+  </div>
+</footer>
+
+<!-- tokenize.it Widget -->
+<script type="module" src="https://cdn-investnow.tokenize.it/production/v1/index.js"></script>
+
+<script>
+const LANG = {
+  en: {
+    "nav.back": "\u2190 Back to Website", "nav.investNow": "Invest Now",
+    "invest.badge": "Investment Opportunity via tokenize.it",
+    "invest.heroTitle1": "Invest in", "invest.heroTitle2": "OrbiFarm\u00ae",
+    "invest.heroSubtitle": "Join the most versatile TCEA platform \u2014 patented conveyor-based technology, worldwide IP protection, and a clear path to profitability. Be part of the agricultural revolution.",
+    "invest.factsLabel": "Key Investment Facts", "invest.factsTitle": "Why OrbiFarm\u00ae?",
+    "invest.fact1": "CAPEX vs. Indoor Farming", "invest.fact2": "Yield vs. Outdoor", "invest.fact3": "Less Water", "invest.fact4": "Worldwide IP Secured",
+    "invest.whyLabel": "Your Investment", "invest.whyTitle": "What Makes OrbiFarm\u00ae Unique",
+    "invest.usp1.title": "Plant Factory, Not a Farm", "invest.usp1.desc": "Designed as a continuous industrial process with conveyor logic, automation and QA gates \u2014 delivering consistent output at pharma grade.",
+    "invest.usp2.title": "Patented Core Technology", "invest.usp2.desc": "Moving conveyor belt triggers gravitropism \u2014 a unique mechanism for higher biomass, richer active ingredients and up to 120x more yield.",
+    "invest.usp3.title": "Compelling Unit Economics", "invest.usp3.desc": "~115% ROI in ~10 months for medicinal plants. Lowest CAPEX & OPEX in the industry with short payback periods.",
+    "invest.usp4.title": "Global Market Access", "invest.usp4.desc": "Worldwide IP secured. Strategic partners Fraunhofer (R&D) and Flottweg (downstream processing) for rapid industrial scale-up.",
+    "invest.ctaLabel": "Start Now", "invest.ctaTitle": "Ready to Invest?",
+    "invest.ctaSubtitle": "Secure your position in the next generation of controlled environment agriculture. Invest easily and securely via tokenize.it.",
+    "imprint.title": "Imprint", "imprint.role": "Managing Director",
+    "imprint.registerText": "Amtsgericht Berlin Charlottenburg", "imprint.vatLabel": "Tax ID:",
+    "footer.rights": "All rights reserved.", "footer.imprint": "Imprint",
+  },
+  de: {
+    "nav.back": "\u2190 Zur\u00fcck zur Website", "nav.investNow": "Jetzt investieren",
+    "invest.badge": "Investment-M\u00f6glichkeit \u00fcber tokenize.it",
+    "invest.heroTitle1": "Investieren Sie in", "invest.heroTitle2": "OrbiFarm\u00ae",
+    "invest.heroSubtitle": "Die vielseitigste Plattform f\u00fcr kontrollierte Pflanzenproduktion \u2014 patentierte F\u00f6rderband-Technologie, weltweiter IP-Schutz und ein klarer Weg zur Profitabilit\u00e4t. Werden Sie Teil der landwirtschaftlichen Revolution.",
+    "invest.factsLabel": "Wichtige Investment-Fakten", "invest.factsTitle": "Warum OrbiFarm\u00ae?",
+    "invest.fact1": "CAPEX vs. Indoor Farming", "invest.fact2": "Ertrag vs. Freiland", "invest.fact3": "Weniger Wasser", "invest.fact4": "Weltweiter IP-Schutz",
+    "invest.whyLabel": "Ihr Investment", "invest.whyTitle": "Was OrbiFarm\u00ae einzigartig macht",
+    "invest.usp1.title": "Pflanzenfabrik, keine Farm", "invest.usp1.desc": "Konzipiert als kontinuierlicher Industrieprozess mit F\u00f6rderlogik, Automatisierung und QA-Gates \u2014 f\u00fcr konsistente Qualit\u00e4t in Pharma-Reinheit.",
+    "invest.usp2.title": "Patentierte Kerntechnologie", "invest.usp2.desc": "Das bewegende F\u00f6rderband aktiviert Gravitropismus \u2014 ein einzigartiger Mechanismus f\u00fcr h\u00f6here Biomasse, reichere Wirkstoffe und bis zu 120x mehr Ertrag.",
+    "invest.usp3.title": "\u00dcberzeugende Wirtschaftlichkeit", "invest.usp3.desc": "~115% ROI in ~10 Monaten f\u00fcr Medizinalpflanzen. Niedrigste CAPEX & OPEX der Branche mit kurzen Amortisationszeiten.",
+    "invest.usp4.title": "Globaler Marktzugang", "invest.usp4.desc": "Weltweiter IP-Schutz gesichert. Strategische Partner Fraunhofer (F&E) und Flottweg (Downstream Processing) f\u00fcr schnellen industriellen Scale-up.",
+    "invest.ctaLabel": "Jetzt starten", "invest.ctaTitle": "Bereit zu investieren?",
+    "invest.ctaSubtitle": "Sichern Sie sich Ihre Position in der n\u00e4chsten Generation der kontrollierten Pflanzenproduktion. Einfach und sicher investieren \u00fcber tokenize.it.",
+    "imprint.title": "Impressum", "imprint.role": "Gesch\u00e4ftsf\u00fchrer",
+    "imprint.registerText": "Amtsgericht Berlin Charlottenburg", "imprint.vatLabel": "Steuer ID:",
+    "footer.rights": "Alle Rechte vorbehalten.", "footer.imprint": "Impressum",
+  }
+};
+
+let currentLang = 'en';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
+  });
+  updateTranslations();
+}
+
+function updateTranslations() {
+  const t = LANG[currentLang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.textContent = t[key];
+  });
+}
+</script>
+</body>
+</html>

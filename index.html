@@ -78,6 +78,8 @@ img { max-width: 100%; display: block; }
 .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
 .nav-links a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color var(--transition); }
 .nav-links a:hover { color: var(--accent); }
+.nav-invest { color: var(--accent) !important; font-weight: 600; border: 1px solid var(--accent); padding: 5px 16px; border-radius: 20px; font-size: 0.85rem; transition: all var(--transition); }
+.nav-invest:hover { background: var(--accent); color: var(--bg-dark) !important; }
 .lang-toggle { display: flex; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; font-size: 0.8rem; }
 .lang-btn { padding: 5px 12px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-weight: 600; transition: all var(--transition); font-family: var(--font); }
 .lang-btn.active { background: var(--accent); color: var(--bg-dark); }
@@ -532,6 +534,7 @@ section { padding: 100px 24px; }
       <li><a href="#advantages" data-i18n="nav.advantages">Advantages</a></li>
       <li><a href="#calculator" data-i18n="nav.calculator">Calculator</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      <li><a href="invest.html" class="nav-invest" data-i18n="nav.invest">Invest</a></li>
       <li>
         <div class="lang-toggle">
           <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
@@ -876,6 +879,18 @@ section { padding: 100px 24px; }
   </div>
 </section>
 
+<!-- ==================== INVEST TEASER ==================== -->
+<section id="invest" style="background: var(--bg-dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="invest-teaser reveal" style="max-width:800px; margin:0 auto; text-align:center;">
+      <div class="section-label" data-i18n="invest.label">Investment Opportunity</div>
+      <h2 data-i18n="invest.title">Become Part of the Future of Agriculture</h2>
+      <p style="color:var(--text-muted); font-size:1.05rem; line-height:1.7; margin-bottom:32px;" data-i18n="invest.subtitle">OrbiFarm® is opening its next funding round via tokenize.it. Invest in the most versatile TCEA platform &#x2014; patented technology, worldwide IP, and a clear path to profitability.</p>
+      <a href="invest.html" class="btn btn-primary" style="animation:none; font-size:1.05rem; padding:16px 36px;" data-i18n="invest.cta">Learn More &amp; Invest</a>
+    </div>
+  </div>
+</section>
+
 <!-- ==================== CALCULATOR ==================== -->
 <section id="calculator">
   <div class="section-inner">
@@ -1104,6 +1119,10 @@ const LANG = {
     "calc.unlock": "Unlock all 22 plants & full KPIs", "calc.morePlants": "17 more plants \u2014 Registration required",
     "reg.title": "Unlock Full Calculator", "reg.subtitle": "Register to access all 22 plants and detailed KPIs.", "reg.button": "Unlock Full Access",
     "calc.disclaimer": "Values are projections based on default parameters. Open the full tool for detailed analysis.",
+    "nav.invest": "Invest",
+    "invest.label": "Investment Opportunity", "invest.title": "Become Part of the Future of Agriculture",
+    "invest.subtitle": "OrbiFarm\u00ae is opening its next funding round via tokenize.it. Invest in the most versatile TCEA platform \u2014 patented technology, worldwide IP, and a clear path to profitability.",
+    "invest.cta": "Learn More & Invest",
     "contact.label": "Get in Touch", "contact.title": "Ready to Grow?",
     "contact.subtitle": "Have questions about OrbiFarm® or want to discuss a project? Send us a message and we\u2019ll get back to you shortly.",
     "contact.send": "Send Message", "contact.infoTitle": "Contact Information", "contact.phone": "Phone", "contact.address": "Address",
@@ -1153,6 +1172,10 @@ const LANG = {
     "calc.unlock": "Alle 22 Pflanzen & alle KPIs freischalten", "calc.morePlants": "17 weitere Pflanzen \u2014 Registrierung erforderlich",
     "reg.title": "Kalkulator freischalten", "reg.subtitle": "Registrieren Sie sich f\u00fcr Zugang zu allen 22 Pflanzen und detaillierten KPIs.", "reg.button": "Vollen Zugang freischalten",
     "calc.disclaimer": "Werte sind Projektionen auf Basis der Standardparameter. \u00d6ffnen Sie das vollst\u00e4ndige Tool f\u00fcr detaillierte Analysen.",
+    "nav.invest": "Investieren",
+    "invest.label": "Investment-M\u00f6glichkeit", "invest.title": "Werden Sie Teil der Zukunft der Landwirtschaft",
+    "invest.subtitle": "OrbiFarm\u00ae er\u00f6ffnet seine n\u00e4chste Finanzierungsrunde \u00fcber tokenize.it. Investieren Sie in die vielseitigste Plattform f\u00fcr kontrollierte Pflanzenproduktion \u2014 patentierte Technologie, weltweiter IP-Schutz und ein klarer Weg zur Profitabilit\u00e4t.",
+    "invest.cta": "Mehr erfahren & investieren",
     "contact.label": "Kontakt", "contact.title": "Bereit zu wachsen?",
     "contact.subtitle": "Fragen zu OrbiFarm® oder ein Projekt besprechen? Senden Sie uns eine Nachricht und wir melden uns zeitnah.",
     "contact.send": "Nachricht senden", "contact.infoTitle": "Kontaktinformationen", "contact.phone": "Telefon", "contact.address": "Adresse",
