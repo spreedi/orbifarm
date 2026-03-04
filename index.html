@@ -156,6 +156,11 @@ img { max-width: 100%; display: block; }
 .btn-invest { background: transparent; color: var(--accent); border: 2px solid var(--accent); box-shadow: 0 0 20px rgba(0,200,83,0.15); }
 .btn-invest:hover { background: var(--accent); color: var(--bg-dark); box-shadow: 0 0 30px rgba(0,200,83,0.3); transform: translateY(-2px); }
 
+/* Floating Invest CTA */
+.invest-float { position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; display: flex; justify-content: center; padding: 14px 24px 20px; background: linear-gradient(0deg, rgba(8,13,10,0.95) 60%, transparent 100%); pointer-events: none; }
+.invest-float a { pointer-events: auto; padding: 14px 32px; font-size: 1rem; font-weight: 700; background: var(--accent); color: var(--bg-dark); border-radius: 10px; text-decoration: none; box-shadow: 0 0 30px rgba(0,200,83,0.25); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px; }
+.invest-float a:hover { background: #00e65c; box-shadow: 0 0 40px rgba(0,200,83,0.4); transform: translateY(-2px); }
+
 /* Hero image showcase */
 .hero-visual {
   position: relative;
@@ -1052,7 +1057,12 @@ section { padding: 100px 24px; }
 </section>
 
 <!-- ==================== FOOTER ==================== -->
-<footer class="footer">
+<!-- FLOATING INVEST BUTTON -->
+<div class="invest-float">
+  <a href="invest.html"><span data-i18n="investFloat.cta">&#x25B2; Invest Now</span></a>
+</div>
+
+<footer class="footer" style="padding-bottom: 80px;">
   <div class="footer-inner">
     <div class="footer-copy">&copy; 2026 OrbiFarm® GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
     <div class="footer-links">
@@ -1086,6 +1096,7 @@ const LANG = {
     "hero.title1": "The Most Versatile", "hero.title2": "TCEA Platform",
     "hero.subtitle": "Our patented, conveyor-based continuous production system keeps plants in constant motion \u2014 triggering gravitropism for higher biomass, richer active ingredients and up to 120x more yield. 95% less water, zero pesticides and a convincing ROI.",
     "hero.cta1": "Explore Crops", "hero.cta2": "Learn More", "hero.cta3": "Invest Now",
+    "investFloat.cta": "\u25B2 Invest Now",
     "tech.label": "How It Works", "tech.title": "Revolutionary Growing Technology",
     "tech.subtitle": "Our patented, conveyor-based continuous production concept maximises growing area within minimal floor space, enabling industrial-scale production of high-value crops.",
     "tech.card1.title": "Moving Conveyor Belt",
@@ -1139,6 +1150,7 @@ const LANG = {
     "hero.title1": "Die vielseitigste Plattform f\u00fcr", "hero.title2": "kontrollierte Pflanzenproduktion",
     "hero.subtitle": "Unser patentiertes, f\u00f6rderbandbasiertes Produktionssystem h\u00e4lt Pflanzen in st\u00e4ndiger Bewegung \u2014 Gravitropismus f\u00fcr mehr Biomasse, reichere Wirkstoffe und bis zu 120x mehr Ertrag. 95% weniger Wasser, null Pestizide und ein \u00fcberzeugender ROI.",
     "hero.cta1": "Pflanzen entdecken", "hero.cta2": "Mehr erfahren", "hero.cta3": "Jetzt investieren",
+    "investFloat.cta": "\u25B2 Jetzt investieren",
     "tech.label": "So funktioniert es", "tech.title": "Revolution\u00e4re Anbau-Technologie",
     "tech.subtitle": "Unser patentiertes, f\u00f6rderbandbasiertes Produktionskonzept maximiert die Anbaufl\u00e4che auf minimaler Grundfl\u00e4che und erm\u00f6glicht die industrielle Produktion hochwertiger Pflanzen.",
     "tech.card1.title": "Bewegendes F\u00f6rderband",
