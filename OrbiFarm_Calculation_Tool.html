@@ -549,6 +549,11 @@
       <input type="text" id="areaPerLoop" value="" readonly style="font-weight:700; color:var(--orbi-green);">
       <span class="unit">m²/Loop = Height × Width × 2.1042</span>
     </div>
+    <div class="input-group readonly-group">
+      <label>Productive Area (calculated)</label>
+      <input type="text" id="productiveAreaDisplay" value="" readonly style="font-weight:700; color:var(--orbi-green);">
+      <span class="unit">m² = Modules × Loops × Area per Loop</span>
+    </div>
     <div class="input-group">
       <label>Reserve Loops / Module</label>
       <input type="text" inputmode="numeric" id="reserveLoops" value="1" onfocus="onFieldFocus(this)" onblur="onFieldBlur(this)" oninput="recalculate()">
@@ -1351,6 +1356,7 @@ function recalculate() {
   const plantData = PLANTS[plantName] || {};
   // Update calculated fields in UI
   document.getElementById('areaPerLoop').value = fmt(inp.areaPerLoop, 0) + ' m²';
+  document.getElementById('productiveAreaDisplay').value = fmt(r.productiveArea, 0) + ' m²';
   document.getElementById('floorSpace').value = fmt(Math.round(r.floorSpace), 0) + ' m²';
   renderPlantInfo(inp, r, plantData);
   renderAppProducts(plantData);
@@ -1720,14 +1726,6 @@ function unlockApp() {
 }
 
 document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
-
-// Auto-unlock if coming from website registration (token in URL) or already authed
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('token') === 'orbifarm_reg' && document.referrer.includes(window.location.hostname)) {
-  sessionStorage.setItem(SESSION_KEY, 'true');
-  // Clean URL without reload
-  window.history.replaceState({}, '', window.location.pathname);
-}
 if (sessionStorage.getItem(SESSION_KEY) === 'true') unlockApp();
 </script>
 </body>
