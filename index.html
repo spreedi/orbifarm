@@ -1020,6 +1020,11 @@ section { padding: 100px 24px; }
             <div class="kpi-value" id="kpiProduction">&#x2014;</div>
             <div class="kpi-unit" data-i18n="kpi.kgYear">kg / year</div>
           </div>
+          <div class="kpi-card" data-kpi="kpiEnergy">
+            <div class="kpi-label"><span data-i18n="kpi.energy">Total Energy / Year</span></div>
+            <div class="kpi-value" id="kpiEnergy">&#x2014;</div>
+            <div class="kpi-unit">kWh</div>
+          </div>
           <div class="kpi-card" data-kpi="kpiCostKg">
             <div class="kpi-label"><span data-i18n="kpi.costKg">Cost per kg</span></div>
             <div class="kpi-value" id="kpiCostKg">&#x2014;</div>
@@ -1170,7 +1175,7 @@ const LANG = {
     "calc.controls": "Parameters", "calc.plant": "Crop", "calc.modules": "Modules", "calc.electricity": "Electricity Price", "calc.rent": "Rent",
     "calc.fullTool": "Open Full Calculation Tool", "calc.product": "Product", "calc.category": "Category", "calc.area": "Growing Area", "calc.floor": "Floor Space",
     "kpi.revenue": "Total Revenue", "kpi.ebitda": "EBITDA", "kpi.margin": "EBITDA Margin", "kpi.capex": "Total CAPEX", "kpi.opex": "Total OPEX", "kpi.roi": "ROI", "kpi.payback": "Payback Period",
-    "kpi.production": "Annual Production", "kpi.costKg": "Cost per kg", "kpi.perYear": "per year", "kpi.annual": "annual", "kpi.years": "years", "kpi.kgYear": "kg / year",
+    "kpi.production": "Annual Production", "kpi.energy": "Total Energy / Year", "kpi.costKg": "Cost per kg", "kpi.perYear": "per year", "kpi.annual": "annual", "kpi.years": "years", "kpi.kgYear": "kg / year",
     "calc.unlock": "Unlock all 22 plants & full KPIs", "calc.morePlants": "17 more plants \u2014 Registration required",
     "reg.title": "Unlock Full Calculator", "reg.subtitle": "Register to access all 22 plants and detailed KPIs.", "reg.button": "Unlock Full Access",
     "calc.disclaimer": "Values are projections based on default parameters. Open the full tool for detailed analysis.",
@@ -1224,7 +1229,7 @@ const LANG = {
     "calc.controls": "Parameter", "calc.plant": "Pflanze", "calc.modules": "Module", "calc.electricity": "Strompreis", "calc.rent": "Miete",
     "calc.fullTool": "Vollst\u00e4ndiges Kalkulationstool \u00f6ffnen", "calc.product": "Produkt", "calc.category": "Kategorie", "calc.area": "Anbaufl\u00e4che", "calc.floor": "Grundfl\u00e4che",
     "kpi.revenue": "Gesamtumsatz", "kpi.ebitda": "EBITDA", "kpi.margin": "EBITDA-Marge", "kpi.capex": "Gesamt-CAPEX", "kpi.opex": "Gesamt-OPEX", "kpi.roi": "ROI", "kpi.payback": "Amortisation",
-    "kpi.production": "Jahresproduktion", "kpi.costKg": "Kosten pro kg", "kpi.perYear": "pro Jahr", "kpi.annual": "j\u00e4hrlich", "kpi.years": "Jahre", "kpi.kgYear": "kg / Jahr",
+    "kpi.production": "Jahresproduktion", "kpi.energy": "Gesamtenergie / Jahr", "kpi.costKg": "Kosten pro kg", "kpi.perYear": "pro Jahr", "kpi.annual": "j\u00e4hrlich", "kpi.years": "Jahre", "kpi.kgYear": "kg / Jahr",
     "calc.unlock": "Alle 22 Pflanzen & alle KPIs freischalten", "calc.morePlants": "17 weitere Pflanzen \u2014 Registrierung erforderlich",
     "reg.title": "Kalkulator freischalten", "reg.subtitle": "Registrieren Sie sich f\u00fcr Zugang zu allen 22 Pflanzen und detaillierten KPIs.", "reg.button": "Vollen Zugang freischalten",
     "calc.disclaimer": "Werte sind Projektionen auf Basis der Standardparameter. \u00d6ffnen Sie das vollst\u00e4ndige Tool f\u00fcr detaillierte Analysen.",
@@ -1320,7 +1325,7 @@ function calculate(inp) {
   const roi = totalCapex > 0 ? ebitda / totalCapex : 0;
   const payback = ebitda > 0 ? totalCapex / ebitda : Infinity;
   const costPerKg = primaryOutput > 0 ? totalOpex / primaryOutput : 0;
-  return { productiveArea, floorSpace, totalCapex, primaryOutput, totalRevenue, totalOpex, ebitda, ebitdaMargin, roi, payback, costPerKg };
+  return { productiveArea, floorSpace, totalCapex, primaryOutput, annualEnergy, totalRevenue, totalOpex, ebitda, ebitdaMargin, roi, payback, costPerKg };
 }
 
 // ==================== FORMATTING ====================
@@ -1533,6 +1538,7 @@ function updateCalc() {
   setKPI('kpiRoi', fmt(r.roi * 100, 1) + '%', r.roi >= 0);
   setKPI('kpiPayback', r.payback === Infinity ? '\u2013' : fmt(r.payback, 1), r.payback < 10);
   setKPI('kpiProduction', fmt(r.primaryOutput, 0), true);
+  setKPI('kpiEnergy', fmt(r.annualEnergy, 0), true);
   setKPI('kpiCostKg', fmt(r.costPerKg, 2) + ' \u20ac', true);
 }
 
