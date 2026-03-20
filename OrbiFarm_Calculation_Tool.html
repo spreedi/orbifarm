@@ -1409,6 +1409,7 @@ function renderKPIs(r, pd) {
     { label: 'Payback', value: r.payback < 100 ? fmt(r.payback, 1) + ' years' : '–', cls: r.payback < 3 ? 'highlight' : r.payback < 5 ? '' : 'warning' },
     { label: 'Break-Even Price', value: fmt(r.breakEvenPrice, 2) + ' €/kg', cls: '' },
     { label: 'Production', value: fmt(r.primaryOutput, 0) + ' kg/yr', cls: '' },
+    { label: 'Total Energy / Year', value: fmt(r.annualEnergy, 0) + ' kWh', cls: '' },
     { label: 'Energy/kg', value: fmt(r.energyPerKg, 1) + ' kWh', cls: '' },
     { label: 'Cost/kg', value: fmt(r.costPerKg, 2) + ' €', cls: '' },
     { label: 'Revenue/kg', value: fmt(r.revenuePerKg, 2) + ' €', cls: '' },
