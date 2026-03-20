@@ -1064,11 +1064,11 @@ section { padding: 100px 24px; }
         <h3 data-i18n="contact.infoTitle">Contact Information</h3>
         <div class="contact-info-item">
           <div class="contact-info-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></div>
-          <div><strong>Email</strong><br><a href="mailto:jan.bredack@orbi.farm">jan.bredack@orbi.farm</a></div>
+          <div><strong>Email</strong><br><span id="contactEmail"></span></div>
         </div>
         <div class="contact-info-item">
           <div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-          <div><strong data-i18n="contact.phone">Phone</strong><br><a href="tel:+491755996828">+49 175 5996828</a></div>
+          <div><strong data-i18n="contact.phone">Phone</strong><br><span id="contactPhone"></span></div>
         </div>
         <div class="contact-info-item">
           <div class="contact-info-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
@@ -1091,8 +1091,8 @@ section { padding: 100px 24px; }
       <p><strong>OrbiFarm® GmbH</strong><br>
       An den Kiefern 7<br>
       14974 Ludwigsfelde</p>
-      <p><a href="mailto:jan.bredack@orbi.farm" style="color:var(--accent);">jan.bredack@orbi.farm</a><br>
-      <a href="tel:+491755996828" style="color:var(--accent);">+49 175 5996828</a><br>
+      <p><span id="imprintEmail"></span><br>
+      <span id="imprintPhone"></span><br>
       <a href="https://orbi.farm/" style="color:var(--accent);">https://orbi.farm/</a></p>
       <p><span data-i18n="imprint.registerText">Amtsgericht Berlin Charlottenburg</span><br>
       HRB 278160 B</p>
@@ -1113,7 +1113,7 @@ section { padding: 100px 24px; }
     <div class="footer-copy">&copy; 2026 OrbiFarm® GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
     <div class="footer-links">
       <a href="#imprint" data-i18n="footer.imprint">Imprint</a>
-      <a href="#" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';return false;" data-i18n="footer.privacy">Privacy Policy</a>
     </div>
   </div>
 </footer>
@@ -1130,6 +1130,40 @@ section { padding: 100px 24px; }
       <input type="email" id="regEmail" placeholder="Email *" required>
       <button type="submit" class="btn btn-primary" style="animation:none;"><span data-i18n="reg.button">Unlock Full Access</span></button>
     </form>
+  </div>
+</div>
+
+<!-- ==================== PRIVACY POLICY MODAL ==================== -->
+<div class="modal-overlay" id="privacyModal" style="display:none; align-items:center; justify-content:center;">
+  <div class="modal-card" style="max-width:700px; max-height:80vh; overflow-y:auto; text-align:left; font-size:0.9rem; line-height:1.7;">
+    <button class="modal-close" onclick="document.getElementById('privacyModal').style.display='none'">&#x2715;</button>
+    <h3 data-i18n="privacy.title">Datenschutzerkl&auml;rung</h3>
+    <div id="privacyContent">
+      <p><strong>1. Verantwortlicher</strong><br>
+      OrbiFarm&reg; GmbH, An den Kiefern 7, 14974 Ludwigsfelde<br>
+      E-Mail: jan.bredack(at)orbi.farm</p>
+
+      <p><strong>2. Erhebung und Speicherung personenbezogener Daten</strong><br>
+      Beim Besuch unserer Website werden automatisch Informationen an den Server unserer Website gesendet. Diese Informationen werden tempor&auml;r in einem sog. Logfile gespeichert. Folgende Informationen werden dabei ohne Ihr Zutun erfasst: IP-Adresse, Datum und Uhrzeit des Zugriffs, Name und URL der abgerufenen Datei, Website, von der aus der Zugriff erfolgt (Referrer-URL), verwendeter Browser und ggf. das Betriebssystem Ihres Rechners sowie der Name Ihres Access-Providers.</p>
+
+      <p><strong>3. Kontaktformular &amp; Registrierung</strong><br>
+      Wenn Sie uns per Kontaktformular Anfragen zukommen lassen oder sich f&uuml;r den Crop Calculator registrieren, werden Ihre Angaben (Name, Unternehmen, E-Mail-Adresse) zum Zwecke der Bearbeitung der Anfrage und f&uuml;r den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO.</p>
+
+      <p><strong>4. Weitergabe von Daten</strong><br>
+      Eine &Uuml;bermittlung Ihrer pers&ouml;nlichen Daten an Dritte zu anderen als den im Folgenden aufgef&uuml;hrten Zwecken findet nicht statt. Wir geben Ihre pers&ouml;nlichen Daten nur an Dritte weiter, wenn Sie Ihre nach Art. 6 Abs. 1 S. 1 lit. a DSGVO ausdr&uuml;ckliche Einwilligung dazu erteilt haben oder die Weitergabe nach Art. 6 Abs. 1 S. 1 lit. f DSGVO zur Wahrung unserer berechtigten Interessen zul&auml;ssig ist.</p>
+
+      <p><strong>5. Hosting (GitHub Pages)</strong><br>
+      Diese Website wird &uuml;ber GitHub Pages gehostet. Anbieter ist die GitHub Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA. Details zur Datenverarbeitung finden Sie in der Datenschutzerkl&auml;rung von GitHub: github.com/privacy.</p>
+
+      <p><strong>6. tokenize.it Widget</strong><br>
+      Auf unserer Website setzen wir ein Invest-Widget der tokenize.it GmbH ein. Bei Nutzung des Widgets k&ouml;nnen Daten an tokenize.it &uuml;bertragen werden. Details entnehmen Sie der Datenschutzerkl&auml;rung von tokenize.it.</p>
+
+      <p><strong>7. Ihre Rechte</strong><br>
+      Sie haben das Recht auf Auskunft, Berichtigung, L&ouml;schung, Einschr&auml;nkung der Verarbeitung, Daten&uuml;bertragbarkeit und Widerspruch. Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verst&ouml;&szlig;t, k&ouml;nnen Sie sich bei einer Aufsichtsbeh&ouml;rde beschweren.</p>
+
+      <p><strong>8. Aktualit&auml;t</strong><br>
+      Stand: M&auml;rz 2026</p>
+    </div>
   </div>
 </div>
 
@@ -1650,6 +1684,20 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     group.appendChild(c);
   }
+})();
+
+// ==================== BOT-PROOF CONTACT DATA ====================
+(function(){
+  const u='jan.bredack', d='orbi.farm', p='+491755996828', pf='+49 175 5996828';
+  const em = u+'@'+d;
+  function injectLink(id, href, text, style) {
+    const el = document.getElementById(id);
+    if(el) el.innerHTML = '<a href="'+href+'" '+(style||'')+'>'+text+'</a>';
+  }
+  injectLink('contactEmail', 'mailto:'+em, em);
+  injectLink('contactPhone', 'tel:'+p, pf);
+  injectLink('imprintEmail', 'mailto:'+em, em, 'style="color:var(--accent);"');
+  injectLink('imprintPhone', 'tel:'+p, pf, 'style="color:var(--accent);"');
 })();
 
 // ==================== INIT ====================
