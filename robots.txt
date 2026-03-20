@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /OrbiFarm_Calculation_Tool.html
+
+Sitemap: https://orbi.farm/sitemap.xml
