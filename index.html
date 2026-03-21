@@ -30,6 +30,8 @@
 <link rel="icon" href="images/og-image.jpg" type="image/jpeg">
 <link rel="apple-touch-icon" href="images/og-image.jpg">
 <link rel="preconnect" href="https://cdn-investnow.tokenize.it" crossorigin>
+<link rel="preconnect" href="https://app.tokenize.it" crossorigin>
+<link rel="dns-prefetch" href="https://app.tokenize.it">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -39,14 +41,24 @@
   "legalName": "OrbiFarm GmbH",
   "url": "https://orbi.farm",
   "logo": "https://orbi.farm/images/og-image.jpg",
-  "description": "OrbiFarm® delivers the most versatile TCEA platform. Patented conveyor-based production, 95% less water, 365 days/year, zero pesticides.",
+  "description": "OrbiFarm® is a vertical farming platform company operating the world's most versatile TCEA (Total Controlled Environment Agriculture) system. Patented conveyor-based indoor farming technology for medicinal plants, herbs, leafy greens and pharmaceutical-grade botanicals. Up to 120x yield, 95% less water, zero pesticides.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Ludwigsfelde",
     "addressCountry": "DE"
   },
-  "sameAs": [],
-  "foundingDate": "2020",
+  "sameAs": [
+    "https://www.linkedin.com/company/orbifarm/"
+  ],
+  "foundingDate": "2025",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Ludwigsfelde, Germany"
+  },
+  "numberOfEmployees": {
+    "@type": "QuantitativeValue",
+    "value": "10"
+  },
   "founder": {
     "@type": "Person",
     "name": "Jan Bredack"
@@ -63,6 +75,46 @@
   "manufacturer": { "@type": "Organization", "name": "OrbiFarm GmbH" },
   "category": "Controlled Environment Agriculture",
   "url": "https://orbi.farm"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is OrbiFarm?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OrbiFarm is a vertical farming platform company that operates the world's most versatile TCEA (Total Controlled Environment Agriculture) system. Our patented conveyor-based indoor farming technology achieves up to 120x higher yields than conventional agriculture while using 95% less water."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the OrbiFarm Loop System work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The OrbiFarm Loop System uses a patented moving conveyor belt that transports plants through precisely controlled growth zones. This unique approach enables continuous harvesting, reduces CAPEX by 95% compared to traditional vertical farms, and allows cultivation of over 300 plant species."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What plants can be grown with OrbiFarm technology?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OrbiFarm's platform supports over 300 plant species including medicinal plants, herbs, leafy greens, and pharmaceutical-grade botanicals. The system is recipe-driven, allowing precise control of growing conditions for each species."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is OrbiFarm suitable for pharmaceutical production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, OrbiFarm's plant factory operates under pharma-grade (GMP) conditions. The 100% soilless, clean cultivation environment makes it ideal for producing medicinal plants and botanical active ingredients for the pharmaceutical industry."
+      }
+    }
+  ]
 }
 </script>
 <style>
@@ -616,7 +668,7 @@ section { padding: 100px 24px; }
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <video autoplay muted loop playsinline preload="auto">
+    <video autoplay muted loop playsinline preload="auto" poster="images/og-image.jpg">
       <source src="images/hero-video-full.mp4" type="video/mp4">
     </video>
   </div>
@@ -821,22 +873,22 @@ section { padding: 100px 24px; }
     <div class="tech-features reveal" data-stagger>
       <div class="tech-feat">
         <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M2 12h4l3-9 6 18 3-9h4"/></svg></div>
-        <h3 data-i18n="tech.card1.title">Moving Conveyor Belt</h4>
+        <h3 data-i18n="tech.card1.title">Moving Conveyor Belt</h3>
         <p data-i18n="tech.card1.desc">The game changer: plants travel on a continuously moving belt through different growth zones. Constant motion triggers gravitropism &#x2014; producing higher biomass, richer active ingredients and up to 120x more yield on less space.</p>
       </div>
       <div class="tech-feat">
         <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
-        <h3 data-i18n="tech.card2.title">100% Soilless &amp; Clean</h4>
+        <h3 data-i18n="tech.card2.title">100% Soilless &amp; Clean</h3>
         <p data-i18n="tech.card2.desc2">Aeroponic misting with zero soil, zero substrate, zero contamination. 95% less water and pharma-grade purity &#x2014; enabling complete biomass utilisation from roots to leaves.</p>
       </div>
       <div class="tech-feat">
         <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <h3 data-i18n="tech.card3.title">Lowest CAPEX &amp; OPEX</h4>
+        <h3 data-i18n="tech.card3.title">Lowest CAPEX &amp; OPEX</h3>
         <p data-i18n="tech.card3.desc">Up to 95% lower CAPEX than conventional indoor farming. Minimal energy consumption, low labour costs, and maximum automation &#x2014; the most cost-efficient TCEA system on the market.</p>
       </div>
       <div class="tech-feat">
         <div class="tech-feat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="8" height="8" rx="1"/></svg></div>
-        <h3 data-i18n="tech.card4.title">Modular &amp; Scalable</h4>
+        <h3 data-i18n="tech.card4.title">Modular &amp; Scalable</h3>
         <p data-i18n="tech.card4.desc">Start with a single module, scale to industrial farms. Each module operates independently &#x2014; grow different crops simultaneously. Worldwide IP secured.</p>
       </div>
     </div>
@@ -1152,6 +1204,7 @@ section { padding: 100px 24px; }
     <div class="footer-links">
       <a href="#imprint" data-i18n="footer.imprint">Imprint</a>
       <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';return false;" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="press.html" data-i18n="footer.press">Press</a>
     </div>
   </div>
 </footer>
@@ -1261,7 +1314,7 @@ const LANG = {
     "contact.send": "Send Message", "contact.infoTitle": "Contact Information", "contact.phone": "Phone", "contact.address": "Address",
     "imprint.title": "Imprint", "imprint.role": "Managing Director",
     "imprint.registerText": "Amtsgericht Berlin Charlottenburg", "imprint.vatLabel": "Tax ID:",
-    "footer.rights": "All rights reserved.", "footer.imprint": "Imprint", "footer.privacy": "Privacy Policy",
+    "footer.rights": "All rights reserved.", "footer.imprint": "Imprint", "footer.privacy": "Privacy Policy", "footer.press": "Press",
   },
   de: {
     "nav.technology": "Technologie", "nav.advantages": "Vorteile", "nav.calculator": "Kalkulator", "nav.contact": "Kontakt",
@@ -1316,7 +1369,7 @@ const LANG = {
     "contact.send": "Nachricht senden", "contact.infoTitle": "Kontaktinformationen", "contact.phone": "Telefon", "contact.address": "Adresse",
     "imprint.title": "Impressum", "imprint.role": "Gesch\u00e4ftsf\u00fchrer",
     "imprint.registerText": "Amtsgericht Berlin Charlottenburg", "imprint.vatLabel": "Steuer ID:",
-    "footer.rights": "Alle Rechte vorbehalten.", "footer.imprint": "Impressum", "footer.privacy": "Datenschutz",
+    "footer.rights": "Alle Rechte vorbehalten.", "footer.imprint": "Impressum", "footer.privacy": "Datenschutz", "footer.press": "Presse",
   }
 };
 
