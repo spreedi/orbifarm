@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Press & Media — OrbiFarm® | Vertical Farming News & Coverage</title>
+<meta name="description" content="Press and media coverage about OrbiFarm® — the most versatile vertical farming platform. Read the latest articles, interviews and features about our patented TCEA technology.">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://orbi.farm/press.html">
+<meta property="og:title" content="Press & Media — OrbiFarm®">
+<meta property="og:description" content="Latest press coverage and articles about OrbiFarm® — the most versatile vertical farming platform with patented conveyor-based indoor agriculture.">
+<meta property="og:image" content="https://orbi.farm/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="de_DE">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Press & Media — OrbiFarm®">
+<meta name="twitter:description" content="Latest press coverage and articles about OrbiFarm® vertical farming platform.">
+<meta name="twitter:image" content="https://orbi.farm/images/og-image.jpg">
+<meta name="google-site-verification" content="vq_n1W7qPvhWrWspXdLAbJ4huggzeRCfv6ZcvtH_hGU" />
+<!-- Canonical & SEO -->
+<link rel="canonical" href="https://orbi.farm/press.html">
+<meta name="robots" content="index, follow">
+<link rel="alternate" hreflang="en" href="https://orbi.farm/press.html">
+<link rel="alternate" hreflang="de" href="https://orbi.farm/press.html">
+<link rel="alternate" hreflang="x-default" href="https://orbi.farm/press.html">
+<link rel="icon" href="images/og-image.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="images/og-image.jpg">
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Press & Media — OrbiFarm®",
+  "description": "Press coverage and media articles about OrbiFarm® vertical farming platform.",
+  "url": "https://orbi.farm/press.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "OrbiFarm GmbH",
+    "url": "https://orbi.farm"
+  }
+}
+</script>
+<style>
+/* ==================== RESET & VARIABLES ==================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-dark: #080d0a;
+  --bg-section: #0c1410;
+  --bg-card: #121e17;
+  --bg-card-hover: #182a20;
+  --accent: #00c853;
+  --accent-dim: #00a844;
+  --accent-glow: rgba(0, 200, 83, 0.15);
+  --accent-glow-strong: rgba(0, 200, 83, 0.3);
+  --text: #e8f5e9;
+  --text-muted: #81c784;
+  --text-dim: #4a7a52;
+  --border: #1a2e22;
+  --border-accent: #1f3d28;
+  --gradient-hero: linear-gradient(160deg, #080d0a 0%, #0a1a10 40%, #0c1f14 100%);
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --max-w: 1200px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: #66ffa6; }
+
+/* ==================== NAVBAR ==================== */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(8, 13, 10, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.navbar-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
+.nav-links a { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; transition: color var(--transition); }
+.nav-links a:hover { color: var(--accent); }
+.nav-press-active { color: var(--accent) !important; font-weight: 600; }
+.nav-invest { color: var(--accent) !important; font-weight: 600; border: 1px solid var(--accent); padding: 5px 16px; border-radius: 20px; font-size: 0.85rem; transition: all var(--transition); }
+.nav-invest:hover { background: var(--accent); color: var(--bg-dark) !important; }
+.lang-toggle { display: flex; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; font-size: 0.8rem; }
+.lang-btn { padding: 5px 12px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; font-weight: 600; transition: all var(--transition); font-family: var(--font); }
+.lang-btn.active { background: var(--accent); color: var(--bg-dark); }
+.mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+/* ==================== HERO ==================== */
+.hero {
+  padding: 140px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 70% 60%, rgba(0,200,83,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 30% 40%, rgba(0,200,83,0.05) 0%, transparent 50%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(0,200,83,0.06) 0%, transparent 60%);
+  animation: hero-glow 8s ease-in-out infinite alternate;
+}
+@keyframes hero-glow {
+  0%   { opacity: 0.3; transform: translate(0,0) scale(1); }
+  50%  { opacity: 0.7; transform: translate(-30px,20px) scale(1.1); }
+  100% { opacity: 0.4; transform: translate(30px,-10px) scale(1.05); }
+}
+.hero-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero-badge {
+  display: inline-block; padding: 6px 16px;
+  background: var(--accent-glow); border: 1px solid var(--border-accent);
+  border-radius: 20px; font-size: 0.85rem; color: var(--accent);
+  font-weight: 500; margin-bottom: 24px; letter-spacing: 0.5px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--accent), #66ffa6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ==================== PRESS GRID ==================== */
+.press-section {
+  padding: 40px 24px 100px;
+}
+.press-section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+.press-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.press-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text);
+  transition: all var(--transition);
+}
+.press-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-accent);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 24px rgba(0, 200, 83, 0.08);
+  color: var(--text);
+}
+.press-card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--bg-section);
+}
+.press-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background: linear-gradient(0deg, rgba(18, 30, 23, 0.9) 0%, transparent 100%);
+}
+/* Fallback when no image */
+.press-card-image.no-image {
+  background: linear-gradient(135deg, #0c1410 0%, #182a20 50%, #121e17 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.press-card-image.no-image::before {
+  content: 'OrbiFarm\00AE';
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-dim);
+  opacity: 0.3;
+  letter-spacing: -0.5px;
+  z-index: 1;
+}
+.press-source {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--accent);
+  color: var(--bg-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+.press-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.press-date {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.press-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+.press-card:hover .press-title {
+  color: var(--accent);
+}
+.press-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+.press-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  transition: gap var(--transition);
+}
+.press-card:hover .press-read-more {
+  gap: 10px;
+}
+
+/* ==================== EMPTY STATE ==================== */
+.press-empty {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+
+/* ==================== LOADING SKELETON ==================== */
+.press-skeleton {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.press-skeleton .skel-img {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+.press-skeleton .skel-body {
+  padding: 20px;
+}
+.press-skeleton .skel-line {
+  height: 14px;
+  background: linear-gradient(90deg, var(--border) 25%, var(--bg-card-hover) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.press-skeleton .skel-line.short { width: 40%; }
+.press-skeleton .skel-line.medium { width: 80%; }
+.press-skeleton .skel-line.full { width: 100%; }
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ==================== REVEAL ANIMATIONS ==================== */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ==================== FOOTER ==================== */
+.footer { padding: 32px 24px; border-top: 1px solid var(--border); background: var(--bg-dark); }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-copy { color: var(--text-dim); font-size: 0.85rem; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--text-dim); font-size: 0.85rem; }
+.footer-links a:hover { color: var(--text-muted); }
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .press-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column; position: absolute;
+    top: 64px; left: 0; right: 0; background: rgba(8,13,10,0.97);
+    padding: 24px; gap: 20px; border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu-btn { display: block; }
+  .press-grid { grid-template-columns: 1fr; }
+  .hero { padding: 100px 20px 40px; }
+  .press-section { padding: 30px 16px 80px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .press-card-image { height: 170px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo">Orbi<span>Farm</span>®</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" data-i18n="nav.back">Back to Website</a></li>
+      <li><a href="press.html" class="nav-press-active" data-i18n="nav.press">Press</a></li>
+      <li><a href="invest.html" class="nav-invest" data-i18n="nav.invest">Invest</a></li>
+      <li>
+        <div class="lang-toggle">
+          <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+          <button class="lang-btn" onclick="setLanguage('de')">DE</button>
+        </div>
+      </li>
+    </ul>
+    <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-badge" data-i18n="hero.badge">Media Coverage</div>
+    <h1><span class="highlight" data-i18n="hero.title">Press & Media</span></h1>
+    <p data-i18n="hero.subtitle">Latest coverage and articles about OrbiFarm®</p>
+  </div>
+</section>
+
+<!-- ==================== PRESS ARTICLES ==================== -->
+<section class="press-section">
+  <div class="press-section-inner">
+    <div class="press-grid" id="pressGrid">
+      <!-- Loading skeletons -->
+      <div class="press-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line short"></div><div class="skel-line full"></div><div class="skel-line medium"></div></div></div>
+      <div class="press-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line short"></div><div class="skel-line full"></div><div class="skel-line medium"></div></div></div>
+      <div class="press-skeleton"><div class="skel-img"></div><div class="skel-body"><div class="skel-line short"></div><div class="skel-line full"></div><div class="skel-line medium"></div></div></div>
+    </div>
+    <div class="press-empty" id="pressEmpty" style="display:none;" data-i18n="press.empty">No articles found.</div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-copy">&copy; 2026 OrbiFarm® GmbH. <span data-i18n="footer.rights">All rights reserved.</span></div>
+    <div class="footer-links">
+      <a href="/#imprint" data-i18n="footer.imprint">Imprint</a>
+      <a href="/#privacy" data-i18n="footer.privacy">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ==================== i18n ====================
+const LANG = {
+  en: {
+    "nav.back": "Back to Website",
+    "nav.press": "Press",
+    "nav.invest": "Invest",
+    "hero.badge": "Media Coverage",
+    "hero.title": "Press & Media",
+    "hero.subtitle": "Latest coverage and articles about OrbiFarm®",
+    "press.readmore": "Read Article",
+    "press.empty": "No articles found.",
+    "footer.rights": "All rights reserved.",
+    "footer.imprint": "Imprint",
+    "footer.privacy": "Privacy Policy"
+  },
+  de: {
+    "nav.back": "Zur Website",
+    "nav.press": "Presse",
+    "nav.invest": "Investieren",
+    "hero.badge": "Medienberichterstattung",
+    "hero.title": "Presse & Medien",
+    "hero.subtitle": "Aktuelle Berichterstattung und Artikel \u00fcber OrbiFarm®",
+    "press.readmore": "Artikel lesen",
+    "press.empty": "Keine Artikel gefunden.",
+    "footer.rights": "Alle Rechte vorbehalten.",
+    "footer.imprint": "Impressum",
+    "footer.privacy": "Datenschutz"
+  }
+};
+
+let currentLang = 'en';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() === lang.toUpperCase());
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (LANG[lang] && LANG[lang][key]) el.textContent = LANG[lang][key];
+  });
+  document.documentElement.lang = lang;
+  // Re-render articles with new date format
+  if (window._pressArticles) renderArticles(window._pressArticles);
+}
+
+// ==================== DATE FORMATTING ====================
+function formatDate(dateStr, lang) {
+  const d = new Date(dateStr + 'T00:00:00');
+  if (isNaN(d.getTime())) return dateStr;
+  if (lang === 'de') {
+    return d.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+// ==================== RENDER ARTICLES ====================
+function renderArticles(articles) {
+  const grid = document.getElementById('pressGrid');
+  const empty = document.getElementById('pressEmpty');
+
+  if (!articles || articles.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+
+  empty.style.display = 'none';
+
+  // Sort by date descending
+  articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const readMore = LANG[currentLang]['press.readmore'] || 'Read Article';
+
+  grid.innerHTML = articles.map(article => {
+    const hasImage = article.image && article.image.trim() !== '';
+    const imageClass = hasImage ? 'press-card-image' : 'press-card-image no-image';
+    const imageStyle = hasImage ? ` style="background-image: url('${article.image.replace(/'/g, "\\'")}')"` : '';
+    const title = (currentLang === 'de' && article.title_de) ? article.title_de : article.title;
+    const desc = (currentLang === 'de' && article.description_de) ? article.description_de : article.description;
+    const dateFormatted = formatDate(article.date, currentLang);
+
+    return `<a href="${article.url}" target="_blank" rel="noopener noreferrer" class="press-card reveal">
+  <div class="${imageClass}"${imageStyle}>
+    <span class="press-source">${article.source}</span>
+  </div>
+  <div class="press-card-body">
+    <time class="press-date" datetime="${article.date}">${dateFormatted}</time>
+    <h3 class="press-title">${title}</h3>
+    <p class="press-desc">${desc}</p>
+    <span class="press-read-more">${readMore} &rarr;</span>
+  </div>
+</a>`;
+  }).join('');
+
+  // Re-observe reveal elements
+  document.querySelectorAll('.press-card.reveal').forEach(el => observer.observe(el));
+}
+
+// ==================== FETCH DATA ====================
+fetch('press-data.json')
+  .then(res => {
+    if (!res.ok) throw new Error('Failed to load press data');
+    return res.json();
+  })
+  .then(data => {
+    window._pressArticles = data.articles || data;
+    renderArticles(window._pressArticles);
+  })
+  .catch(err => {
+    console.warn('Could not load press-data.json:', err);
+    document.getElementById('pressGrid').innerHTML = '';
+    document.getElementById('pressEmpty').style.display = 'block';
+  });
+
+// ==================== MOBILE MENU ====================
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ==================== SCROLL REVEAL ====================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('visible');
+    observer.unobserve(entry.target);
+  });
+}, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
