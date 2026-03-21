@@ -1,0 +1,125 @@
+name: Fetch OrbiFarm Press Articles
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  fetch-press:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch new press articles from NewsAPI
+        env:
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ ! -f press-data.json ] || ! jq empty press-data.json 2>/dev/null; then
+            echo "[]" > press-data.json
+          fi
+
+          EXISTING_URLS=$(jq -r '.[].url // empty' press-data.json | sort -u)
+
+          FROM_DATE=$(date -u -d '7 days ago' '+%Y-%m-%d' 2>/dev/null || date -u -v-7d '+%Y-%m-%d')
+
+          QUERIES=(
+            "OrbiFarm"
+            "Orbifarm"
+            '"vertical farming" AND Orbifarm'
+            '"vertical farming" AND "Jan Bredack"'
+            '"Orbifarm" AND "Jan Bredack"'
+          )
+
+          ALL_RESULTS=$(mktemp)
+          echo "[]" > "$ALL_RESULTS"
+
+          for QUERY in "${QUERIES[@]}"; do
+            echo "::group::Querying: $QUERY"
+            ENCODED_QUERY=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''$QUERY'''))")
+
+            RESPONSE=$(curl -sf --retry 3 --retry-delay 5 \
+              "https://newsapi.org/v2/everything?q=${ENCODED_QUERY}&from=${FROM_DATE}&sortBy=publishedAt&pageSize=100&apiKey=${NEWSAPI_KEY}" \
+              2>&1) || {
+              echo "::warning::API request failed for query: $QUERY"
+              echo "::endgroup::"
+              continue
+            }
+
+            STATUS=$(echo "$RESPONSE" | jq -r '.status // "error"')
+            if [ "$STATUS" != "ok" ]; then
+              MSG=$(echo "$RESPONSE" | jq -r '.message // "unknown error"')
+              echo "::warning::API returned status '$STATUS' for query '$QUERY': $MSG"
+              echo "::endgroup::"
+              continue
+            fi
+
+            ARTICLES=$(echo "$RESPONSE" | jq -c '[.articles[]? | {
+              title: (.title // "Untitled"),
+              source: (.source.name // "Unknown"),
+              date: ((.publishedAt // "")[0:10]),
+              url: (.url // ""),
+              image: (.urlToImage // null),
+              description: (.description // null)
+            }] | map(select(.url != ""))') || {
+              echo "::warning::Failed to parse articles for query: $QUERY"
+              echo "::endgroup::"
+              continue
+            }
+
+            COUNT=$(echo "$ARTICLES" | jq 'length')
+            echo "Found $COUNT articles for query: $QUERY"
+
+            MERGED=$(jq -s '.[0] + .[1]' "$ALL_RESULTS" <(echo "$ARTICLES"))
+            echo "$MERGED" > "$ALL_RESULTS"
+
+            echo "::endgroup::"
+            sleep 1
+          done
+
+          UNIQUE_FETCHED=$(jq 'group_by(.url) | map(.[0])' "$ALL_RESULTS")
+
+          NEW_ARTICLES=$(echo "$UNIQUE_FETCHED" | jq --slurpfile existing press-data.json '
+            ($existing[0] | map(.url) | sort) as $known |
+            map(select(.url as $u | ($known | bsearch($u)) < 0))
+          ')
+
+          NEW_COUNT=$(echo "$NEW_ARTICLES" | jq 'length')
+          echo "New articles after deduplication: $NEW_COUNT"
+
+          if [ "$NEW_COUNT" -eq 0 ]; then
+            echo "No new articles found. Exiting."
+            echo "HAS_NEW=false" >> "$GITHUB_ENV"
+            rm -f "$ALL_RESULTS"
+            exit 0
+          fi
+
+          UPDATED=$(jq -s '.[0] + .[1] | sort_by(.date) | reverse' press-data.json <(echo "$NEW_ARTICLES"))
+          echo "$UPDATED" | jq '.' > press-data.json
+
+          PR_BODY="## New press articles\n\n"
+          PR_BODY+=$(echo "$NEW_ARTICLES" | jq -r '.[] | "- **\(.title)** (\(.source), \(.date))\n  \(.url)"')
+          PR_BODY+="\n\n---\n*Found $NEW_COUNT new article(s) via NewsAPI.org*"
+
+          echo "HAS_NEW=true" >> "$GITHUB_ENV"
+          echo "$PR_BODY" > /tmp/pr-body.md
+
+          rm -f "$ALL_RESULTS"
+
+      - name: Create Pull Request
+        if: env.HAS_NEW == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Add new press articles"
+          branch: press/new-articles
+          delete-branch: true
+          title: "New press articles found"
+          body-path: /tmp/pr-body.md
