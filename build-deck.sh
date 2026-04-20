@@ -39,6 +39,8 @@ USED_IMAGES=(
   "facility-aisle.png"
   "jan-bredack.jpg"
   "maja-bredack.jpeg"
+  "jan-gerd-frerichs.jpg"
+  "lara-pook.jpg"
 )
 # Remove stale files from a previous build so deletions propagate.
 find "$OUT_DIR/images" -mindepth 1 -maxdepth 1 -delete
