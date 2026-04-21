@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /OrbiFarm_Calculation_Tool.html
+Disallow: /invest-deck/
 
 Sitemap: https://orbi.farm/sitemap.xml

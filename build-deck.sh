@@ -69,5 +69,20 @@ cp "$SRC_HTML" "$TMP/index.html"
 cp "$TMP/out/index.html" "$OUT_DIR/index.html"
 rm -rf "$TMP"
 
+echo "==> Rendering PDF via headless Chrome"
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+if [ ! -x "$CHROME" ]; then
+  echo "WARN: Chrome not found at $CHROME — skipping PDF step" >&2
+else
+  SRC_URL="file://$(python3 -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))' "$SRC_HTML")"
+  "$CHROME" \
+    --headless=new --disable-gpu --no-sandbox \
+    --print-to-pdf="$OUT_DIR/OrbiFarm-Pitch-Deck.pdf" \
+    --print-to-pdf-no-header \
+    --virtual-time-budget=15000 \
+    "$SRC_URL" 2>&1 | grep -vE "^(Trying|\[)" || true
+  echo "   PDF: $OUT_DIR/OrbiFarm-Pitch-Deck.pdf ($(du -h "$OUT_DIR/OrbiFarm-Pitch-Deck.pdf" | cut -f1))"
+fi
+
 echo "==> Done. Output: $OUT_DIR"
 echo "   (source HTML stays in iCloud; never committed)"
