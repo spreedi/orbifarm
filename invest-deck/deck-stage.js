@@ -549,13 +549,38 @@
     }
 
     _onTapBack(e) {
+      if (this._passThroughInteractive(e)) return;
       e.preventDefault();
       this._go(this._index - 1, 'tap');
     }
 
     _onTapForward(e) {
+      if (this._passThroughInteractive(e)) return;
       e.preventDefault();
       this._go(this._index + 1, 'tap');
+    }
+
+    /* Let taps that land on interactive slide content (links, buttons, form
+       fields) trigger their native behavior instead of navigating. The tap
+       zones sit above everything on mobile, so without this check, a tap on
+       a download/mailto link just advances the deck. */
+    _passThroughInteractive(e) {
+      const zone = e.currentTarget;
+      if (!zone) return false;
+      const savedPE = zone.style.pointerEvents;
+      zone.style.pointerEvents = 'none';
+      let hit = null;
+      try { hit = document.elementFromPoint(e.clientX, e.clientY); }
+      finally { zone.style.pointerEvents = savedPE; }
+      if (!hit) return false;
+      const interactive = hit.closest(
+        'a[href], button, input, select, textarea, label, [data-deck-interactive]'
+      );
+      if (!interactive) return false;
+      // Re-dispatch on the real target so native behavior (download, mailto,
+      // target=_blank) fires inside the user-activation window.
+      interactive.click();
+      return true;
     }
 
     _onKey(e) {
