@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OrbiFarm® — Vertical Farming & TCEA Platform | Indoor Agriculture</title>
 <meta name="description" content="OrbiFarm® — the most versatile vertical farming platform. Patented conveyor-based indoor agriculture, 120x yield, 95% less water, -95% CAPEX. Pharma &amp; food grade plant factory for medicinal plants, herbs &amp; leafy greens.">
+<!-- Three.js importmap for 3D Loop module -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
 <!-- Open Graph / Social Media Preview -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://orbi.farm/">
@@ -643,6 +652,59 @@ section { padding: 100px 24px; }
   .hero-buttons { flex-direction: column; align-items: stretch; }
   .btn { justify-content: center; }
 }
+/* ==================== 3D LOOP MODULE ==================== */
+.loop3d-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 64px);
+  min-height: 520px;
+  max-height: 900px;
+  margin: 0 auto 48px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #05030a;
+  overflow: hidden;
+}
+.loop3d-container::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  z-index: 5; pointer-events: none;
+}
+.loop3d-hint {
+  position: absolute;
+  bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(8, 13, 10, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.5s ease;
+}
+.loop3d-hint.fade-out { opacity: 0; }
+.loop3d-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: #05030a;
+  z-index: 10;
+  transition: opacity 0.6s ease;
+}
+.loop3d-loading.fade-out { opacity: 0; pointer-events: none; }
+.loop3d-loading-spinner {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 3px solid rgba(0, 200, 83, 0.2);
+  border-top-color: var(--accent);
+  animation: loop3d-spin 1s linear infinite;
+}
+@keyframes loop3d-spin { to { transform: rotate(360deg); } }
+@media (max-width: 768px) {
+  .loop3d-container { height: 60vh; min-height: 400px; }
+}
 </style>
 </head>
 <body>
@@ -703,8 +765,17 @@ section { padding: 100px 24px; }
       <p data-i18n="tech.subtitle">Our patented, conveyor-based continuous production concept maximises growing area within minimal floor space, enabling industrial-scale production of high-value crops.</p>
     </div>
 
-    <!-- Animated Loop System Diagram -->
-    <div class="loop-animation-container reveal">
+    <!-- Interactive 3D Loop Module -->
+    <div id="loop3d" class="loop3d-container reveal">
+      <div class="loop3d-loading" id="loop3d-loading">
+        <div class="loop3d-loading-spinner"></div>
+      </div>
+      <div class="loop3d-hint" id="loop3d-hint" data-i18n="loop.hint">
+        Click &amp; drag to rotate · Scroll to zoom
+      </div>
+    </div>
+    <!-- Legacy 2D SVG fallback (hidden; kept for no-WebGL browsers) -->
+    <div class="loop-animation-container reveal" style="display:none;" id="loop2d-fallback">
       <svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OrbiFarm® Loop System">
         <defs>
           <linearGradient id="reservoirGrad" x1="0" y1="0" x2="0" y2="1">
@@ -1286,7 +1357,7 @@ const LANG = {
     "photo.render1.title": "Farm Facility", "photo.render1.desc": "Industrial-scale indoor farming facility with multiple loop modules",
     "photo.render2.title": "Inside the Farm", "photo.render2.desc": "Continuous moving loop modules with optimised LED lighting for maximum growth",
     "photo.render3.title": "Module Detail", "photo.render3.desc": "Close-up view of the patented loop system with continuous moving conveyor belt",
-    "loop.seeds": "Seeds /", "loop.seeds2": "Seedlings", "loop.harvest": "Harvest /", "loop.harvest2": "next process step", "loop.height": "Up to 12 m", "loop.led": "LED Lighting",
+    "loop.seeds": "Seeds /", "loop.seeds2": "Seedlings", "loop.harvest": "Harvest /", "loop.harvest2": "next process step", "loop.height": "Up to 12 m", "loop.led": "LED Lighting", "loop.hint": "Click & drag to rotate \u00b7 Scroll to zoom",
     "loop.aeroponics": "Aeroponics", "loop.reservoir": "Nutrient Reservoir", "loop.belt": "Conveyor Belt",
     "adv.label": "Why OrbiFarm®", "adv.title": "Plant Factory, Pharma-ready",
     "adv.subtitle": "A full-scale TCEA platform that combines grow experience, automation know-how and bioprocess technology \u2014 based on a decade of experience in indoor farming \u2014 to deliver unmatched unit economics.",
@@ -1341,7 +1412,7 @@ const LANG = {
     "photo.render1.title": "Farm-Anlage", "photo.render1.desc": "Industrielle Indoor-Farming-Anlage mit mehreren Loop-Modulen",
     "photo.render2.title": "Im Inneren der Farm", "photo.render2.desc": "Kontinuierlich bewegende Loop-Module mit optimierter LED-Beleuchtung f\u00fcr maximales Wachstum",
     "photo.render3.title": "Modul-Detail", "photo.render3.desc": "Nahaufnahme des patentierten Loop-Systems mit kontinuierlich bewegendem F\u00f6rderband",
-    "loop.seeds": "Saatgut /", "loop.seeds2": "Setzlinge", "loop.harvest": "Ernte /", "loop.harvest2": "n\u00e4chster Prozessschritt", "loop.height": "Bis zu 12 m", "loop.led": "LED-Beleuchtung",
+    "loop.seeds": "Saatgut /", "loop.seeds2": "Setzlinge", "loop.harvest": "Ernte /", "loop.harvest2": "n\u00e4chster Prozessschritt", "loop.height": "Bis zu 12 m", "loop.led": "LED-Beleuchtung", "loop.hint": "Klicken & ziehen zum Drehen \u00b7 Scrollen zum Zoomen",
     "loop.aeroponics": "Aeroponik", "loop.reservoir": "N\u00e4hrstoffreservoir", "loop.belt": "F\u00f6rderband",
     "adv.label": "Warum OrbiFarm®", "adv.title": "Plant Factory, Pharma-ready",
     "adv.subtitle": "Eine Plattform f\u00fcr vollst\u00e4ndig kontrollierte Pflanzenproduktion, die Anbauerfahrung, Automatisierungs-Know-how und Bioprocess-Technologie vereint \u2014 basierend auf einem Jahrzehnt Erfahrung im Indoor Farming \u2014 f\u00fcr unerreichte Wirtschaftlichkeit.",
@@ -1832,6 +1903,54 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // ==================== INIT ====================
 applyGating();
 updateCalc();
+</script>
+
+<!-- ==================== 3D LOOP MODULE INIT ==================== -->
+<script type="module">
+  import { initLoop3D } from './assets/loop-3d-module.js';
+
+  const container = document.getElementById('loop3d');
+  const loading   = document.getElementById('loop3d-loading');
+  const hint      = document.getElementById('loop3d-hint');
+  const fallback  = document.getElementById('loop2d-fallback');
+
+  function hasWebGL() {
+    try {
+      const c = document.createElement('canvas');
+      return !!(window.WebGLRenderingContext &&
+        (c.getContext('webgl') || c.getContext('experimental-webgl')));
+    } catch (e) { return false; }
+  }
+
+  if (container && hasWebGL()) {
+    // Lazy-init: build the 3D scene only when the container enters the viewport
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        observer.disconnect();
+        try {
+          initLoop3D(container, {
+            autoRotate: true,       // slow auto-orbit until user interacts
+            pauseWhenHidden: true,  // stop animating when scrolled out of view
+          });
+          setTimeout(() => loading && loading.classList.add('fade-out'), 400);
+          setTimeout(() => loading && loading.remove(), 1000);
+          setTimeout(() => hint && hint.classList.add('fade-out'), 6000);
+          setTimeout(() => hint && hint.remove(), 7000);
+        } catch (err) {
+          console.error('[loop3d] init failed:', err);
+          if (loading) loading.style.display = 'none';
+          // Show 2D SVG fallback on init failure
+          if (container) container.style.display = 'none';
+          if (fallback) fallback.style.display = '';
+        }
+      }
+    }, { threshold: 0.05 });
+    observer.observe(container);
+  } else if (container) {
+    // No WebGL: hide 3D container, show 2D SVG fallback
+    container.style.display = 'none';
+    if (fallback) fallback.style.display = '';
+  }
 </script>
 </body>
 </html>
