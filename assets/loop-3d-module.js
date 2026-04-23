@@ -1188,8 +1188,115 @@ root.add(buildEndMarkers());
 const harvestRobot = buildHarvestRobot();
 root.add(harvestRobot);
 
+// ---------------------------------------------------------------------------
+// 3D LABELS — sprite-based callouts at key module components.
+// Labels always face the camera (billboard behaviour) and render on top so they
+// stay legible through the mesh geometry.
+// ---------------------------------------------------------------------------
+function makeLabelSprite(text) {
+  const fontSize = 40;
+  const padding = 20;
+  const dotSize = 8;
+  const fontFamily = "600 " + fontSize + "px 'Segoe UI', system-ui, -apple-system, sans-serif";
+
+  // Measure on a scratch context
+  const measure = document.createElement('canvas').getContext('2d');
+  measure.font = fontFamily;
+  const textW = Math.ceil(measure.measureText(text).width);
+  const dotSpace = dotSize * 2 + 12;
+
+  const w = textW + dotSpace + padding * 2;
+  const h = fontSize + padding;
+
+  // Draw at 2× for crispness
+  const scale = 2;
+  const canvas = document.createElement('canvas');
+  canvas.width  = w * scale;
+  canvas.height = h * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(scale, scale);
+
+  // Rounded rect (manual, for broad compatibility)
+  const r = 10;
+  ctx.fillStyle   = 'rgba(8, 13, 10, 0.88)';
+  ctx.strokeStyle = '#00c853';
+  ctx.lineWidth   = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(r, 0);
+  ctx.lineTo(w - r, 0);
+  ctx.quadraticCurveTo(w, 0, w, r);
+  ctx.lineTo(w, h - r);
+  ctx.quadraticCurveTo(w, h, w - r, h);
+  ctx.lineTo(r, h);
+  ctx.quadraticCurveTo(0, h, 0, h - r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  // Accent dot
+  ctx.fillStyle = '#00c853';
+  ctx.beginPath();
+  ctx.arc(padding + dotSize, h / 2, dotSize, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Text
+  ctx.fillStyle = '#e8f5e9';
+  ctx.font = fontFamily;
+  ctx.textBaseline = 'middle';
+  ctx.fillText(text, padding + dotSpace, h / 2);
+
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  tex.minFilter = THREE.LinearFilter;
+  tex.magFilter = THREE.LinearFilter;
+  tex.needsUpdate = true;
+
+  const mat = new THREE.SpriteMaterial({
+    map: tex,
+    transparent: true,
+    depthTest:  false,   // always visible over geometry
+    depthWrite: false,
+  });
+  const sprite = new THREE.Sprite(mat);
+  sprite.renderOrder = 999;
+
+  // World size: aim for ~18 cm label height, aspect-correct width
+  const labelHeight = 0.18;
+  const aspect = w / h;
+  sprite.scale.set(labelHeight * aspect, labelHeight, 1);
+
+  return sprite;
+}
+
+const labelsGroup = new THREE.Group();
+labelsGroup.name = 'labels';
+
+// Seed Area — above intake stub, left side, low
+const seedLabel = makeLabelSprite('Seed Area');
+seedLabel.position.set(-MODULE_WIDTH / 2 - 0.55, 0.55, 0);
+labelsGroup.add(seedLabel);
+
+// Aeroponics — mid-left, above loop spray chambers
+const aeroLabel = makeLabelSprite('Aeroponics');
+aeroLabel.position.set(-MODULE_WIDTH / 4, MODULE_HEIGHT / 2 + 0.25, 0);
+labelsGroup.add(aeroLabel);
+
+// LED Lighting — above top, between loops
+const ledLabel = makeLabelSprite('LED Lighting');
+ledLabel.position.set(MODULE_WIDTH / 4, MODULE_HEIGHT + 0.35, 0);
+labelsGroup.add(ledLabel);
+
+// Harvest Area — above robot arm, right side
+const harvestLabel = makeLabelSprite('Harvest Area');
+harvestLabel.position.set(MODULE_WIDTH / 2 + 0.75, 1.85, 0);
+labelsGroup.add(harvestLabel);
+
+scene.add(labelsGroup);
+
 // Pods evenly spaced along entire path
-const POD_COUNT = 200;
+const POD_COUNT = 280;
 const pods = [];
 for (let i = 0; i < POD_COUNT; i++) {
   const p = new Pod(i / POD_COUNT);
