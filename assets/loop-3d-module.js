@@ -205,7 +205,7 @@ scene.add(new THREE.HemisphereLight(0xc9b3ff, 0x0a0514, 0.5));
 const keyLight = new THREE.DirectionalLight(0xffffff, 1.3);
 keyLight.position.set(5, 6, 5);
 keyLight.castShadow = true;
-keyLight.shadow.mapSize.set(2048, 2048);
+keyLight.shadow.mapSize.set(1024, 1024);   // 1024² is plenty for the small area we cast onto
 keyLight.shadow.camera.left   = -3;
 keyLight.shadow.camera.right  =  3;
 keyLight.shadow.camera.top    =  3.5;
@@ -792,21 +792,62 @@ function buildFrame() {
 // ---------------------------------------------------------------------------
 const LEAF_COLORS = [0xb8d945, 0x9dd25c, 0x7fc24a, 0x6fc24a, 0x55963a, 0x4fa839];
 
+// ---------------------------------------------------------------------------
+// POD COMPONENT POOLS
+// Shared geometries & materials to avoid tens of thousands of allocations
+// during scene init. Marked with userData.shared so _rebuild disposal skips
+// them. This changed the init cost of ~30k ShapeGeometry + ~23k
+// CylinderGeometry + 2k BoxGeometry allocations into ~12 total, a massive
+// improvement in scene build time and memory.
+// ---------------------------------------------------------------------------
+function _mkLeafGeo(W) {
+  // Leaf shape drawn in normalized coordinates (length = 1). Per-leaf size
+  // comes from mesh.scale so all leaves reference the same geometry.
+  const L = 1;
+  const s = new THREE.Shape();
+  s.moveTo(0, 0);
+  s.bezierCurveTo(W * 0.5, W * 0.25, W, W * 0.45, L * 0.6, W * 0.1);
+  s.bezierCurveTo(L * 0.9, W * 0.05, L, 0, L, 0);
+  s.bezierCurveTo(L * 0.9, -W * 0.05, L * 0.6, -W * 0.1, L * 0.4, -W * 0.1);
+  s.bezierCurveTo(W * 0.2, -W * 0.25, 0, -W * 0.1, 0, 0);
+  const g = new THREE.ShapeGeometry(s, 6);
+  g.userData.shared = true;
+  return g;
+}
+// 6 leaf templates with varying width-to-length ratios for organic variety.
+const _LEAF_GEOS = [
+  _mkLeafGeo(0.42), _mkLeafGeo(0.48), _mkLeafGeo(0.52),
+  _mkLeafGeo(0.56), _mkLeafGeo(0.60), _mkLeafGeo(0.46),
+];
+
+const _POD_TRAY_GEO = new THREE.BoxGeometry(0.045, 0.028, 0.14);
+_POD_TRAY_GEO.userData.shared = true;
+
+const _POD_TRAY_MAT = new THREE.MeshStandardMaterial({
+  color: 0x3a3040, metalness: 0.55, roughness: 0.4,
+});
+_POD_TRAY_MAT.userData.shared = true;
+
+const _POD_ROOT_MAT = new THREE.MeshStandardMaterial({ color: 0xf0e2c0, roughness: 0.95 });
+_POD_ROOT_MAT.userData.shared = true;
+
+// Root: unit-length cylinder; meshes scale on Y to desired root length.
+const _POD_ROOT_GEO = new THREE.CylinderGeometry(0.0008, 0.0018, 1.0, 4);
+_POD_ROOT_GEO.userData.shared = true;
+
+const _POD_STEM_GEO = new THREE.CylinderGeometry(0.003, 0.004, 0.015, 6);
+_POD_STEM_GEO.userData.shared = true;
+
 function buildPod(stage) {
   const group = new THREE.Group();
 
-  // Pod / tray — grey box, mounted on belt. Local axes: +X = outward (plant),
-  // -X = roots into spray chamber, Z = along belt width.
-  const podMat = new THREE.MeshStandardMaterial({
-    color: 0x3a3040, metalness: 0.55, roughness: 0.4,
-  });
-  const pod = new THREE.Mesh(new THREE.BoxGeometry(0.045, 0.028, 0.14), podMat);
+  // Pod / tray — grey box, shared geometry + material across all pods
+  const pod = new THREE.Mesh(_POD_TRAY_GEO, _POD_TRAY_MAT);
   pod.castShadow = true;
   group.add(pod);
 
   // --- Leaves ---------------------------------------------------------------
-  // Build a rosette of leaves emanating outward (+X) from pod face, with
-  // natural variation. Leaf count and size scale with growth stage.
+  // Per-pod material (colour depends on stage), but geometry is pooled.
   const leafColor = new THREE.Color().lerpColors(
     new THREE.Color(0xb8d945),   // young lime
     new THREE.Color(0x3f8f2a),   // mature deep green
@@ -818,73 +859,60 @@ function buildPod(stage) {
     side: THREE.DoubleSide,
   });
 
-  const leafSize = 0.026 + Math.pow(stage, 0.7) * 0.14;   // cm — larger plants
+  const leafSize  = 0.026 + Math.pow(stage, 0.7) * 0.14;
   const leafCount = 8 + Math.floor(Math.pow(stage, 0.6) * 18);
 
   for (let i = 0; i < leafCount; i++) {
-    // Use a simple leaf shape built from a Shape
-    const leafShape = new THREE.Shape();
-    const L = leafSize * (0.8 + Math.random() * 0.4);
-    const W = L * (0.45 + Math.random() * 0.15);
-    leafShape.moveTo(0, 0);
-    leafShape.bezierCurveTo(W * 0.5, W * 0.25, W, W * 0.45, L * 0.6, W * 0.1);
-    leafShape.bezierCurveTo(L * 0.9, W * 0.05, L, 0, L, 0);
-    leafShape.bezierCurveTo(L * 0.9, -W * 0.05, L * 0.6, -W * 0.1, L * 0.4, -W * 0.1);
-    leafShape.bezierCurveTo(W * 0.2, -W * 0.25, 0, -W * 0.1, 0, 0);
-    const leafGeo = new THREE.ShapeGeometry(leafShape, 6);
-    const leaf = new THREE.Mesh(leafGeo, leafMat);
+    // Pick a random leaf template from the pool
+    const geo  = _LEAF_GEOS[(Math.random() * _LEAF_GEOS.length) | 0];
+    const leaf = new THREE.Mesh(geo, leafMat);
 
-    // Distribute around +X hemisphere: azimuth around X-axis, tilt outward
+    // Size variation via scale (geometry is normalised to length 1)
+    const s = leafSize * (0.8 + Math.random() * 0.4);
+    leaf.scale.set(s, s, 1);
+
+    // Orientation around pod's outward (+X) axis
     const azimuth = (i / leafCount) * Math.PI * 2 + Math.random() * 0.4;
-    const tiltOut = Math.PI * 0.15 + Math.random() * Math.PI * 0.3;   // leaves point mostly outward with slight spread
+    const tiltOut = Math.PI * 0.15 + Math.random() * Math.PI * 0.3;
 
-    // Position leaf base on pod face (at +X)
     const baseR = 0.022;
     leaf.position.set(
       baseR + Math.random() * 0.005,
       Math.sin(azimuth) * baseR * 0.5,
       Math.cos(azimuth) * baseR * 0.5,
     );
-
-    // Build leaf orientation: leaf's local X axis points outward from pod,
-    // rotated around pod's X axis by azimuth, then tilted outward by tiltOut.
     leaf.rotation.order = 'YXZ';
-    leaf.rotation.x = azimuth;                                     // rotate leaf plane around X to spread around
-    leaf.rotation.z = -Math.PI / 2 + tiltOut;                      // tilt from X toward Y
-    leaf.rotation.y = (Math.random() - 0.5) * 0.5;                 // slight twist
+    leaf.rotation.x = azimuth;
+    leaf.rotation.z = -Math.PI / 2 + tiltOut;
+    leaf.rotation.y = (Math.random() - 0.5) * 0.5;
 
-    leaf.castShadow = true;
-    leaf.receiveShadow = true;
+    // Leaves skip shadows — at typical viewing distance individual leaf
+    // shadows aren't distinguishable and rendering tens of thousands of
+    // shadow-casters is a major perf hit. Pod trays still cast shadows.
     group.add(leaf);
   }
 
-  // Central bud/stem
+  // Central bud/stem — shared geometry
   if (stage < 0.25) {
-    const stem = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.003, 0.004, 0.015, 6),
-      leafMat,
-    );
+    const stem = new THREE.Mesh(_POD_STEM_GEO, leafMat);
     stem.position.set(0.022, 0, 0);
     stem.rotation.z = -Math.PI / 2;
     group.add(stem);
   }
 
-  // --- Roots (-X into spray chamber) ---------------------------------------
-  const rootMat = new THREE.MeshStandardMaterial({ color: 0xf0e2c0, roughness: 0.95 });
-  const rootCount = 5 + Math.floor(Math.pow(stage, 0.8) * 12);
+  // --- Roots (-X into spray chamber) — shared geometry + material ----------
+  const rootCount  = 5 + Math.floor(Math.pow(stage, 0.8) * 12);
   const rootMaxLen = 0.04 + stage * 0.11;
   for (let i = 0; i < rootCount; i++) {
-    const len = rootMaxLen * (0.5 + Math.random() * 0.5);
-    const rg = new THREE.CylinderGeometry(0.0008, 0.0018, len, 4);
-    const root = new THREE.Mesh(rg, rootMat);
-    // Orient along -X
-    root.rotation.z = Math.PI / 2;
+    const len  = rootMaxLen * (0.5 + Math.random() * 0.5);
+    const root = new THREE.Mesh(_POD_ROOT_GEO, _POD_ROOT_MAT);
+    root.scale.set(1, len, 1);            // unit geo scaled to desired length
+    root.rotation.z = Math.PI / 2;        // orient along -X
     root.position.set(
       -len / 2 - 0.014,
       (Math.random() - 0.5) * 0.018,
       (Math.random() - 0.5) * 0.06,
     );
-    // Slight random splay
     root.rotation.y = (Math.random() - 0.5) * 0.7;
     root.rotation.x = (Math.random() - 0.5) * 0.5;
     group.add(root);
@@ -922,9 +950,12 @@ class Pod {
   _rebuild(stage) {
     if (this.inner) {
       this.group.remove(this.inner);
+      // Only dispose NON-shared resources — the leaf/root/tray geometries and
+      // tray/root materials are pooled across all pods and must persist.
+      // Only the per-pod stage-coloured leafMat is disposed here.
       this.inner.traverse(o => {
-        if (o.geometry) o.geometry.dispose();
-        if (o.material) {
+        if (o.geometry && !o.geometry.userData.shared) o.geometry.dispose();
+        if (o.material && !o.material.userData.shared) {
           if (Array.isArray(o.material)) o.material.forEach(m => m.dispose());
           else o.material.dispose();
         }

@@ -41,6 +41,9 @@
 <link rel="preconnect" href="https://cdn-investnow.tokenize.it" crossorigin>
 <link rel="preconnect" href="https://app.tokenize.it" crossorigin>
 <link rel="dns-prefetch" href="https://app.tokenize.it">
+<!-- Preconnect to Three.js CDN so the 3D loop module can start fetching instantly when it enters the viewport -->
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="dns-prefetch" href="https://unpkg.com">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -1915,7 +1918,7 @@ updateCalc();
 
 <!-- ==================== 3D LOOP MODULE INIT ==================== -->
 <script type="module">
-  import { initLoop3D } from './assets/loop-3d-module.js?v=4';
+  import { initLoop3D } from './assets/loop-3d-module.js?v=5';
 
   const container = document.getElementById('loop3d');
   const loading   = document.getElementById('loop3d-loading');
