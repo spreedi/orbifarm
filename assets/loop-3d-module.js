@@ -100,15 +100,101 @@ controls.enableDamping = true;
 controls.dampingFactor = 0.08;
 controls.minDistance = 2;
 controls.maxDistance = 15;
-controls.autoRotate = autoRotate;
-controls.autoRotateSpeed = 0.35;
-// Stop auto-rotate the first time the user interacts
+controls.autoRotate = false;  // We drive camera manually for a cinematic flyover
+
+// ---------------------------------------------------------------------------
+// CINEMATIC CAMERA FLYOVER
+// When idle, the camera smoothly tours key angles around the installation:
+// wide shot → seed intake closeup → high side view → near top-down → harvest
+// closeup → back wide → repeat. Pauses instantly on user interaction and
+// resumes after IDLE_RESUME_DELAY seconds, smoothly blending from the user's
+// last viewpoint into the cinematic path.
+// ---------------------------------------------------------------------------
+const cinematicKeyframes = [
+  // Wide front-right (default entry shot)
+  { pos: new THREE.Vector3( 3.8,  2.4,  5.2), target: new THREE.Vector3( 0.0,  MODULE_HEIGHT * 0.5, 0) },
+  // Close intake — seeds/seedlings in focus
+  { pos: new THREE.Vector3(-3.2,  1.3,  3.8), target: new THREE.Vector3(-MODULE_WIDTH / 2 - 0.3, 0.4, 0) },
+  // High front-left overview
+  { pos: new THREE.Vector3(-4.5,  3.4,  2.0), target: new THREE.Vector3(-1.5, 1.4, 0) },
+  // Near top-down (bird's-eye sweep)
+  { pos: new THREE.Vector3( 0.3,  5.2,  1.2), target: new THREE.Vector3( 0.0, 1.0, 0) },
+  // Harvest closeup — robot + outlet
+  { pos: new THREE.Vector3( 5.0,  2.0,  2.5), target: new THREE.Vector3( MODULE_WIDTH / 2 + 0.2, 1.6, 0) },
+  // Back high — reverse-angle wide
+  { pos: new THREE.Vector3( 0.8,  3.2, -5.0), target: new THREE.Vector3( 0.0, 1.4, 0) },
+  // Back low — low reverse angle
+  { pos: new THREE.Vector3(-2.5,  1.6, -4.2), target: new THREE.Vector3(-0.5, 1.1, 0) },
+];
+
+const CINE_SEGMENT_DURATION  = 5.5;   // seconds per segment (~38 s full cycle)
+const CINE_IDLE_RESUME_DELAY = 12;    // seconds of idle before resuming
+const CINE_RESUME_BLEND      = 2.5;   // seconds to blend back into cinematic
+
+let cinematicActive   = autoRotate;
+let cinematicElapsed  = 0;
+let idleSinceT        = -1;
+let resumeBlendT      = 1;            // 1 = fully cinematic
+let currentSceneTime  = 0;            // updated each animate() frame
+const _resumeFromPos    = new THREE.Vector3();
+const _resumeFromTarget = new THREE.Vector3();
+const _posInterp        = new THREE.Vector3();
+const _tgtInterp        = new THREE.Vector3();
+const _blendVec         = new THREE.Vector3();
+
+function cineEaseInOut(x) {
+  return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+}
+
+function updateCinematic(dt, t) {
+  // Auto-resume after idle
+  if (!cinematicActive && idleSinceT > 0 && (t - idleSinceT) >= CINE_IDLE_RESUME_DELAY) {
+    cinematicActive = true;
+    _resumeFromPos.copy(camera.position);
+    _resumeFromTarget.copy(controls.target);
+    resumeBlendT = 0;
+    cinematicElapsed = 0;
+  }
+
+  if (!cinematicActive) return;
+
+  cinematicElapsed += dt;
+  if (resumeBlendT < 1) {
+    resumeBlendT = Math.min(1, resumeBlendT + dt / CINE_RESUME_BLEND);
+  }
+
+  const cycle  = cinematicKeyframes.length * CINE_SEGMENT_DURATION;
+  const cT     = cinematicElapsed % cycle;
+  const segIdx = Math.floor(cT / CINE_SEGMENT_DURATION);
+  const localT = (cT % CINE_SEGMENT_DURATION) / CINE_SEGMENT_DURATION;
+  const eased  = cineEaseInOut(localT);
+
+  const kfA = cinematicKeyframes[segIdx];
+  const kfB = cinematicKeyframes[(segIdx + 1) % cinematicKeyframes.length];
+
+  _posInterp.lerpVectors(kfA.pos,    kfB.pos,    eased);
+  _tgtInterp.lerpVectors(kfA.target, kfB.target, eased);
+
+  if (resumeBlendT < 1) {
+    const be = cineEaseInOut(resumeBlendT);
+    camera.position.lerpVectors(_resumeFromPos, _posInterp, be);
+    _blendVec.lerpVectors(_resumeFromTarget, _tgtInterp, be);
+    controls.target.copy(_blendVec);
+  } else {
+    camera.position.copy(_posInterp);
+    controls.target.copy(_tgtInterp);
+  }
+}
+
+// Track interaction — pause cinematic instantly, resume after idle.
 let userHasInteracted = false;
 controls.addEventListener('start', () => {
-  if (!userHasInteracted) {
-    userHasInteracted = true;
-    controls.autoRotate = false;
-  }
+  userHasInteracted = true;
+  cinematicActive = false;
+  idleSinceT = -1;
+});
+controls.addEventListener('end', () => {
+  idleSinceT = currentSceneTime;
 });
 
 // ---------------------------------------------------------------------------
@@ -1350,6 +1436,8 @@ let rafId = 0;
 function animate() {
   const dt = clock.getDelta();
   const t  = clock.getElapsedTime();
+  currentSceneTime = t;
+  updateCinematic(dt, t);
   baseT = (baseT + dt * SPEED) % 1;
   for (const p of pods) p.update(baseT);
 
