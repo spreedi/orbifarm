@@ -75,7 +75,9 @@ function loopCX(i) {
 // Renderer + scene
 // ---------------------------------------------------------------------------
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// Cap at 1.5 — on a 2x retina display, 2x renders 4× the pixels for marginal
+// crispness gain, 1.5x is still sharp and ~44% faster on the GPU.
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 renderer.setSize(getW(), getH());
 renderer.setClearColor(0x05030a, 1);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -92,7 +94,8 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x0a0514, 0.025);
 
 const camera = new THREE.PerspectiveCamera(38, getW() / getH(), 0.05, 100);
-camera.position.set(3.5, 2.2, 5.0);
+// Start angle ≈ 0.61 rad so the orbit picks up seamlessly from here
+camera.position.set(3.55, 2.4, 5.05);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, MODULE_HEIGHT / 2, 0);
@@ -103,98 +106,88 @@ controls.maxDistance = 15;
 controls.autoRotate = false;  // We drive camera manually for a cinematic flyover
 
 // ---------------------------------------------------------------------------
-// CINEMATIC CAMERA FLYOVER
-// When idle, the camera smoothly tours key angles around the installation:
-// wide shot → seed intake closeup → high side view → near top-down → harvest
-// closeup → back wide → repeat. Pauses instantly on user interaction and
-// resumes after IDLE_RESUME_DELAY seconds, smoothly blending from the user's
-// last viewpoint into the cinematic path.
+// AUTO ORBIT
+// Simple 360° horizontal orbit around the installation at a constant radius
+// and height — no zoom-in/out, no altitude change. Feels calm and lets the
+// viewer take in details at their own pace.
+// Pauses instantly on user interaction (drag / wheel / pinch) and resumes
+// 12 s after the last interaction, smoothly blending from the user's current
+// viewpoint back onto the orbit path so there's no visible jump.
 // ---------------------------------------------------------------------------
-const cinematicKeyframes = [
-  // Wide front-right (default entry shot)
-  { pos: new THREE.Vector3( 3.8,  2.4,  5.2), target: new THREE.Vector3( 0.0,  MODULE_HEIGHT * 0.5, 0) },
-  // Close intake — seeds/seedlings in focus
-  { pos: new THREE.Vector3(-3.2,  1.3,  3.8), target: new THREE.Vector3(-MODULE_WIDTH / 2 - 0.3, 0.4, 0) },
-  // High front-left overview
-  { pos: new THREE.Vector3(-4.5,  3.4,  2.0), target: new THREE.Vector3(-1.5, 1.4, 0) },
-  // Near top-down (bird's-eye sweep)
-  { pos: new THREE.Vector3( 0.3,  5.2,  1.2), target: new THREE.Vector3( 0.0, 1.0, 0) },
-  // Harvest closeup — robot + outlet
-  { pos: new THREE.Vector3( 5.0,  2.0,  2.5), target: new THREE.Vector3( MODULE_WIDTH / 2 + 0.2, 1.6, 0) },
-  // Back high — reverse-angle wide
-  { pos: new THREE.Vector3( 0.8,  3.2, -5.0), target: new THREE.Vector3( 0.0, 1.4, 0) },
-  // Back low — low reverse angle
-  { pos: new THREE.Vector3(-2.5,  1.6, -4.2), target: new THREE.Vector3(-0.5, 1.1, 0) },
-];
+const ORBIT_RADIUS   = 6.4;                                         // m
+const ORBIT_HEIGHT   = 2.4;                                         // camera Y (m)
+const ORBIT_DURATION = 90;                                          // seconds per full 360°
+const ORBIT_IDLE_RESUME_DELAY = 12;
+const ORBIT_RESUME_BLEND      = 2.5;
+const ORBIT_TARGET   = new THREE.Vector3(0, MODULE_HEIGHT / 2, 0);
 
-const CINE_SEGMENT_DURATION  = 5.5;   // seconds per segment (~38 s full cycle)
-const CINE_IDLE_RESUME_DELAY = 12;    // seconds of idle before resuming
-const CINE_RESUME_BLEND      = 2.5;   // seconds to blend back into cinematic
+let orbitActive        = autoRotate;
+let orbitAngle         = 0.61;                 // rad — matches initial camera position
+let orbitIdleSinceT    = -1;
+let orbitResumeBlend   = 1;                    // 1 = fully on orbit path
+let currentSceneTime   = 0;                    // updated each animate() frame
+const _orbitResumePos  = new THREE.Vector3();
+const _orbitResumeTgt  = new THREE.Vector3();
 
-let cinematicActive   = autoRotate;
-let cinematicElapsed  = 0;
-let idleSinceT        = -1;
-let resumeBlendT      = 1;            // 1 = fully cinematic
-let currentSceneTime  = 0;            // updated each animate() frame
-const _resumeFromPos    = new THREE.Vector3();
-const _resumeFromTarget = new THREE.Vector3();
-const _posInterp        = new THREE.Vector3();
-const _tgtInterp        = new THREE.Vector3();
-const _blendVec         = new THREE.Vector3();
-
-function cineEaseInOut(x) {
-  return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+function easeInOutSine(x) {
+  return -(Math.cos(Math.PI * x) - 1) / 2;
 }
 
-function updateCinematic(dt, t) {
-  // Auto-resume after idle
-  if (!cinematicActive && idleSinceT > 0 && (t - idleSinceT) >= CINE_IDLE_RESUME_DELAY) {
-    cinematicActive = true;
-    _resumeFromPos.copy(camera.position);
-    _resumeFromTarget.copy(controls.target);
-    resumeBlendT = 0;
-    cinematicElapsed = 0;
+function updateOrbit(dt, t) {
+  // Resume from idle
+  if (!orbitActive && orbitIdleSinceT > 0 && (t - orbitIdleSinceT) >= ORBIT_IDLE_RESUME_DELAY) {
+    orbitActive = true;
+    _orbitResumePos.copy(camera.position);
+    _orbitResumeTgt.copy(controls.target);
+    // Sync orbitAngle to the user's current azimuth so the orbit continues
+    // from where they left off (no snap).
+    const dx = camera.position.x - ORBIT_TARGET.x;
+    const dz = camera.position.z - ORBIT_TARGET.z;
+    orbitAngle = Math.atan2(dx, dz);
+    orbitResumeBlend = 0;
   }
 
-  if (!cinematicActive) return;
+  if (!orbitActive) return;
 
-  cinematicElapsed += dt;
-  if (resumeBlendT < 1) {
-    resumeBlendT = Math.min(1, resumeBlendT + dt / CINE_RESUME_BLEND);
+  // Advance angle uniformly (constant angular speed → smooth motion)
+  orbitAngle += (Math.PI * 2 / ORBIT_DURATION) * dt;
+  if (orbitAngle > Math.PI) orbitAngle -= Math.PI * 2;
+
+  if (orbitResumeBlend < 1) {
+    orbitResumeBlend = Math.min(1, orbitResumeBlend + dt / ORBIT_RESUME_BLEND);
   }
 
-  const cycle  = cinematicKeyframes.length * CINE_SEGMENT_DURATION;
-  const cT     = cinematicElapsed % cycle;
-  const segIdx = Math.floor(cT / CINE_SEGMENT_DURATION);
-  const localT = (cT % CINE_SEGMENT_DURATION) / CINE_SEGMENT_DURATION;
-  const eased  = cineEaseInOut(localT);
+  const orbitX = ORBIT_TARGET.x + Math.sin(orbitAngle) * ORBIT_RADIUS;
+  const orbitZ = ORBIT_TARGET.z + Math.cos(orbitAngle) * ORBIT_RADIUS;
+  const orbitY = ORBIT_HEIGHT;
 
-  const kfA = cinematicKeyframes[segIdx];
-  const kfB = cinematicKeyframes[(segIdx + 1) % cinematicKeyframes.length];
-
-  _posInterp.lerpVectors(kfA.pos,    kfB.pos,    eased);
-  _tgtInterp.lerpVectors(kfA.target, kfB.target, eased);
-
-  if (resumeBlendT < 1) {
-    const be = cineEaseInOut(resumeBlendT);
-    camera.position.lerpVectors(_resumeFromPos, _posInterp, be);
-    _blendVec.lerpVectors(_resumeFromTarget, _tgtInterp, be);
-    controls.target.copy(_blendVec);
+  if (orbitResumeBlend < 1) {
+    const be = easeInOutSine(orbitResumeBlend);
+    camera.position.set(
+      _orbitResumePos.x + (orbitX - _orbitResumePos.x) * be,
+      _orbitResumePos.y + (orbitY - _orbitResumePos.y) * be,
+      _orbitResumePos.z + (orbitZ - _orbitResumePos.z) * be,
+    );
+    controls.target.set(
+      _orbitResumeTgt.x + (ORBIT_TARGET.x - _orbitResumeTgt.x) * be,
+      _orbitResumeTgt.y + (ORBIT_TARGET.y - _orbitResumeTgt.y) * be,
+      _orbitResumeTgt.z + (ORBIT_TARGET.z - _orbitResumeTgt.z) * be,
+    );
   } else {
-    camera.position.copy(_posInterp);
-    controls.target.copy(_tgtInterp);
+    camera.position.set(orbitX, orbitY, orbitZ);
+    controls.target.copy(ORBIT_TARGET);
   }
 }
 
-// Track interaction — pause cinematic instantly, resume after idle.
+// Track interaction — pause orbit instantly, resume after idle.
 let userHasInteracted = false;
 controls.addEventListener('start', () => {
   userHasInteracted = true;
-  cinematicActive = false;
-  idleSinceT = -1;
+  orbitActive = false;
+  orbitIdleSinceT = -1;
 });
 controls.addEventListener('end', () => {
-  idleSinceT = currentSceneTime;
+  orbitIdleSinceT = currentSceneTime;
 });
 
 // ---------------------------------------------------------------------------
@@ -328,31 +321,43 @@ function buildBeltSegments() {
 const { segs: BELT_SEGS, totalLength: BELT_LENGTH } = buildBeltSegments();
 
 // Sample position, tangent, outward at parameter t ∈ [0,1]
+// Returns a SHARED result object (mutated in place each call). Do not hold
+// references between calls. Called ~280 times per frame — allocating Vector3s
+// here would produce 17k garbage objects/second.
+const _beltResult = {
+  pos:     new THREE.Vector3(),
+  tangent: new THREE.Vector3(),
+  outward: new THREE.Vector3(),
+};
 function sampleBelt(t) {
   t = Math.max(0, Math.min(1, t));
   for (const s of BELT_SEGS) {
     if (t >= s.t0 && t <= s.t1 + 1e-9) {
       const u = (t - s.t0) / Math.max(1e-9, s.t1 - s.t0);
       if (s.kind === 'line') {
-        const pos = new THREE.Vector3().lerpVectors(s.p0, s.p1, u);
-        const tan = new THREE.Vector3().subVectors(s.p1, s.p0).normalize();
-        return { pos, tangent: tan, outward: s.outward.clone() };
+        _beltResult.pos.lerpVectors(s.p0, s.p1, u);
+        _beltResult.tangent.subVectors(s.p1, s.p0).normalize();
+        _beltResult.outward.copy(s.outward);
+        return _beltResult;
       } else {
-        // arc: angle interpolated from aStart → aEnd
         const ang = s.aStart + (s.aEnd - s.aStart) * u;
-        const x = s.centre.x + s.radius * Math.cos(ang);
-        const y = s.centre.y + s.radius * Math.sin(ang);
-        const pos = new THREE.Vector3(x, y, 0);
+        _beltResult.pos.set(
+          s.centre.x + s.radius * Math.cos(ang),
+          s.centre.y + s.radius * Math.sin(ang),
+          0,
+        );
         const tanSign = s.aEnd > s.aStart ? +1 : -1;
-        const tan = new THREE.Vector3(-Math.sin(ang) * tanSign, Math.cos(ang) * tanSign, 0).normalize();
-        // outward = radial direction from arc centre
-        const outward = new THREE.Vector3(Math.cos(ang), Math.sin(ang), 0);
-        return { pos, tangent: tan, outward };
+        _beltResult.tangent.set(-Math.sin(ang) * tanSign, Math.cos(ang) * tanSign, 0).normalize();
+        _beltResult.outward.set(Math.cos(ang), Math.sin(ang), 0);
+        return _beltResult;
       }
     }
   }
-  // fallback
-  return { pos: new THREE.Vector3(), tangent: new THREE.Vector3(1,0,0), outward: new THREE.Vector3(0,1,0) };
+  // fallback — mutate the shared result to keep behaviour allocation-free
+  _beltResult.pos.set(0, 0, 0);
+  _beltResult.tangent.set(1, 0, 0);
+  _beltResult.outward.set(0, 1, 0);
+  return _beltResult;
 }
 
 // ---------------------------------------------------------------------------
@@ -939,6 +944,14 @@ function buildPodRow(stage) {
   return group;
 }
 
+// Module-level scratch vectors for Pod.update() — reused every frame across
+// all 280 pods to avoid ~1,400 Vector3 allocations per second.
+const _Z_AXIS = new THREE.Vector3(0, 0, 1);
+const _podSX  = new THREE.Vector3();
+const _podSY  = new THREE.Vector3();
+const _podSZ  = new THREE.Vector3();
+const _podM   = new THREE.Matrix4();
+
 class Pod {
   constructor(offset) {
     this.offset = offset;
@@ -976,25 +989,24 @@ class Pod {
       this._rebuild(t);
     }
 
-    const { pos, outward } = sampleBelt(t);
-    this.group.position.copy(pos);
+    // sampleBelt returns a SHARED object — don't hold references, copy only.
+    const r = sampleBelt(t);
+    this.group.position.copy(r.pos);
 
     // Build an orthonormal basis where:
     //   local X = outward (where plants face)
     //   local Z = belt width (always world Z, since belt lies in X–Y plane)
     //   local Y = z × x  (along belt flow direction)
-    // This ensures the pod-row spread axis (local Z) stays aligned with the
-    // belt width on ALL segments — including horizontal intake/outlet stubs
-    // where the previous "up-based" basis collapsed to a degenerate case,
-    // causing the whole row to pile up at z=0.
-    const x = outward.clone().normalize();
-    const zWorld = new THREE.Vector3(0, 0, 1);
-    let z = zWorld.clone().sub(x.clone().multiplyScalar(x.dot(zWorld)));
-    if (z.lengthSq() < 1e-6) z.set(0, 0, 1);   // safety fallback (never hit in this scene)
-    z.normalize();
-    const y = new THREE.Vector3().crossVectors(z, x);
-    const m = new THREE.Matrix4().makeBasis(x, y, z);
-    this.group.quaternion.setFromRotationMatrix(m);
+    // Uses module-level scratch vectors to avoid any per-frame allocations —
+    // this runs 280× per frame at 60fps (= 16,800 calls/s).
+    _podSX.copy(r.outward).normalize();
+    const dotXZ = _podSX.dot(_Z_AXIS);
+    _podSZ.copy(_Z_AXIS).addScaledVector(_podSX, -dotXZ);
+    if (_podSZ.lengthSq() < 1e-6) _podSZ.set(0, 0, 1);
+    _podSZ.normalize();
+    _podSY.crossVectors(_podSZ, _podSX);
+    _podM.makeBasis(_podSX, _podSY, _podSZ);
+    this.group.quaternion.setFromRotationMatrix(_podM);
   }
 }
 
@@ -1476,7 +1488,7 @@ function animate() {
   const dt = clock.getDelta();
   const t  = clock.getElapsedTime();
   currentSceneTime = t;
-  updateCinematic(dt, t);
+  updateOrbit(dt, t);
   baseT = (baseT + dt * SPEED) % 1;
   for (const p of pods) p.update(baseT);
 
