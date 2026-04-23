@@ -948,12 +948,20 @@ class Pod {
     const { pos, outward } = sampleBelt(t);
     this.group.position.copy(pos);
 
+    // Build an orthonormal basis where:
+    //   local X = outward (where plants face)
+    //   local Z = belt width (always world Z, since belt lies in X–Y plane)
+    //   local Y = z × x  (along belt flow direction)
+    // This ensures the pod-row spread axis (local Z) stays aligned with the
+    // belt width on ALL segments — including horizontal intake/outlet stubs
+    // where the previous "up-based" basis collapsed to a degenerate case,
+    // causing the whole row to pile up at z=0.
     const x = outward.clone().normalize();
-    const up = new THREE.Vector3(0, 1, 0);
-    let y = up.clone().sub(x.clone().multiplyScalar(x.dot(up)));
-    if (y.lengthSq() < 1e-6) y = new THREE.Vector3(0, 0, 1);
-    y.normalize();
-    const z = new THREE.Vector3().crossVectors(x, y);
+    const zWorld = new THREE.Vector3(0, 0, 1);
+    let z = zWorld.clone().sub(x.clone().multiplyScalar(x.dot(zWorld)));
+    if (z.lengthSq() < 1e-6) z.set(0, 0, 1);   // safety fallback (never hit in this scene)
+    z.normalize();
+    const y = new THREE.Vector3().crossVectors(z, x);
     const m = new THREE.Matrix4().makeBasis(x, y, z);
     this.group.quaternion.setFromRotationMatrix(m);
   }
