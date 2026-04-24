@@ -1,4 +1,4 @@
-name: Fetch OrbiFarm Press Articles
+name: Fetch CEAG Industry Press Articles
 
 on:
   schedule:
@@ -16,39 +16,58 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch new press articles from NewsAPI
+      - name: Fetch press articles from NewsAPI
         env:
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
         run: |
           set -euo pipefail
 
+          # Ensure press-data.json exists and is valid JSON array
           if [ ! -f press-data.json ] || ! jq empty press-data.json 2>/dev/null; then
             echo "[]" > press-data.json
           fi
 
-          EXISTING_URLS=$(jq -r '.[].url // empty' press-data.json | sort -u)
+          EXISTING_COUNT=$(jq 'length' press-data.json)
+          echo "=== Existing press-data.json has $EXISTING_COUNT articles ==="
 
-          FROM_DATE=$(date -u -d '7 days ago' '+%Y-%m-%d' 2>/dev/null || date -u -v-7d '+%Y-%m-%d')
+          # 30-day window ‚Äî NewsAPI free tier permits up to ~1 month lookback
+          FROM_DATE=$(date -u -d '30 days ago' '+%Y-%m-%d' 2>/dev/null || date -u -v-30d '+%Y-%m-%d')
+          echo "=== Fetching articles from $FROM_DATE onward ==="
 
+          # Queries:
+          #   orbifarm ‚Üí firmenspezifisch (tag: orbifarm)
+          #   alles andere ‚Üí CEA industry news (tag: industry)
+          # Format: "CATEGORY|LANGUAGE|QUERY" (pipe-separated, LANGUAGE=en|de)
           QUERIES=(
-            "OrbiFarm"
-            "Orbifarm"
-            '"vertical farming" AND Orbifarm'
-            '"vertical farming" AND "Jan Bredack"'
-            '"Orbifarm" AND "Jan Bredack"'
+            "orbifarm|en|OrbiFarm"
+            "orbifarm|en|Orbifarm"
+            "orbifarm|en|\"Jan Bredack\""
+            "industry|en|\"vertical farming\""
+            "industry|en|\"indoor farming\""
+            "industry|en|\"controlled environment agriculture\""
+            "industry|en|\"plant factory\""
+            "industry|de|\"Vertical Farming\""
+            "industry|de|\"Indoor Farming\""
           )
 
           ALL_RESULTS=$(mktemp)
           echo "[]" > "$ALL_RESULTS"
+          TOTAL_FETCHED=0
 
-          for QUERY in "${QUERIES[@]}"; do
-            echo "::group::Querying: $QUERY"
+          for ENTRY in "${QUERIES[@]}"; do
+            CATEGORY="${ENTRY%%|*}"
+            REST="${ENTRY#*|}"
+            LANGUAGE="${REST%%|*}"
+            QUERY="${REST#*|}"
+
+            echo "::group::[$CATEGORY/$LANGUAGE] Query: $QUERY"
+
             ENCODED_QUERY=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''$QUERY'''))")
 
-            RESPONSE=$(curl -sf --retry 3 --retry-delay 5 \
-              "https://newsapi.org/v2/everything?q=${ENCODED_QUERY}&from=${FROM_DATE}&sortBy=publishedAt&pageSize=100&apiKey=${NEWSAPI_KEY}" \
-              2>&1) || {
-              echo "::warning::API request failed for query: $QUERY"
+            URL="https://newsapi.org/v2/everything?q=${ENCODED_QUERY}&from=${FROM_DATE}&language=${LANGUAGE}&sortBy=publishedAt&pageSize=50&apiKey=${NEWSAPI_KEY}"
+
+            RESPONSE=$(curl -sf --retry 3 --retry-delay 5 "$URL" 2>&1) || {
+              echo "::warning::API request failed for query: $QUERY ($LANGUAGE)"
               echo "::endgroup::"
               continue
             }
@@ -56,60 +75,121 @@ jobs:
             STATUS=$(echo "$RESPONSE" | jq -r '.status // "error"')
             if [ "$STATUS" != "ok" ]; then
               MSG=$(echo "$RESPONSE" | jq -r '.message // "unknown error"')
-              echo "::warning::API returned status '$STATUS' for query '$QUERY': $MSG"
+              echo "::warning::API returned status '$STATUS' for '$QUERY' ($LANGUAGE): $MSG"
               echo "::endgroup::"
               continue
             fi
 
-            ARTICLES=$(echo "$RESPONSE" | jq -c '[.articles[]? | {
-              title: (.title // "Untitled"),
-              source: (.source.name // "Unknown"),
-              date: ((.publishedAt // "")[0:10]),
-              url: (.url // ""),
-              image: (.urlToImage // null),
-              description: (.description // null)
-            }] | map(select(.url != ""))') || {
+            TOTAL_RESULTS=$(echo "$RESPONSE" | jq -r '.totalResults // 0')
+            echo "NewsAPI reported $TOTAL_RESULTS total results (fetching up to 50)"
+
+            # Extract articles, tag with category
+            ARTICLES=$(echo "$RESPONSE" | jq -c --arg cat "$CATEGORY" '[
+              .articles[]? | {
+                title: (.title // "Untitled"),
+                source: (.source.name // "Unknown"),
+                date: ((.publishedAt // "")[0:10]),
+                url: (.url // ""),
+                image: (.urlToImage // ""),
+                description: (.description // ""),
+                category: $cat
+              }
+            ] | map(select(.url != "" and .title != "[Removed]"))') || {
               echo "::warning::Failed to parse articles for query: $QUERY"
               echo "::endgroup::"
               continue
             }
 
             COUNT=$(echo "$ARTICLES" | jq 'length')
-            echo "Found $COUNT articles for query: $QUERY"
+            TOTAL_FETCHED=$((TOTAL_FETCHED + COUNT))
+            echo "Extracted $COUNT usable articles for this query"
 
             MERGED=$(jq -s '.[0] + .[1]' "$ALL_RESULTS" <(echo "$ARTICLES"))
             echo "$MERGED" > "$ALL_RESULTS"
 
             echo "::endgroup::"
-            sleep 1
+            sleep 1   # rate-limit kindness
           done
 
-          UNIQUE_FETCHED=$(jq 'group_by(.url) | map(.[0])' "$ALL_RESULTS")
+          echo "=== Total articles fetched across all queries: $TOTAL_FETCHED ==="
 
+          # Deduplicate fetched results by URL
+          # When the same URL appears across multiple queries, keep the entry
+          # with the "orbifarm" category (it's more specific than "industry").
+          UNIQUE_FETCHED=$(jq '
+            group_by(.url) | map(
+              if any(.category == "orbifarm")
+              then (map(select(.category == "orbifarm")) | .[0])
+              else .[0]
+              end
+            )
+          ' "$ALL_RESULTS")
+
+          UNIQUE_COUNT=$(echo "$UNIQUE_FETCHED" | jq 'length')
+          echo "After dedup by URL: $UNIQUE_COUNT unique articles"
+
+          # Filter out articles already in press-data.json (by URL)
+          # Also filter by title hash to catch aggregator mirrors with different URLs.
           NEW_ARTICLES=$(echo "$UNIQUE_FETCHED" | jq --slurpfile existing press-data.json '
-            ($existing[0] | map(.url) | sort) as $known |
-            map(select(.url as $u | ($known | bsearch($u)) < 0))
+            ($existing[0] | map(.url) | sort) as $knownUrls |
+            ($existing[0] | map(.title | ascii_downcase) | sort) as $knownTitles |
+            map(select(
+              (.url as $u | ($knownUrls | index($u)) == null) and
+              (.title as $t | ($knownTitles | index($t | ascii_downcase)) == null)
+            ))
           ')
 
           NEW_COUNT=$(echo "$NEW_ARTICLES" | jq 'length')
-          echo "New articles after deduplication: $NEW_COUNT"
+          echo "=== After removing duplicates vs press-data.json: $NEW_COUNT truly new articles ==="
 
           if [ "$NEW_COUNT" -eq 0 ]; then
-            echo "No new articles found. Exiting."
+            echo "No new articles found. Exiting without PR."
             echo "HAS_NEW=false" >> "$GITHUB_ENV"
             rm -f "$ALL_RESULTS"
             exit 0
           fi
 
+          # Cap at 25 articles per run to avoid giant PRs. Keep the newest ones.
+          MAX_PER_RUN=25
+          if [ "$NEW_COUNT" -gt "$MAX_PER_RUN" ]; then
+            echo "Capping at $MAX_PER_RUN newest articles (was $NEW_COUNT)"
+            NEW_ARTICLES=$(echo "$NEW_ARTICLES" | jq --argjson n "$MAX_PER_RUN" 'sort_by(.date) | reverse | .[0:$n]')
+            NEW_COUNT=$MAX_PER_RUN
+          fi
+
+          # Merge into press-data.json, sort by date descending
           UPDATED=$(jq -s '.[0] + .[1] | sort_by(.date) | reverse' press-data.json <(echo "$NEW_ARTICLES"))
           echo "$UPDATED" | jq '.' > press-data.json
 
-          PR_BODY="## New press articles\n\n"
-          PR_BODY+=$(echo "$NEW_ARTICLES" | jq -r '.[] | "- **\(.title)** (\(.source), \(.date))\n  \(.url)"')
-          PR_BODY+="\n\n---\n*Found $NEW_COUNT new article(s) via NewsAPI.org*"
+          FINAL_COUNT=$(jq 'length' press-data.json)
+          echo "=== press-data.json now has $FINAL_COUNT articles ==="
+
+          # Build PR body with category breakdown
+          ORBI_COUNT=$(echo "$NEW_ARTICLES" | jq '[.[] | select(.category == "orbifarm")] | length')
+          INDUSTRY_COUNT=$(echo "$NEW_ARTICLES" | jq '[.[] | select(.category == "industry")] | length')
+
+          {
+            echo "## New press articles ($NEW_COUNT)"
+            echo ""
+            echo "- üü¢ **OrbiFarm-specific:** $ORBI_COUNT"
+            echo "- üîµ **Industry (CEAG):** $INDUSTRY_COUNT"
+            echo ""
+            if [ "$ORBI_COUNT" -gt 0 ]; then
+              echo "### OrbiFarm"
+              echo "$NEW_ARTICLES" | jq -r '.[] | select(.category == "orbifarm") | "- **\(.title)** ‚Äî \(.source), \(.date)\n  \(.url)"'
+              echo ""
+            fi
+            if [ "$INDUSTRY_COUNT" -gt 0 ]; then
+              echo "### Industry"
+              echo "$NEW_ARTICLES" | jq -r '.[] | select(.category == "industry") | "- **\(.title)** ‚Äî \(.source), \(.date)\n  \(.url)"'
+              echo ""
+            fi
+            echo "---"
+            echo "*Fetched via NewsAPI.org ‚Äî 30-day window, EN+DE, ${#QUERIES[@]} queries*"
+          } > /tmp/pr-body.md
 
           echo "HAS_NEW=true" >> "$GITHUB_ENV"
-          echo "$PR_BODY" > /tmp/pr-body.md
+          echo "PR_TITLE=New press articles: ${NEW_COUNT} found (${ORBI_COUNT} OrbiFarm, ${INDUSTRY_COUNT} industry)" >> "$GITHUB_ENV"
 
           rm -f "$ALL_RESULTS"
 
@@ -118,8 +198,9 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Add new press articles"
+          commit-message: "Add new press articles from NewsAPI"
           branch: press/new-articles
           delete-branch: true
-          title: "New press articles found"
+          title: ${{ env.PR_TITLE }}
+          body-path: /tmp/pr-body.md
           body-path: /tmp/pr-body.md
