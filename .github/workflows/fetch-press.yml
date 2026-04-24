@@ -204,3 +204,5 @@ jobs:
           title: ${{ env.PR_TITLE }}
           body-path: /tmp/pr-body.md
         
+
+# Workflow-scope verified: 2026-04-24
