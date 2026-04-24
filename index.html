@@ -527,6 +527,9 @@ section { padding: 100px 24px; }
 .press-preview-item:first-child { border-top: 1px solid var(--border); }
 .press-preview-item:hover { background: var(--bg-card); padding-left: 20px; }
 .press-preview-source { display: inline-block; font-size: 0.7rem; font-weight: 700; color: var(--accent); background: rgba(0,200,83,0.1); padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+.press-preview-category { display: inline-block; font-size: 0.62rem; font-weight: 700; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+.press-preview-category.cat-orbifarm { color: #00c853; background: rgba(0,200,83,0.12); border: 1px solid rgba(0,200,83,0.3); }
+.press-preview-category.cat-industry { color: #4aa3f0; background: rgba(74,163,240,0.12); border: 1px solid rgba(74,163,240,0.3); }
 .press-preview-meta { flex-shrink: 0; width: 120px; display: flex; flex-direction: column; gap: 4px; }
 .press-preview-date { font-size: 0.78rem; color: var(--text-dim); }
 .press-preview-content { flex: 1; min-width: 0; }
@@ -1689,10 +1692,13 @@ async function handleRegister(e) {
         const title = (lang === 'de' && a.title_de) ? a.title_de : a.title;
         const desc = (lang === 'de' && a.description_de) ? a.description_de : (a.description || '');
         const dateStr = new Date(a.date + 'T00:00:00').toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        const category = a.category || 'orbifarm';
+        const catLabel = category === 'industry' ? 'Industry' : 'OrbiFarm';
         return `<a href="${a.url}" target="_blank" rel="noopener" class="press-preview-item">
           <div class="press-preview-meta">
             <span class="press-preview-source">${a.source}</span>
             <span class="press-preview-date">${dateStr}</span>
+            <span class="press-preview-category cat-${category}">${catLabel}</span>
           </div>
           <div class="press-preview-content">
             <h3 class="press-preview-title">${title}</h3>
