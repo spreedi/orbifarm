@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /invest-deck/
 
 Sitemap: https://orbi.farm/sitemap.xml
