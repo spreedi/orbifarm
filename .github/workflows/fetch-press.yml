@@ -189,18 +189,16 @@ jobs:
           } > /tmp/pr-body.md
 
           echo "HAS_NEW=true" >> "$GITHUB_ENV"
-          echo "PR_TITLE=New press articles: ${NEW_COUNT} found (${ORBI_COUNT} OrbiFarm, ${INDUSTRY_COUNT} industry)" >> "$GITHUB_ENV"
+          echo "COMMIT_MSG=Add ${NEW_COUNT} press articles (${ORBI_COUNT} OrbiFarm, ${INDUSTRY_COUNT} industry)" >> "$GITHUB_ENV"
 
           rm -f "$ALL_RESULTS"
 
-      - name: Create Pull Request
+      - name: Commit and push to main
         if: env.HAS_NEW == 'true'
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Add new press articles from NewsAPI"
-          branch: press/new-articles
-          delete-branch: true
-          title: ${{ env.PR_TITLE }}
-          body-path: /tmp/pr-body.md
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add press-data.json
+          git commit -m "${COMMIT_MSG}" -m "Auto-fetched via NewsAPI (30-day window, EN+DE)."
+          git push origin HEAD:main
         
