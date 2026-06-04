@@ -516,6 +516,7 @@
           <option value="all">All Plants</option>
           <option value="Pharma">Pharma</option>
           <option value="Food">Food</option>
+          <option value="Trees">Trees</option>
         </select>
       </div>
       <div class="input-group">
@@ -610,6 +611,16 @@
       <label>Yield (dry)</label>
       <input type="text" inputmode="decimal" id="yield" value="4,50" onfocus="onFieldFocus(this)" onblur="onFieldBlur(this)" oninput="recalculate()">
       <span class="unit">kg/m²/year</span>
+    </div>
+    <div class="input-group" style="display:none;">
+      <label>Plug Density</label>
+      <input type="text" inputmode="decimal" id="plugDensity" value="40" onfocus="onFieldFocus(this)" onblur="onFieldBlur(this)" oninput="recalculate()">
+      <span class="unit">plugs/m²</span>
+    </div>
+    <div class="input-group" style="display:none;">
+      <label>Cycles / Year</label>
+      <input type="text" inputmode="decimal" id="cyclesPerYear" value="3,20" onfocus="onFieldFocus(this)" onblur="onFieldBlur(this)" oninput="recalculate()">
+      <span class="unit">loop grow-on cycles/year</span>
     </div>
     <div class="input-group">
       <label>Product Fraction</label>
@@ -727,7 +738,7 @@
       <canvas id="chartPayback"></canvas>
     </div>
     <div class="chart-box full-width">
-      <h3>Unit Economics per kg</h3>
+      <h3>Unit Economics</h3>
       <canvas id="chartUnitEcon"></canvas>
     </div>
   </div>
@@ -1104,6 +1115,202 @@ const PLANTS = {
     outdoorYield: 0.75, outdoorHarvests: 1, indoorHarvests: 30,
     applications: "Premium organic wheatgrass powder for superfood & supplement markets; Freeze-dried juice for functional beverages; Standardised extracts for nutraceuticals; Green powder blend ingredient; Root biomass for composting & animal feed",
     products: "Organic wheatgrass powder (freeze-dried/low-temp dehydrated); Frozen wheatgrass juice (cold-pressed, flash-frozen); Standardised extract (protein-enriched/chlorophyll-concentrated); Green powder blend ingredient; Root biomass for composting/animal feed"
+  },
+  // ==================== TREES / BAUMSETZLINGE (unit: Plug) ====================
+  "Alnus × spaethii (Purpur-Erle)": {
+    category: "Trees", unit: "Plug", productName: "Purpur-Erle liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 80, cyclesPerYear: 5.5,
+    yield: 440, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.15, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 2.2, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 6,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high urban-climate & stress tolerance; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Gleditsia triacanthos (Gleditschie)": {
+    category: "Trees", unit: "Plug", productName: "Gleditschie liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 55, cyclesPerYear: 4.9,
+    yield: 269.5, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.18, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 2.6, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 5,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — very high heat/drought tolerance (future tree); Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Celtis australis (Zürgelbaum)": {
+    category: "Trees", unit: "Plug", productName: "Zürgelbaum liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 60, cyclesPerYear: 3.7,
+    yield: 222, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.22, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 3.8, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 4,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — very high — Mediterranean future tree; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Acer monspessulanum (Französischer Ahorn)": {
+    category: "Trees", unit: "Plug", productName: "Französischer Ahorn liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 75, cyclesPerYear: 3.4,
+    yield: 255, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.3, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 3.5, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — very high drought/heat tolerance (future tree); Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Prunus avium (Vogelkirsche)": {
+    category: "Trees", unit: "Plug", productName: "Vogelkirsche liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 65, cyclesPerYear: 4,
+    yield: 260, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.22, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 2.4, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 4,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — medium–high, native; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Sorbus aria (Mehlbeere)": {
+    category: "Trees", unit: "Plug", productName: "Mehlbeere liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 60, cyclesPerYear: 3.4,
+    yield: 204, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.32, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 3, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high drought tolerance, calcicole; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Acer campestre (Feldahorn)": {
+    category: "Trees", unit: "Plug", productName: "Feldahorn liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 70, cyclesPerYear: 3.7,
+    yield: 259, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.17, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 2.2, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 4,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high, robust, native; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Quercus cerris (Zerr-Eiche)": {
+    category: "Trees", unit: "Plug", productName: "Zerr-Eiche liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 40, cyclesPerYear: 3.2,
+    yield: 128, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.27, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 3.3, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — very high heat/drought tolerance; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Quercus robur (Stiel-Eiche)": {
+    category: "Trees", unit: "Plug", productName: "Stiel-Eiche liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 40, cyclesPerYear: 3.2,
+    yield: 128, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.24, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 3.2, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — medium–high, native, broad amplitude; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Sorbus torminalis (Elsbeere)": {
+    category: "Trees", unit: "Plug", productName: "Elsbeere liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 60, cyclesPerYear: 3.2,
+    yield: 192, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.42, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 4.5, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high drought tolerance (future tree); Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Ostrya carpinifolia (Hopfenbuche)": {
+    category: "Trees", unit: "Plug", productName: "Hopfenbuche liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 65, cyclesPerYear: 3.2,
+    yield: 208, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.37, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 3.8, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high heat tolerance (future tree); Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Tilia cordata (Winterlinde)": {
+    category: "Trees", unit: "Plug", productName: "Winterlinde liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 75, cyclesPerYear: 2.8,
+    yield: 210, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.24, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 2.6, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — medium–high, native; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
+  },
+  "Carpinus betulus (Hainbuche)": {
+    category: "Trees", unit: "Plug", productName: "Hainbuche liner",
+    modules: 5, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 600000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 61, energyOverhead: 1.2,
+    plugDensity: 75, cyclesPerYear: 2.8,
+    yield: 210, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.2, processingCost: 0.2,
+    personnel: 260000, maintenance: 5, rent: 5, otherOpex: 40000, licenseFee: 10,
+    productPrice: 2.4, sidestreamRevenue: 15000,
+    co2Factor: 0.6, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
+    applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high, native, urban-tolerant; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
+    products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
   }
 };
 
@@ -1136,7 +1343,9 @@ const FIELD_FORMAT = {
   sidestreamRevenue:{ decimals: 0, big: true },
   co2Price:         { decimals: 2, big: false },
   co2Factor:        { decimals: 2, big: false },
-  depreciation:     { decimals: 0, big: false }
+  depreciation:     { decimals: 0, big: false },
+  plugDensity:      { decimals: 0, big: false },
+  cyclesPerYear:    { decimals: 2, big: false }
 };
 
 // Parse a German-formatted or raw string back to a float
@@ -1230,7 +1439,13 @@ function getInputs() {
   const loopHeight = pf('loopHeight') || 12;
   const loopWidth = pf('loopWidth') || 4;
   const areaPerLoop = calcAreaPerLoop(loopHeight, loopWidth);
+  const selPlant = PLANTS[document.getElementById('plant').value] || {};
+  const unit = selPlant.unit || 'kg';
+  const yieldVal = unit === 'Plug'
+    ? (pf('plugDensity') || 0) * (pf('cyclesPerYear') || 0)
+    : (pf('yield') || 0);
   return {
+    unit: unit,
     modules: pf('modules') || 0,
     loops: pf('loops') || 0,
     reserveLoops: pf('reserveLoops') || 0,
@@ -1244,7 +1459,7 @@ function getInputs() {
     lightingHours: pf('lightingHours') || 0,
     lightingIntensity: pf('lightingIntensity') || 0,
     energyOverhead: pf('energyOverhead') || 0,
-    yield: pf('yield') || 0,
+    yield: yieldVal,
     productFraction: pf('productFraction') || 0,
     sidestreamMass: pf('sidestreamMass') || 0,
     nutrientCost: pf('nutrientCost') || 0,
@@ -1336,7 +1551,8 @@ function updatePlantList() {
     if (cat === 'all' || PLANTS[name].category === cat) {
       const opt = document.createElement('option');
       opt.value = name;
-      opt.textContent = `${PLANTS[name].category === 'Pharma' ? '🧬' : '🌿'} ${name}`;
+      const icon = PLANTS[name].category === 'Pharma' ? '🧬' : (PLANTS[name].category === 'Trees' ? '🌳' : '🌿');
+      opt.textContent = `${icon} ${name}`;
       sel.appendChild(opt);
     }
   });
@@ -1350,7 +1566,7 @@ function loadPlantDefaults() {
 
   const fields = ['modules','loops','reserveLoops','loopHeight','loopWidth','auxFactor',
     'capexPerM2','capexAddon','electricityPrice','lightingHours','lightingIntensity','energyOverhead',
-    'yield','productFraction','sidestreamMass','nutrientCost','processingCost',
+    'yield','plugDensity','cyclesPerYear','productFraction','sidestreamMass','nutrientCost','processingCost',
     'personnel','maintenance','rent','otherOpex','licenseFee',
     'productPrice','sidestreamRevenue','co2Factor','co2Price','depreciation'];
 
@@ -1361,7 +1577,33 @@ function loadPlantDefaults() {
     }
   });
   document.getElementById('productName').value = p.productName || '';
+  applyUnitLabels(p.unit || 'kg');
   recalculate();
+}
+
+function applyUnitLabels(unit) {
+  const isTree = unit === 'Plug';
+  const grp = id => { const el = document.getElementById(id); return el ? el.closest('.input-group') : null; };
+  const setLabel = (id, txt) => { const g = grp(id); if (g) { const l = g.querySelector('label'); if (l) l.textContent = txt; } };
+  const setUnit = (id, txt) => { const g = grp(id); if (g) { const u = g.querySelector('.unit'); if (u) u.textContent = txt; } };
+  const show = (id, on) => { const g = grp(id); if (g) g.style.display = on ? '' : 'none'; };
+  show('yield', !isTree);
+  show('plugDensity', isTree);
+  show('cyclesPerYear', isTree);
+  show('sidestreamMass', !isTree);
+  if (isTree) {
+    setLabel('productFraction', 'Sellable Quote');      setUnit('productFraction', '0\u20131 (sellable plugs)');
+    setLabel('nutrientCost', 'Seed + Substrate');       setUnit('nutrientCost', '\u20ac/plug');
+    setLabel('processingCost', 'Potting & Handling');   setUnit('processingCost', '\u20ac/plug');
+    setLabel('productPrice', 'Price per Plug');          setUnit('productPrice', '\u20ac/plug');
+    setLabel('co2Factor', 'CO\u2082 per 1,000 plugs');    setUnit('co2Factor', 'tCO\u2082 / 1,000 plugs');
+  } else {
+    setLabel('productFraction', 'Product Fraction');    setUnit('productFraction', '0\u20131 (biomass \u2192 product)');
+    setLabel('nutrientCost', 'Nutrient / Input Costs'); setUnit('nutrientCost', '\u20ac/kg');
+    setLabel('processingCost', 'Processing & Packaging');setUnit('processingCost', '\u20ac/kg');
+    setLabel('productPrice', 'Product Price');           setUnit('productPrice', '\u20ac/kg');
+    setLabel('co2Factor', 'CO\u2082 per Tonne Biomass');  setUnit('co2Factor', 'tCO\u2082/t');
+  }
 }
 
 function fmt(n, dec=0) {
@@ -1402,10 +1644,12 @@ function renderPlantInfo(inp, r, pd) {
     <div class="info-item"><div class="info-label">Plant</div><div class="info-value">${inp.productName}</div></div>
     <div class="info-item"><div class="info-label">Floor Space</div><div class="info-value">${fmt(Math.round(r.floorSpace))} m²</div></div>
     <div class="info-item"><div class="info-label">Productive Area</div><div class="info-value">${fmt(r.productiveArea)} m²</div></div>
-    <div class="info-item"><div class="info-label">Production</div><div class="info-value">${fmt(r.primaryOutput)} kg/yr</div></div>
+    <div class="info-item"><div class="info-label">Production</div><div class="info-value">${fmt(r.primaryOutput)} ${pd.unit === 'Plug' ? 'plugs' : 'kg'}/yr</div></div>
     <div class="info-item"><div class="info-label">Total CapEx</div><div class="info-value">${fmtEur(r.totalCapex)}</div></div>
     <div class="info-item"><div class="info-label">EBITDA</div><div class="info-value">${fmtEur(r.ebitda)}</div></div>
-    <div class="info-item"><div class="info-label">Yield vs. Field</div><div class="info-value">${yieldFactor > 0 ? fmt(yieldFactor, 1) + 'x' : '–'}</div></div>
+    ${pd.unit === 'Plug'
+      ? `<div class="info-item"><div class="info-label">Cycles / Year</div><div class="info-value">${fmt(pd.cyclesPerYear, 1)}</div></div>`
+      : `<div class="info-item"><div class="info-label">Yield vs. Field</div><div class="info-value">${yieldFactor > 0 ? fmt(yieldFactor, 1) + 'x' : '–'}</div></div>`}
   `;
 }
 
@@ -1423,6 +1667,9 @@ function renderAppProducts(pd) {
 }
 
 function renderKPIs(r, pd) {
+  const u = pd.unit || 'kg';
+  const unitLabel = u === 'Plug' ? 'Plug' : 'kg';
+  const perU = u === 'Plug' ? '\u20ac/plug' : '\u20ac/kg';
   const yieldFactor = pd.outdoorYield > 0 ? (r.annualBiomass / r.productiveArea) / pd.outdoorYield : 0;
   const harvestFactor = pd.outdoorHarvests > 0 ? pd.indoorHarvests / pd.outdoorHarvests : 0;
   const areaFactor = pd.outdoorYield > 0 ? (r.productiveArea / r.floorSpace) * ((r.annualBiomass / r.productiveArea) / pd.outdoorYield) : 0;
@@ -1436,17 +1683,19 @@ function renderKPIs(r, pd) {
     { label: 'EBITDA Margin', value: fmtPct(r.ebitdaMargin), cls: r.ebitdaMargin > 0.5 ? 'highlight' : r.ebitdaMargin > 0 ? '' : 'danger' },
     { label: 'ROI (EBITDA/CapEx)', value: fmtPct(r.roi), cls: r.roi > 0.3 ? 'highlight' : r.roi > 0 ? '' : 'danger' },
     { label: 'Payback', value: r.payback < 100 ? fmt(r.payback, 1) + ' years' : '–', cls: r.payback < 3 ? 'highlight' : r.payback < 5 ? '' : 'warning' },
-    { label: 'Break-Even Price', value: fmt(r.breakEvenPrice, 2) + ' €/kg', cls: '' },
-    { label: 'Production', value: fmt(r.primaryOutput, 0) + ' kg/yr', cls: '' },
+    { label: 'Break-Even Price', value: fmt(r.breakEvenPrice, 2) + ' ' + perU, cls: '' },
+    { label: 'Production', value: fmt(r.primaryOutput, 0) + (u === 'Plug' ? ' plugs/yr' : ' kg/yr'), cls: '' },
     { label: 'Total Energy / Year', value: fmt(r.annualEnergy, 0) + ' kWh', cls: '' },
-    { label: 'Energy/kg', value: fmt(r.energyPerKg, 1) + ' kWh', cls: '' },
-    { label: 'Cost/kg', value: fmt(r.costPerKg, 2) + ' €', cls: '' },
-    { label: 'Revenue/kg', value: fmt(r.revenuePerKg, 2) + ' €', cls: '' },
-    { label: 'Margin/kg', value: fmt(r.marginPerKg, 2) + ' €', cls: r.marginPerKg > 0 ? 'highlight' : 'danger' },
+    { label: 'Energy/' + unitLabel, value: fmt(r.energyPerKg, 1) + ' kWh', cls: '' },
+    { label: 'Cost/' + unitLabel, value: fmt(r.costPerKg, 2) + ' €', cls: '' },
+    { label: 'Revenue/' + unitLabel, value: fmt(r.revenuePerKg, 2) + ' €', cls: '' },
+    { label: 'Margin/' + unitLabel, value: fmt(r.marginPerKg, 2) + ' €', cls: r.marginPerKg > 0 ? 'highlight' : 'danger' },
   ];
 
   // Field comparison KPIs
-  const compKpis = [
+  const compKpis = (u === 'Plug') ? [
+    { label: 'Cycles / Year', value: pd.cyclesPerYear ? fmt(pd.cyclesPerYear, 1) + ' vs. ~1 (field)' : '–', sub: harvestFactor > 0 ? fmt(harvestFactor, 1) + 'x more grow-on cycles per year' : '', cls: 'highlight' },
+  ] : [
     { label: 'Yield vs. Field', value: yieldFactor > 0 ? fmt(yieldFactor, 1) + 'x' : '–', sub: 'OrbiFarm® yield / open-field yield per m²', cls: 'highlight' },
     { label: 'Area Efficiency', value: areaFactor > 0 ? fmt(areaFactor, 1) + 'x' : '–', sub: 'Output per m² floor space vs. field', cls: 'highlight' },
     { label: 'Harvests / Year', value: pd.indoorHarvests ? pd.indoorHarvests + ' vs. ' + pd.outdoorHarvests : '–', sub: harvestFactor > 0 ? fmt(harvestFactor, 1) + 'x more cycles per year' : '', cls: 'highlight' },
@@ -1557,13 +1806,14 @@ function renderCharts(inp, r) {
   });
 
   // Unit Economics
+  const ueU = (inp.unit === 'Plug') ? 'plug' : 'kg';
   destroyChart('chartUnitEcon');
   charts.chartUnitEcon = new Chart(document.getElementById('chartUnitEcon'), {
     type: 'bar',
     data: {
-      labels: ['Price/kg', 'Cost/kg', 'Margin/kg', 'Break-Even/kg'],
+      labels: ['Price/' + ueU, 'Cost/' + ueU, 'Margin/' + ueU, 'Break-Even/' + ueU],
       datasets: [{
-        label: '€/kg',
+        label: '€/' + ueU,
         data: [r.revenuePerKg, r.costPerKg, r.marginPerKg, r.breakEvenPrice],
         backgroundColor: ['#2d8a4e', '#e74c3c', r.marginPerKg >= 0 ? '#4ecdc4' : '#e74c3c', '#f39c12'],
         barThickness: 60
@@ -1583,15 +1833,16 @@ function destroyChart(id) {
 
 function renderSensitivity(inp) {
   const baseR = calculate(inp);
+  const sUnit = (inp.unit === 'Plug') ? 'plug' : 'kg';
   const priceSteps = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0].map(m => Math.round(inp.productPrice * m));
   const yieldSteps = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0].map(m => +(inp.yield * m).toFixed(2));
 
   let html = '<table class="sensitivity-table"><thead><tr><th>Price ↓ / Yield →</th>';
-  yieldSteps.forEach(y => html += `<th>${y} kg/m²</th>`);
+  yieldSteps.forEach(y => html += `<th>${y} ${sUnit}/m²</th>`);
   html += '</tr></thead><tbody>';
 
   priceSteps.forEach(p => {
-    html += `<tr><td>${fmt(p)} €/kg</td>`;
+    html += `<tr><td>${fmt(p)} €/${sUnit}</td>`;
     yieldSteps.forEach(y => {
       const mod = {...inp, productPrice: p, yield: y};
       const res = calculate(mod);
@@ -1611,7 +1862,7 @@ function renderSensitivity(inp) {
   html2 += '</tr></thead><tbody>';
 
   priceSteps.forEach(p => {
-    html2 += `<tr><td>${fmt(p)} €/kg</td>`;
+    html2 += `<tr><td>${fmt(p)} €/${sUnit}</td>`;
     capexSteps.forEach(c => {
       const mod = {...inp, productPrice: p, capexPerM2: c};
       const res = calculate(mod);
@@ -1634,12 +1885,12 @@ function renderComparison() {
     const harvestFactor = p.outdoorHarvests > 0 ? p.indoorHarvests / p.outdoorHarvests : 0;
     const areaFactor = p.outdoorYield > 0 ? (r.productiveArea / r.floorSpace) * (p.yield / p.outdoorYield) : 0;
     rows.push({ name, cat: p.category, product: p.productName, ...r, price: p.productPrice,
-      yieldFactor, harvestFactor, areaFactor,
+      unit: p.unit || 'kg', yieldFactor, harvestFactor, areaFactor,
       indoorHarvests: p.indoorHarvests, outdoorHarvests: p.outdoorHarvests });
   });
 
   let html = '<table class="comparison-table"><thead><tr>';
-  html += '<th>Plant</th><th>Cat.</th><th>Product</th><th>Price €/kg</th>';
+  html += '<th>Plant</th><th>Cat.</th><th>Product</th><th>Price</th>';
   html += '<th>Prod. Area m²</th><th>Floor m²</th>';
   html += '<th>EBITDA</th><th>Margin</th><th>ROI</th><th>Payback</th>';
   html += '<th style="background:var(--orbi-purple);">Yield vs. Field</th>';
@@ -1649,7 +1900,7 @@ function renderComparison() {
 
   rows.sort((a, b) => b.ebitda - a.ebitda).forEach(r => {
     html += `<tr>
-      <td>${r.name}</td><td>${r.cat}</td><td>${r.product}</td><td>${fmt(r.price, 0)}</td>
+      <td>${r.name}</td><td>${r.cat}</td><td>${r.product}</td><td>${fmt(r.price, r.unit === 'Plug' ? 2 : 0)} €/${r.unit === 'Plug' ? 'plug' : 'kg'}</td>
       <td>${r.productiveArea.toLocaleString()}</td><td>${Math.round(r.floorSpace).toLocaleString()}</td>
       <td style="color:${r.ebitda >= 0 ? '#155724' : '#721c24'}">${fmtEur(r.ebitda)}</td>
       <td>${fmtPct(r.ebitdaMargin)}</td><td>${fmtPct(r.roi)}</td>
@@ -1696,13 +1947,13 @@ function switchTab(tab) {
 }
 
 function exportCSV() {
-  const rows = [['Plant','Category','Product','Price €/kg','Prod Area m²','Floor m²','CapEx €','Revenue €/yr','OpEx €/yr','EBITDA €/yr','EBITDA Margin','ROI','Payback Years','Break-Even €/kg','Yield vs Field (x)','Area Efficiency (x)','Indoor Harvests/yr','Outdoor Harvests/yr']];
+  const rows = [['Plant','Category','Product','Unit','Price/unit','Prod Area m²','Floor m²','CapEx €','Revenue €/yr','OpEx €/yr','EBITDA €/yr','EBITDA Margin','ROI','Payback Years','Break-Even/unit','Yield vs Field (x)','Area Efficiency (x)','Indoor Cycles/yr','Outdoor Cycles/yr']];
   Object.keys(PLANTS).sort().forEach(name => {
     const p = PLANTS[name];
     const r = calculate(p);
     const yieldFactor = p.outdoorYield > 0 ? (p.yield / p.outdoorYield).toFixed(1) : 'n/a';
     const areaFactor = p.outdoorYield > 0 ? ((r.productiveArea / r.floorSpace) * (p.yield / p.outdoorYield)).toFixed(1) : 'n/a';
-    rows.push([name, p.category, p.productName, p.productPrice, r.productiveArea, Math.round(r.floorSpace),
+    rows.push([name, p.category, p.productName, (p.unit || 'kg'), p.productPrice, r.productiveArea, Math.round(r.floorSpace),
       Math.round(r.totalCapex),
       Math.round(r.totalRevenue), Math.round(r.totalOpex), Math.round(r.ebitda),
       (r.ebitdaMargin*100).toFixed(1)+'%', (r.roi*100).toFixed(1)+'%',
