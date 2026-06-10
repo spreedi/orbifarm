@@ -33,11 +33,9 @@
 <!-- Canonical & SEO -->
 <link rel="canonical" href="https://orbi.farm/">
 <meta name="robots" content="index, follow">
-<link rel="alternate" hreflang="en" href="https://orbi.farm/">
-<link rel="alternate" hreflang="de" href="https://orbi.farm/">
-<link rel="alternate" hreflang="x-default" href="https://orbi.farm/">
-<link rel="icon" href="images/og-image.jpg" type="image/jpeg">
-<link rel="apple-touch-icon" href="images/og-image.jpg">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/images/favicon-512.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://cdn-investnow.tokenize.it" crossorigin>
 <link rel="preconnect" href="https://app.tokenize.it" crossorigin>
 <link rel="dns-prefetch" href="https://app.tokenize.it">
@@ -745,8 +743,8 @@ section { padding: 100px 24px; }
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="hero">
   <div class="hero-bg">
-    <video autoplay muted loop playsinline preload="auto" poster="images/og-image.jpg">
-      <source src="images/hero-video-full.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline preload="metadata" poster="images/og-image.jpg">
+      <source src="images/hero-video.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-overlay"></div>
@@ -1125,7 +1123,7 @@ section { padding: 100px 24px; }
           <input type="range" class="control-range" id="calcRent" min="2" max="15" step="0.5" value="5" oninput="updateCalc()">
         </div>
         <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);">
-          <a href="javascript:void(0)" onclick="handleFullToolClick()" id="fullToolLink" style="font-size: 0.85rem; display:flex; align-items:center; gap:6px; cursor:pointer;">
+          <a href="#" role="button" onclick="handleFullToolClick(); return false;" id="fullToolLink" style="font-size: 0.85rem; display:flex; align-items:center; gap:6px; cursor:pointer;">
             &#x1F4CA; <span data-i18n="calc.fullTool">Open Full Calculation Tool</span> &rarr;
           </a>
         </div>
