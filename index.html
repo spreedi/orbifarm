@@ -1203,6 +1203,7 @@ section { padding: 100px 24px; }
     <div class="contact-grid reveal">
       <div class="contact-form-wrap">
         <form id="contactForm" onsubmit="handleContact(event)">
+          <input type="text" id="contactHoneypot" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
           <div class="form-row">
             <input type="text" id="contactName" placeholder="Name *" required>
             <input type="text" id="contactCompany" placeholder="Company">
@@ -1295,6 +1296,7 @@ section { padding: 100px 24px; }
     <h3>&#x1F331; <span data-i18n="reg.title">Unlock Full Calculator</span></h3>
     <p data-i18n="reg.subtitle">Register to access all 22 plants and detailed KPIs.</p>
     <form id="registerForm" onsubmit="handleRegister(event)">
+      <input type="text" id="regHoneypot" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
       <input type="text" id="regName" placeholder="Name *" required>
       <input type="text" id="regCompany" placeholder="Company *" required>
       <input type="email" id="regEmail" placeholder="Email *" required>
@@ -1619,6 +1621,9 @@ function handleFullToolClick() {
 
 async function handleRegister(e) {
   e.preventDefault();
+  // Honeypot: real users leave this hidden field empty; bots fill it. Drop silently.
+  const hp = document.getElementById('regHoneypot');
+  if (hp && hp.value) { return; }
   const name = document.getElementById('regName').value.trim();
   const company = document.getElementById('regCompany').value.trim();
   const email = document.getElementById('regEmail').value.trim();
@@ -1672,7 +1677,11 @@ async function handleRegister(e) {
   fetch('press-data.json')
     .then(r => r.json())
     .then(data => {
-      const articles = (data.articles || data).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+      const all = (data.articles || data);
+      // "Media Coverage" is about OrbiFarm® — prefer articles actually covering us;
+      // fall back to the full list only if no OrbiFarm-tagged articles exist yet.
+      const orbiOnly = all.filter(a => (a.category || 'orbifarm') === 'orbifarm');
+      const articles = (orbiOnly.length ? orbiOnly : all).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
       const list = document.getElementById('pressList');
       if (!articles.length) { list.style.display = 'none'; document.getElementById('pressEmpty').style.display = 'block'; return; }
       list.innerHTML = articles.map(a => {
@@ -1705,6 +1714,9 @@ async function handleRegister(e) {
 // Contact Form
 async function handleContact(e) {
   e.preventDefault();
+  // Honeypot: real users leave this hidden field empty; bots fill it. Silently accept & drop.
+  const hp = document.getElementById('contactHoneypot');
+  if (hp && hp.value) { e.target.reset(); return; }
   const name = document.getElementById('contactName').value.trim();
   const company = document.getElementById('contactCompany').value.trim();
   const email = document.getElementById('contactEmail').value.trim();
