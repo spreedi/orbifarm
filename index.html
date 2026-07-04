@@ -146,7 +146,7 @@
   --accent-glow-strong: rgba(0, 200, 83, 0.3);
   --text: #e8f5e9;
   --text-muted: #81c784;
-  --text-dim: #4a7a52;
+  --text-dim: #5a8f63;
   --border: #1a2e22;
   --border-accent: #1f3d28;
   --gradient-hero: linear-gradient(160deg, #080d0a 0%, #0a1a10 40%, #0c1f14 100%);
@@ -980,21 +980,21 @@ section { padding: 100px 24px; }
     <!-- Photo Gallery -->
     <div class="photo-gallery reveal" data-stagger>
       <div class="photo-card">
-        <img src="images/IMG_1507.JPG" alt="OrbiFarm® Facility Rendering" loading="lazy">
+        <img src="images/orbifarm-vertical-farming-facility.webp" alt="OrbiFarm® Facility Rendering" width="1000" height="625" loading="lazy">
         <div class="photo-caption">
           <strong data-i18n="photo.render1.title">Farm Facility</strong>
           <span data-i18n="photo.render1.desc">Industrial-scale indoor farming facility with multiple loop modules</span>
         </div>
       </div>
       <div class="photo-card">
-        <img src="images/IMG_1505.JPG" alt="OrbiFarm® Interior Rendering" loading="lazy">
+        <img src="images/orbifarm-plant-factory-interior.webp" alt="OrbiFarm® Interior Rendering" width="1000" height="625" loading="lazy">
         <div class="photo-caption">
           <strong data-i18n="photo.render2.title">Inside the Farm</strong>
           <span data-i18n="photo.render2.desc">Continuous moving loop modules with optimised LED lighting for maximum growth</span>
         </div>
       </div>
       <div class="photo-card">
-        <img src="images/IMG_1503.JPG" alt="OrbiFarm® Module Detail" loading="lazy">
+        <img src="images/orbifarm-conveyor-module-detail.webp" alt="OrbiFarm® Module Detail" width="1000" height="625" loading="lazy">
         <div class="photo-caption">
           <strong data-i18n="photo.render3.title">Module Detail</strong>
           <span data-i18n="photo.render3.desc">Close-up view of the patented loop system with continuous moving conveyor belt</span>
@@ -1106,20 +1106,20 @@ section { padding: 100px 24px; }
       <div class="calc-controls">
         <h3>&#x2699;&#xFE0F; <span data-i18n="calc.controls">Parameters</span></h3>
         <div class="control-group">
-          <div class="control-label"><span data-i18n="calc.plant">Crop</span></div>
+          <label class="control-label" for="calcPlant"><span data-i18n="calc.plant">Crop</span></label>
           <select class="control-select" id="calcPlant" onchange="updateCalc()"></select>
           <div id="unlockHint" class="unlock-hint" onclick="openRegisterModal()">&#x1F512; <span data-i18n="calc.unlock">Unlock all 22 plants &amp; full KPIs</span></div>
         </div>
         <div class="control-group">
-          <div class="control-label"><span data-i18n="calc.modules">Modules</span><span class="control-value" id="modulesVal">10</span></div>
+          <label class="control-label" for="calcModules"><span data-i18n="calc.modules">Modules</span><span class="control-value" id="modulesVal">10</span></label>
           <input type="range" class="control-range" id="calcModules" min="1" max="20" value="10" oninput="updateCalc()">
         </div>
         <div class="control-group">
-          <div class="control-label"><span data-i18n="calc.electricity">Electricity Price</span><span class="control-value" id="elecVal">0,07 &#x20ac;/kWh</span></div>
+          <label class="control-label" for="calcElectricity"><span data-i18n="calc.electricity">Electricity Price</span><span class="control-value" id="elecVal">0,07 &#x20ac;/kWh</span></label>
           <input type="range" class="control-range" id="calcElectricity" min="0.03" max="0.20" step="0.01" value="0.07" oninput="updateCalc()">
         </div>
         <div class="control-group">
-          <div class="control-label"><span data-i18n="calc.rent">Rent</span><span class="control-value" id="rentVal">5,00 &#x20ac;/m&#xb2;</span></div>
+          <label class="control-label" for="calcRent"><span data-i18n="calc.rent">Rent</span><span class="control-value" id="rentVal">5,00 &#x20ac;/m&#xb2;</span></label>
           <input type="range" class="control-range" id="calcRent" min="2" max="15" step="0.5" value="5" oninput="updateCalc()">
         </div>
         <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);">
@@ -1185,7 +1185,7 @@ section { padding: 100px 24px; }
           </div>
         </div>
         <div class="calc-footer">
-          <a href="OrbiFarm_Calculation_Tool.html" target="_blank" data-i18n="calc.disclaimer">Values are projections based on default parameters. Open the full tool for detailed analysis.</a>
+          <a href="OrbiFarm_Calculation_Tool.html" target="_blank" rel="noopener" data-i18n="calc.disclaimer">Values are projections based on default parameters. Open the full tool for detailed analysis.</a>
         </div>
       </div>
     </div>
