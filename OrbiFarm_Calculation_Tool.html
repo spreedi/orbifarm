@@ -517,6 +517,8 @@
           <option value="Pharma">Pharma</option>
           <option value="Food">Food</option>
           <option value="Trees">Trees</option>
+          <option value="Microgreens">Microgreens</option>
+          <option value="Baby Leaves">Baby Leaves</option>
         </select>
       </div>
       <div class="input-group">
@@ -1424,7 +1426,177 @@ const PLANTS = {
     outdoorYield: 0, outdoorHarvests: 1, indoorHarvests: 3,
     applications: "Climate-resilient urban tree planting (street trees, parks, squares) — high, native, urban-tolerant; Reforestation & climate-adaptation forestry; Landscape, estate & green-infrastructure planting; Grow-on stock for nurseries",
     products: "Containerised tree liner (air-pruned plug, planted with intact root ball); Young transplants for nursery grow-on; Certified planting stock (ZüF / BdB future-tree range); Green-cut sidestream → vermicompost / humus"
-  }
+  },
+  // ==================== MICROGREENS (6-loop 5.0×5.2 m module · 52 m²/loop) ====================
+  "Broccoli Microgreens (Brassica oleracea)": {
+    category: "Microgreens", productName: "Broccoli microgreens (fresh)",
+    modules: 10, loops: 5, reserveLoops: 1, loopHeight: 5, loopWidth: 5.2, areaPerLoop: 52, loopFootprint: 10,
+    capexPerM2: 650, capexAddon: 250000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 40, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 1.6, processingCost: 2.8,
+    personnel: 175000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 22, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 27,
+    applications: "Premium functional-food retail (sulforaphane positioning); Nutrition & wellness food service; Supplement & nutraceutical ingredients; Standardised extract feedstock",
+    products: "Premium retail punnets; Fresh food-service supply; Freeze-dried microgreen powder; Sulforaphane-standardised extract feedstock"
+  },
+  "Coriander Microgreens (Coriandrum sativum)": {
+    category: "Microgreens", productName: "Coriander microgreens (fresh)",
+    modules: 10, loops: 5, reserveLoops: 1, loopHeight: 5, loopWidth: 5.2, areaPerLoop: 52, loopFootprint: 10,
+    capexPerM2: 650, capexAddon: 250000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 32, productFraction: 0.9, sidestreamMass: 0,
+    nutrientCost: 1.3, processingCost: 2.9,
+    personnel: 180000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 26, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 17,
+    applications: "Fine-dining & hotel supply (cut-to-order, living tray); Premium retail; Asian & Latin-American food service; Aroma / essential-oil applications",
+    products: "Fine-dining living-tray & cut-to-order; Premium retail punnets; Food-service coriander microgreens; Aroma/essential-oil feedstock from graded-out material"
+  },
+  "Pea Shoots (Pisum sativum)": {
+    category: "Microgreens", productName: "Pea shoots (fresh)",
+    modules: 10, loops: 5, reserveLoops: 1, loopHeight: 5, loopWidth: 5.2, areaPerLoop: 52, loopFootprint: 10,
+    capexPerM2: 650, capexAddon: 250000,
+    electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 70, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.7, processingCost: 2.5,
+    personnel: 170000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 12, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 25,
+    applications: "Retail punnets & clamshells; Food-service bulk for restaurants & hotels; Salad-kit & ready-meal component; Juicing & smoothie ingredient",
+    products: "Retail punnets/clamshells (50–125 g); Food-service bulk bags (250/500 g); Salad-kit & ready-meal component; Fresh bulk for juicing/smoothies"
+  },
+  "Radish Microgreens (Raphanus sativus)": {
+    category: "Microgreens", productName: "Radish microgreens (fresh)",
+    modules: 10, loops: 5, reserveLoops: 1, loopHeight: 5, loopWidth: 5.2, areaPerLoop: 52, loopFootprint: 10,
+    capexPerM2: 650, capexAddon: 250000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 54, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.9, processingCost: 2.6,
+    personnel: 175000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 16, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 30,
+    applications: "Colour-led retail merchandising; Fine-dining garnish & plating supply; Premium salad-blend component; Living-tray / cut-to-order chef supply",
+    products: "Retail punnets/clamshells; Food-service garnish & plating; Premium salad-blend component; Living-tray / cut-to-order"
+  },
+  "Red Cabbage Microgreens (Brassica oleracea)": {
+    category: "Microgreens", productName: "Red cabbage microgreens (fresh)",
+    modules: 10, loops: 5, reserveLoops: 1, loopHeight: 5, loopWidth: 5.2, areaPerLoop: 52, loopFootprint: 10,
+    capexPerM2: 650, capexAddon: 250000,
+    electricityPrice: 0.07, lightingHours: 18, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 46, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 1.2, processingCost: 2.7,
+    personnel: 175000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 18, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 27,
+    applications: "Colour-led retail merchandising; Fine-dining & hotel plating; Premium salad-blend component (colour contrast); Functional-food & smoothie powder",
+    products: "Retail punnets/clamshells; Fine-dining plating supply; Premium salad-blend component; Freeze-dried powder for functional-food/smoothie use"
+  },
+  "Sunflower Shoots (Helianthus annuus)": {
+    category: "Microgreens", productName: "Sunflower shoots (fresh)",
+    modules: 10, loops: 5, reserveLoops: 1, loopHeight: 5, loopWidth: 5.2, areaPerLoop: 52, loopFootprint: 10,
+    capexPerM2: 650, capexAddon: 250000,
+    electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 60, productFraction: 0.92, sidestreamMass: 0,
+    nutrientCost: 0.8, processingCost: 2.5,
+    personnel: 170000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 14, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 23,
+    applications: "Retail punnets & clamshells; Food-service bulk for salad & bowl assembly; Premium salad-blend component; Sprouted-seed snack & topping",
+    products: "Retail punnets/clamshells; Food-service bulk bags; Premium salad-blend component; Snack & topping applications"
+  },
+  // ==================== BABY LEAVES (standard 12×4 m module · 20 loops) ====================
+  "Baby Kale (Brassica oleracea)": {
+    category: "Baby Leaves", productName: "Baby kale (fresh)",
+    modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 500000,
+    electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 72, energyOverhead: 1.2,
+    yield: 55, productFraction: 0.88, sidestreamMass: 0,
+    nutrientCost: 0.4, processingCost: 1.35,
+    personnel: 215000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 7.5, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.0, outdoorHarvests: 3, indoorHarvests: 13,
+    applications: "Ready-to-eat retail bags & bowls (raw salad kale); Smoothie & juice packs (fresh/frozen); Food service — salads, grain bowls, wellness menus; Premium salad-blend component",
+    products: "Ready-to-eat retail bags & bowls; Smoothie/juice packs (fresh & frozen); Food-service baby kale; Premium salad-blend component"
+  },
+  "Baby Romaine (Lactuca sativa)": {
+    category: "Baby Leaves", productName: "Baby romaine leaf (fresh)",
+    modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 500000,
+    electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 75, energyOverhead: 1.2,
+    yield: 70, productFraction: 0.9, sidestreamMass: 0,
+    nutrientCost: 0.3, processingCost: 1.2,
+    personnel: 200000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 4.2, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 4.0, outdoorHarvests: 3, indoorHarvests: 12,
+    applications: "Ready-to-eat washed retail bags & bowls; Food service & QSR (burgers, wraps, salad bars); Salad-kit & meal-kit component; Canteen, hospital & airline catering",
+    products: "Ready-to-eat washed retail bags & bowls; Food-service & QSR leaf; Salad-kit & meal-kit component; Catering-grade baby romaine"
+  },
+  "Lamb's Lettuce (Valerianella locusta)": {
+    category: "Baby Leaves", productName: "Lamb's lettuce (fresh)",
+    modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 500000,
+    electricityPrice: 0.07, lightingHours: 20, lightingIntensity: 50, energyOverhead: 1.2,
+    yield: 35, productFraction: 0.88, sidestreamMass: 0,
+    nutrientCost: 0.45, processingCost: 1.6,
+    personnel: 240000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 11, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 1.5, outdoorHarvests: 2, indoorHarvests: 9,
+    applications: "Premium retail punnets & bags (wash-free, ready-to-eat); Food service & hotel supply (classic winter salad); Year-round supply into a strictly seasonal market; Premium salad-blend component",
+    products: "Premium retail punnets & bags; Food-service & hotel supply; Year-round wash-free leaf; Premium salad-blend component"
+  },
+  "Mizuna (Brassica rapa var. nipposinica)": {
+    category: "Baby Leaves", productName: "Mizuna baby leaf (fresh)",
+    modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 500000,
+    electricityPrice: 0.07, lightingHours: 20, lightingIntensity: 55, energyOverhead: 1.2,
+    yield: 55, productFraction: 0.9, sidestreamMass: 0,
+    nutrientCost: 0.35, processingCost: 1.3,
+    personnel: 210000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 7, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.0, outdoorHarvests: 3, indoorHarvests: 15,
+    applications: "Premium salad-blend component (retail bags & bowls); Food service — salads, garnish, Asian menus; Single-variety retail bags (specialty); Local, traceable year-round supply",
+    products: "Premium salad-blend component; Food-service mizuna leaf; Single-variety retail bags; Local traceable year-round supply"
+  },
+  "Rocket (Eruca sativa)": {
+    category: "Baby Leaves", productName: "Rocket baby leaf (fresh)",
+    modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 500000,
+    electricityPrice: 0.07, lightingHours: 20, lightingIntensity: 55, energyOverhead: 1.2,
+    yield: 50, productFraction: 0.9, sidestreamMass: 0,
+    nutrientCost: 0.35, processingCost: 1.3,
+    personnel: 210000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 8, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.0, outdoorHarvests: 3, indoorHarvests: 13,
+    applications: "Washed ready-to-eat retail bags (single-variety & blends); Food-service bulk (pizza, salad, garnish); Premium salad-blend component; Local supply replacing Southern-EU imports",
+    products: "Washed ready-to-eat retail bags; Food-service bulk rocket; Premium salad-blend component; Local traceable year-round supply"
+  },
+  "Swiss Chard (Beta vulgaris)": {
+    category: "Baby Leaves", productName: "Swiss chard baby leaf (fresh)",
+    modules: 10, loops: 20, reserveLoops: 1, loopHeight: 12, loopWidth: 4,
+    capexPerM2: 600, capexAddon: 500000,
+    electricityPrice: 0.07, lightingHours: 16, lightingIntensity: 72, energyOverhead: 1.2,
+    yield: 60, productFraction: 0.9, sidestreamMass: 0,
+    nutrientCost: 0.35, processingCost: 1.3,
+    personnel: 210000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 6.5, sidestreamRevenue: 0,
+    co2Factor: 1.5, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 3.5, outdoorHarvests: 3, indoorHarvests: 13,
+    applications: "Premium salad-blend component (colour lift); Single-variety retail bunches & bags; Food service — sautéed greens, salads, plating; Baby-leaf 'rainbow mix' branded retail SKU",
+    products: "Premium salad-blend component; Single-variety retail bunches & bags; Food-service chard leaf; 'Rainbow mix' branded retail SKU"
+  },
 };
 
 // ==================== NUMBER FORMATTING ====================
@@ -1551,8 +1723,11 @@ function pf(id) { return parseFormatted(document.getElementById(id).value); }
 function getInputs() {
   const loopHeight = pf('loopHeight') || 12;
   const loopWidth = pf('loopWidth') || 4;
-  const areaPerLoop = calcAreaPerLoop(loopHeight, loopWidth);
   const selPlant = PLANTS[document.getElementById('plant').value] || {};
+  // Per-plant geometry overrides: crops on a non-standard module (e.g. microgreens,
+  // 6-loop 5.0×5.2 m machine → 52 m²/loop) carry an explicit areaPerLoop / loopFootprint.
+  const areaPerLoop = selPlant.areaPerLoop || calcAreaPerLoop(loopHeight, loopWidth);
+  const loopFootprint = selPlant.loopFootprint || (loopWidth * 2.5);
   const unit = selPlant.unit || 'kg';
   const yieldVal = unit === 'Plug'
     ? (pf('plugDensity') || 0) * (pf('cyclesPerYear') || 0)
@@ -1565,6 +1740,7 @@ function getInputs() {
     loopHeight: loopHeight,
     loopWidth: loopWidth,
     areaPerLoop: areaPerLoop,
+    loopFootprint: loopFootprint,
     auxFactor: pf('auxFactor') || 1.4,
     capexPerM2: pf('capexPerM2') || 0,
     capexAddon: pf('capexAddon') || 0,
@@ -1595,7 +1771,7 @@ function calculate(inp) {
   const areaPerLoop = inp.areaPerLoop || calcAreaPerLoop(inp.loopHeight || 12, inp.loopWidth || 4);
   const productiveArea = inp.modules * inp.loops * areaPerLoop;
   const capexArea = inp.modules * (inp.loops + inp.reserveLoops) * areaPerLoop;
-  const loopFootprint = (inp.loopWidth || 4) * 2.5;  // loopWidth × 2.5m depth per loop
+  const loopFootprint = inp.loopFootprint || (inp.loopWidth || 4) * 2.5;  // loopWidth × 2.5m depth per loop (overridable per plant)
   const floorSpace = inp.modules * (inp.loops + inp.reserveLoops) * loopFootprint * (inp.auxFactor || 1.4);
   const totalCapex = capexArea * inp.capexPerM2 + inp.capexAddon;
 
@@ -1664,7 +1840,8 @@ function updatePlantList() {
     if (cat === 'all' || PLANTS[name].category === cat) {
       const opt = document.createElement('option');
       opt.value = name;
-      const icon = PLANTS[name].category === 'Pharma' ? '🧬' : (PLANTS[name].category === 'Trees' ? '🌳' : '🌿');
+      const _cat = PLANTS[name].category;
+      const icon = _cat === 'Pharma' ? '🧬' : _cat === 'Trees' ? '🌳' : _cat === 'Microgreens' ? '🌱' : _cat === 'Baby Leaves' ? '🥬' : '🌿';
       opt.textContent = `${icon} ${name}`;
       sel.appendChild(opt);
     }
