@@ -123,6 +123,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    min-height: 16px;
   }
   .input-group:not(.readonly-group) label::before {
     content: '✎';
@@ -556,16 +557,6 @@
       <input type="text" inputmode="decimal" id="loopPitch" value="2,15" onfocus="onFieldFocus(this)" onblur="onFieldBlur(this)" oninput="recalculate()">
       <span class="unit">m depth per loop</span>
     </div>
-    <div class="input-group readonly-group">
-      <label>Growing Area per Loop (calculated)</label>
-      <input type="text" id="areaPerLoop" value="" readonly style="font-weight:700; color:var(--orbi-green);">
-      <span class="unit">m²/Loop = belt height × width × geometry factor</span>
-    </div>
-    <div class="input-group readonly-group">
-      <label>Productive Area (calculated)</label>
-      <input type="text" id="productiveAreaDisplay" value="" readonly style="font-weight:700; color:var(--orbi-green);">
-      <span class="unit">m² = Modules × Loops × Area per Loop</span>
-    </div>
     <div class="input-group">
       <label>Reserve Loops / Module</label>
       <input type="text" inputmode="numeric" id="reserveLoops" value="1" onfocus="onFieldFocus(this)" onblur="onFieldBlur(this)" oninput="recalculate()">
@@ -577,19 +568,29 @@
       <span class="unit">Factor (corridors, tech rooms, storage, etc.)</span>
     </div>
     <div class="input-group readonly-group">
-      <label>Floor Area per Loop (calculated)</label>
+      <label>Growing Area per Loop</label>
+      <input type="text" id="areaPerLoop" value="" readonly style="font-weight:700; color:var(--orbi-green);">
+      <span class="unit">m²/Loop = belt height x width x geometry factor</span>
+    </div>
+    <div class="input-group readonly-group">
+      <label>Productive Area</label>
+      <input type="text" id="productiveAreaDisplay" value="" readonly style="font-weight:700; color:var(--orbi-green);">
+      <span class="unit">m² = Modules x Loops x Area per Loop</span>
+    </div>
+    <div class="input-group readonly-group">
+      <label>Floor Area per Loop</label>
       <input type="text" id="loopFootprintDisplay" value="" readonly style="font-weight:700; color:var(--orbi-green);">
       <span class="unit">m² = band width x loop pitch</span>
     </div>
     <div class="input-group readonly-group">
-      <label>System Length per Module (calculated)</label>
+      <label>System Length / Module</label>
       <input type="text" id="systemLength" value="" readonly style="font-weight:700; color:var(--orbi-green);">
       <span class="unit">m = loops x loop pitch + 2 x 1,05 m feed zone</span>
     </div>
     <div class="input-group readonly-group">
-      <label>Floor Space (calculated)</label>
+      <label>Floor Space</label>
       <input type="text" id="floorSpace" value="" readonly style="font-weight:700; color:var(--orbi-green);">
-      <span class="unit">m² = Modules x (prod.+reserve Loops) x floor area per loop x Aux. Factor</span>
+      <span class="unit">m² = Modules x (prod.+reserve Loops) x floor area/loop x Aux. Factor</span>
     </div>
 
     <div class="section-divider">CapEx</div>
