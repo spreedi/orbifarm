@@ -1942,6 +1942,25 @@ function fmtEur(n) {
   return fmt(n, 0) + ' €';
 }
 function fmtPct(n) { return fmt(n * 100, 1) + '%'; }
+// Auto-scale an absolute mass to a readable unit: kg below 1 t, tonnes above.
+function fmtMass(kg) {
+  if (kg === Infinity || isNaN(kg)) return '-';
+  const a = Math.abs(kg);
+  if (a >= 1000) {
+    const t = kg / 1000;
+    const dec = Math.abs(t) < 10 ? 2 : Math.abs(t) < 100 ? 1 : 0;
+    return fmt(t, dec) + ' t';
+  }
+  return fmt(kg, 0) + ' kg';
+}
+// Auto-scale an absolute energy amount: kWh, then MWh, then GWh.
+function fmtEnergy(kwh) {
+  if (kwh === Infinity || isNaN(kwh)) return '-';
+  const a = Math.abs(kwh);
+  if (a >= 1e6) { const g = kwh / 1e6; return fmt(g, Math.abs(g) < 10 ? 2 : Math.abs(g) < 100 ? 1 : 0) + ' GWh'; }
+  if (a >= 1e3) { const m = kwh / 1e3; return fmt(m, Math.abs(m) < 10 ? 2 : Math.abs(m) < 100 ? 1 : 0) + ' MWh'; }
+  return fmt(kwh, 0) + ' kWh';
+}
 
 let charts = {};
 
@@ -1971,7 +1990,7 @@ function renderPlantInfo(inp, r, pd) {
     <div class="info-item"><div class="info-label">Plant</div><div class="info-value">${inp.productName}</div></div>
     <div class="info-item"><div class="info-label">Floor Space</div><div class="info-value">${fmt(Math.round(r.floorSpace))} m²</div></div>
     <div class="info-item"><div class="info-label">Productive Area</div><div class="info-value">${fmt(r.productiveArea)} m²</div></div>
-    <div class="info-item"><div class="info-label">Production</div><div class="info-value">${fmt(r.primaryOutput)} ${pd.unit === 'Plug' ? 'plugs' : 'kg'}/yr</div></div>
+    <div class="info-item"><div class="info-label">Production</div><div class="info-value">${pd.unit === 'Plug' ? fmt(r.primaryOutput, 0) + ' plugs' : fmtMass(r.primaryOutput)}/yr</div></div>
     <div class="info-item"><div class="info-label">Total CapEx</div><div class="info-value">${fmtEur(r.totalCapex)}</div></div>
     <div class="info-item"><div class="info-label">EBITDA</div><div class="info-value">${fmtEur(r.ebitda)}</div></div>
     ${pd.unit === 'Plug'
@@ -2011,8 +2030,8 @@ function renderKPIs(r, pd) {
     { label: 'ROI (EBITDA/CapEx)', value: fmtPct(r.roi), cls: r.roi > 0.3 ? 'highlight' : r.roi > 0 ? '' : 'danger' },
     { label: 'Payback', value: r.payback < 100 ? fmt(r.payback, 1) + ' years' : '-', cls: r.payback < 3 ? 'highlight' : r.payback < 5 ? '' : 'warning' },
     { label: 'Break-Even Price', value: fmt(r.breakEvenPrice, 2) + ' ' + perU, cls: '' },
-    { label: 'Production', value: fmt(r.primaryOutput, 0) + (u === 'Plug' ? ' plugs/yr' : ' kg/yr'), cls: '' },
-    { label: 'Total Energy / Year', value: fmt(r.annualEnergy, 0) + ' kWh', cls: '' },
+    { label: 'Production', value: (u === 'Plug' ? fmt(r.primaryOutput, 0) + ' plugs' : fmtMass(r.primaryOutput)) + '/yr', cls: '' },
+    { label: 'Total Energy / Year', value: fmtEnergy(r.annualEnergy), cls: '' },
     { label: 'Energy/' + unitLabel, value: fmt(r.energyPerKg, 1) + ' kWh', cls: '' },
     { label: 'Cost/' + unitLabel, value: fmt(r.costPerKg, 2) + ' €', cls: '' },
     { label: 'Revenue/' + unitLabel, value: fmt(r.revenuePerKg, 2) + ' €', cls: '' },
