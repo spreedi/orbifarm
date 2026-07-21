@@ -794,7 +794,7 @@
 </div>
 
 <footer>
-  OrbiFarm® Calculation Tool &middot; All calculations are based on standardized business case parameters &middot; No guarantee of accuracy
+  OrbiFarm® Calculation Tool | All calculations are based on standardized business case parameters | No guarantee of accuracy
 </footer>
 
 <script>
@@ -1916,13 +1916,13 @@ function applyUnitLabels(unit) {
   show('cyclesPerYear', isTree);
   show('sidestreamMass', !isTree);
   if (isTree) {
-    setLabel('productFraction', 'Sellable Quote');      setUnit('productFraction', '0\u20131 (sellable plugs)');
+    setLabel('productFraction', 'Sellable Quote');      setUnit('productFraction', '0-1 (sellable plugs)');
     setLabel('nutrientCost', 'Seed + Substrate');       setUnit('nutrientCost', '\u20ac/plug');
     setLabel('processingCost', 'Potting & Handling');   setUnit('processingCost', '\u20ac/plug');
     setLabel('productPrice', 'Price per Plug');          setUnit('productPrice', '\u20ac/plug');
     setLabel('co2Factor', 'CO\u2082 per 1,000 plugs');    setUnit('co2Factor', 'tCO\u2082 / 1,000 plugs');
   } else {
-    setLabel('productFraction', 'Product Fraction');    setUnit('productFraction', '0\u20131 (biomass \u2192 product)');
+    setLabel('productFraction', 'Product Fraction');    setUnit('productFraction', '0-1 (biomass to product)');
     setLabel('nutrientCost', 'Nutrient / Input Costs'); setUnit('nutrientCost', '\u20ac/kg');
     setLabel('processingCost', 'Processing & Packaging');setUnit('processingCost', '\u20ac/kg');
     setLabel('productPrice', 'Product Price');           setUnit('productPrice', '\u20ac/kg');
