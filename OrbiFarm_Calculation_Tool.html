@@ -1864,7 +1864,8 @@ function calculate(inp) {
 
 // ==================== UI FUNCTIONS ====================
 // The five crops of the Egypt starting configuration, in module order 1 to 5.
-// Display-only filter: it does not sort and does not change any plant data.
+// Filter and, inside this category, load each crop in its farm 1 module layout:
+// one module, the loops below, band width 5.80 m. It changes no plant data.
 const EGYPT_CONFIG = [
   'Peas TVP',
   'Matricaria chamomilla (Pharma Extract)',
@@ -1872,6 +1873,14 @@ const EGYPT_CONFIG = [
   'Broccoli Microgreens (Brassica oleracea)',
   'Scutellaria baicalensis'
 ];
+// Loops per module in farm 1 (module 1 to 5). Source: 36_Deployment data annex.
+const EGYPT_MODULE_LOOPS = {
+  'Peas TVP': 30,
+  'Matricaria chamomilla (Pharma Extract)': 20,
+  'Matcha (Camellia sinensis)': 10,
+  'Broccoli Microgreens (Brassica oleracea)': 6,
+  'Scutellaria baicalensis': 6
+};
 
 function updatePlantList() {
   const cat = document.getElementById('category').value;
@@ -1932,6 +1941,14 @@ function loadPlantDefaults() {
   if (bw && p.loopWidth !== undefined) bw.value = (p.loopWidth >= 5 ? '5.80' : '4.00');
   document.getElementById('productName').value = p.productName || '';
   applyUnitLabels(p.unit || 'kg');
+  // Inside the Egypt starting configuration, show each crop in its farm 1 module
+  // layout: one module, the module loops, band 5.80 m. The loop height stays the
+  // preset's own value, so the four standard modules land on 146.45 m2 per loop.
+  if (document.getElementById('category').value === 'egypt' && EGYPT_MODULE_LOOPS[name] !== undefined) {
+    document.getElementById('modules').value = formatField('modules', 1);
+    document.getElementById('loops').value = formatField('loops', EGYPT_MODULE_LOOPS[name]);
+    if (bw) bw.value = '5.80';
+  }
   recalculate();
 }
 
