@@ -499,7 +499,7 @@
 <div class="input-panel">
   <h2 style="display:flex; align-items:center; justify-content:space-between;">
     Configuration & Input Parameters
-    <button onclick="loadPlantDefaults()" style="
+    <button onclick="applyStartConfig()" style="
       font-size:13px; padding:6px 16px; border:2px solid var(--orbi-green);
       background:white; color:var(--orbi-green); border-radius:8px;
       cursor:pointer; font-weight:600; display:flex; align-items:center; gap:6px;
@@ -515,6 +515,7 @@
         <label>Category</label>
         <select id="category" onchange="updatePlantList()">
           <option value="all">All Plants</option>
+          <option value="egypt">Egypt starting configuration</option>
           <option value="Pharma">Pharma</option>
           <option value="Food">Food</option>
           <option value="Trees">Trees</option>
@@ -843,7 +844,7 @@ const PLANTS = {
     applications: "Expectorant herbal medicine for respiratory tract conditions (EMA-listed); Polyphenol-rich flower/leaf fractions for nutraceutical & cosmetic use",
     products: "Standardised dry saponin extract (primulasaponin I/II); Dried root & rhizome (Primulae radix); Standardised liquid extract for syrup formulations; Polyphenol-rich flower/leaf fractions"
   },
-  "Peas to TVP": {
+  "Peas TVP": {
     category: "Food", productName: "TVP",
     modules: 10, loops: 30, reserveLoops: 0, loopHeight: 12, loopWidth: 4,
     capexPerM2: 600, capexAddon: 2000000,
@@ -1862,21 +1863,49 @@ function calculate(inp) {
 }
 
 // ==================== UI FUNCTIONS ====================
+// The five crops of the Egypt starting configuration, in module order 1 to 5.
+// Display-only filter: it does not sort and does not change any plant data.
+const EGYPT_CONFIG = [
+  'Peas TVP',
+  'Matricaria chamomilla (Pharma Extract)',
+  'Matcha (Camellia sinensis)',
+  'Broccoli Microgreens (Brassica oleracea)',
+  'Scutellaria baicalensis'
+];
+
 function updatePlantList() {
   const cat = document.getElementById('category').value;
   const sel = document.getElementById('plant');
   sel.innerHTML = '';
-  Object.keys(PLANTS).sort().forEach(name => {
-    if (cat === 'all' || PLANTS[name].category === cat) {
-      const opt = document.createElement('option');
-      opt.value = name;
-      const _cat = PLANTS[name].category;
-      const icon = _cat === 'Pharma' ? '🧬' : _cat === 'Trees' ? '🌳' : _cat === 'Microgreens' ? '🌱' : _cat === 'Baby Leaves' ? '🥬' : '🌿';
-      opt.textContent = `${icon} ${name}`;
-      sel.appendChild(opt);
-    }
+  const names = cat === 'egypt'
+    ? EGYPT_CONFIG.filter(n => PLANTS[n])
+    : Object.keys(PLANTS).sort().filter(n => cat === 'all' || PLANTS[n].category === cat);
+  names.forEach(name => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    const _cat = PLANTS[name].category;
+    const icon = _cat === 'Pharma' ? '🧬' : _cat === 'Trees' ? '🌳' : _cat === 'Microgreens' ? '🌱' : _cat === 'Baby Leaves' ? '🥬' : '🌿';
+    opt.textContent = `${icon} ${name}`;
+    sel.appendChild(opt);
   });
   loadPlantDefaults();
+}
+
+// Egypt starting configuration proposed to DOT: Farm 1, Module 1 (Peas TVP),
+// one module of 30 loops at 5.80 m band width and 12 m loop height. This is the
+// default the tool opens with and the target of the Reset button. It overrides
+// the Peas preset's own module and band values without touching plant data.
+function applyStartConfig() {
+  document.getElementById('category').value = 'all';
+  updatePlantList();
+  const sel = document.getElementById('plant');
+  sel.value = 'Peas TVP';
+  loadPlantDefaults();
+  document.getElementById('modules').value = formatField('modules', 1);
+  document.getElementById('loops').value = formatField('loops', 30);
+  document.getElementById('loopHeight').value = formatField('loopHeight', 12);
+  document.getElementById('loopWidth').value = '5.80';
+  recalculate();
 }
 
 function loadPlantDefaults() {
@@ -2315,8 +2344,8 @@ function exportCSV() {
 }
 
 // ==================== INIT ====================
-updatePlantList();
-// Initial formatting is applied by loadPlantDefaults() via updatePlantList()
+applyStartConfig();
+// Opens on the Egypt starting configuration (Peas TVP, 1 module, 30 loops, 5.80 m).
 </script>
 </div><!-- /app-content -->
 
