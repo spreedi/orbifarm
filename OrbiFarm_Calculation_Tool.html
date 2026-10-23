@@ -1870,9 +1870,11 @@ function calculate(inp) {
   const ebitdaMargin = totalRevenue > 0 ? ebitda / totalRevenue : 0;
   const roi = totalCapex > 0 ? ebitda / totalCapex : 0;
   const payback = ebitda > 0 ? totalCapex / ebitda : Infinity;
+  // Price at which EBITDA = 0. The licence fee scales with revenue, so it is taken out
+  // of OpEx and applied through (1 - licence); totalOpex already holds it at today's price.
+  const opexExLicense = totalOpex - opexLicense;
   const breakEvenPrice = primaryOutput > 0
-    ? (totalOpex - revSidestream - revCO2 - (totalRevenue - revPrimary) * (inp.licenseFee/100)) /
-      (primaryOutput * (1 - inp.licenseFee/100))
+    ? (opexExLicense / (1 - inp.licenseFee/100) - revSidestream - revCO2) / primaryOutput
     : 0;
 
   const costPerKg = primaryOutput > 0 ? totalOpex / primaryOutput : 0;
