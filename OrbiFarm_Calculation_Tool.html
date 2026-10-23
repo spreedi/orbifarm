@@ -1138,6 +1138,35 @@ const PLANTS = {
     applications: "Premium organic wheatgrass powder for superfood & supplement markets; Freeze-dried juice for functional beverages; Standardised extracts for nutraceuticals; Green powder blend ingredient; Root biomass for composting & animal feed",
     products: "Organic wheatgrass powder (freeze-dried/low-temp dehydrated); Frozen wheatgrass juice (cold-pressed, flash-frozen); Standardised extract (protein-enriched/chlorophyll-concentrated); Green powder blend ingredient; Root biomass for composting/animal feed"
   },
+  "Wheat (Triticum aestivum)": {
+    category: "Food", productName: "Wheat grain (milling quality)",
+    modules: 5, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 5.80,
+    capexPerM2: 756, capexAddon: 150000,
+    electricityPrice: 0.06, lightingHours: 20, lightingIntensity: 144, energyOverhead: 1.2,
+    yield: 3.94875, productFraction: 1, sidestreamMass: 28915,
+    nutrientCost: 0.12, processingCost: 0.08,
+    personnel: 40000, maintenance: 5, rent: 5, otherOpex: 0, licenseFee: 10,
+    productPrice: 0.30, sidestreamRevenue: 1735,
+    co2Factor: 0, co2Price: 150, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 0.65, outdoorHarvests: 1, indoorHarvests: 4.5,
+    applications: "Milling wheat for flour and bread; Local grain supply independent of imports and weather; Straw as feed and bedding",
+    products: "Milling wheat grain; Wheat straw (feed, bedding, substrate)"
+  },
+  "Wheat Speed Breeding (Triticum aestivum)": {
+    category: "Food", unit: "Plug", productName: "Speed breeding generation (service)",
+    modules: 1, loops: 10, reserveLoops: 1, loopHeight: 12, loopWidth: 5.80,
+    capexPerM2: 756, capexAddon: 350000,
+    electricityPrice: 0.06, lightingHours: 22, lightingIntensity: 150, energyOverhead: 1.2,
+    plugDensity: 600, cyclesPerYear: 6,
+    yield: 3600, productFraction: 0.7, sidestreamMass: 0,
+    nutrientCost: 0.01, processingCost: 0.03,
+    personnel: 80000, maintenance: 5, rent: 5, otherOpex: 50000, licenseFee: 10,
+    productPrice: 0.20, sidestreamRevenue: 0,
+    co2Factor: 0, co2Price: 0, depreciation: 10, auxFactor: 1.4,
+    outdoorYield: 300, outdoorHarvests: 1, indoorHarvests: 6,
+    applications: "Generation advance for wheat breeders (single seed descent F2 to F6 in under one year); Faster variety release, two to three years earlier; Off-season generations independent of field season and weather",
+    products: "Plant generations as a service, breeder keeps genetics and seed; Harvested seed per line, barcoded and tracked; Optional pre-basic seed multiplication of released lines"
+  },
   // ==================== NEW FOOD CROPS (2026-07) ====================
   "Baby Spinach (Spinacia oleracea)": {
     category: "Food", productName: "Baby spinach (fresh)",
