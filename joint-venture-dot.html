@@ -243,8 +243,7 @@ function setLanguage(lang) {
 }
 (function () {
   const p = new URLSearchParams(location.search).get('lang');
-  const browserDe = (navigator.language || '').toLowerCase().startsWith('de');
-  setLanguage(p ? p : (browserDe ? 'de' : 'en'));
+  setLanguage(p === 'de' ? 'de' : 'en');
 })();
 </script>
 </body>

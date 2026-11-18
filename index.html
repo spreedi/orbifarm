@@ -773,7 +773,7 @@ section { padding: 100px 24px; }
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-news-row"><a href="joint-venture-dot.html" class="hero-news" data-news-link><span class="hero-news-tag" data-i18n="news.tag">New</span><span data-i18n="news.pill">OrbiFarm and DOT Holding agree on a joint venture for North Africa and the Gulf region</span></a></div>
+      <div class="hero-news-row"><a href="joint-venture-dot.html?lang=en" class="hero-news" data-news-link><span class="hero-news-tag" data-i18n="news.tag">New</span><span data-i18n="news.pill">OrbiFarm and DOT Holding agree on a joint venture for North Africa and the Gulf region</span></a></div>
       <div class="hero-badge" data-i18n="hero.badge">The Next Level of Total Controlled Environment Agriculture</div>
       <h1>
         <span data-i18n="hero.title1">The Most Versatile</span><br>
@@ -812,7 +812,7 @@ section { padding: 100px 24px; }
       <span data-i18n="news.quoteBy">Jan Bredack, founder and managing director of OrbiFarm GmbH</span>
     </div>
     <div class="news-actions">
-      <a href="joint-venture-dot.html" class="btn btn-primary" style="animation:none;" data-news-link data-i18n="news.cta">Read the press release</a>
+      <a href="joint-venture-dot.html?lang=en" class="btn btn-primary" style="animation:none;" data-news-link data-i18n="news.cta">Read the press release</a>
       <a href="press/OrbiFarm_DOT_Joint_Venture_2026-11-18.pdf" class="btn btn-outline" target="_blank" rel="noopener" data-i18n="news.pdf">Download PDF</a>
     </div>
   </div>
@@ -1802,7 +1802,7 @@ async function handleRegister(e) {
         const dateStr = new Date(a.date + 'T00:00:00').toLocaleDateString(lang === 'de' ? 'de-DE' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' });
         const category = a.category || 'orbifarm';
         const catLabel = category === 'industry' ? 'Industry' : 'OrbiFarm';
-        return `<a href="${a.url}" target="_blank" rel="noopener" class="press-preview-item">
+        return `<a href="${(/^https:\/\/orbi\.farm\//.test(a.url) ? a.url + '?lang=' + lang : a.url)}" target="_blank" rel="noopener" class="press-preview-item">
           <div class="press-preview-meta">
             <span class="press-preview-source">${a.source}</span>
             <span class="press-preview-date">${dateStr}</span>

@@ -442,7 +442,7 @@ function renderArticles(articles) {
       : 'OrbiFarm';
     const catBadge = `<span class="press-category cat-${category}">${catLabel}</span>`;
 
-    return `<a href="${article.url}" target="_blank" rel="noopener noreferrer" class="press-item reveal">
+    return `<a href="${(/^https:\/\/orbi\.farm\//.test(article.url) ? article.url + '?lang=' + currentLang : article.url)}" target="_blank" rel="noopener noreferrer" class="press-item reveal">
   <div class="press-meta">
     <span class="press-source">${article.source}</span>
     <time class="press-date" datetime="${article.date}">${dateFormatted}</time>
