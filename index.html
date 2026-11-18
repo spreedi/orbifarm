@@ -193,6 +193,32 @@ img { max-width: 100%; display: block; }
 .lang-btn.active { background: var(--accent); color: var(--bg-dark); }
 .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
 
+/* ==================== NEWS (JV DOT) ==================== */
+.hero-news { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; padding: 8px 18px 8px 8px; margin-bottom: 22px; background: rgba(8,13,10,0.72); border: 1px solid var(--accent); border-radius: 999px; color: var(--text); font-size: 0.92rem; font-weight: 600; line-height: 1.35; text-align: left; backdrop-filter: blur(10px); box-shadow: 0 0 28px rgba(0,200,83,0.22); transition: background var(--transition), box-shadow var(--transition); }
+.hero-news:hover { background: rgba(0,200,83,0.16); color: var(--text); box-shadow: 0 0 36px rgba(0,200,83,0.35); }
+.hero-news-tag { flex-shrink: 0; background: var(--accent); color: var(--bg-dark); font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 4px 11px; border-radius: 999px; }
+.hero-news-row { display: block; }
+#news { background: var(--bg-section); border-bottom: 1px solid var(--border); padding: 80px 24px; }
+.news-card { max-width: 960px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: var(--radius); padding: 44px 48px; position: relative; overflow: hidden; }
+.news-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), #66ffa6); }
+.news-card h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px; text-wrap: balance; }
+.news-lead { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 28px; max-width: 760px; }
+.news-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+.news-fact { background: var(--bg-dark); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px 20px; }
+.news-fact-num { font-size: 1.9rem; font-weight: 800; color: var(--accent); line-height: 1.1; }
+.news-fact-name { font-weight: 700; margin: 4px 0 4px; }
+.news-fact-text { color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; }
+.news-quote { border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; margin-bottom: 32px; }
+.news-quote p { font-size: 1.02rem; line-height: 1.65; color: var(--text); font-style: italic; margin-bottom: 8px; }
+.news-quote span { font-size: 0.88rem; color: var(--text-muted); font-weight: 600; }
+.news-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+@media (max-width: 700px) {
+  .hero-news { border-radius: 16px; padding: 10px 14px; flex-direction: column; align-items: flex-start; gap: 8px; font-size: 0.88rem; }
+  #news { padding: 56px 16px; }
+  .news-card { padding: 28px 22px; }
+  .news-facts { grid-template-columns: 1fr; }
+}
+
 /* ==================== HERO ==================== */
 .hero {
   min-height: 100vh;
@@ -747,6 +773,7 @@ section { padding: 100px 24px; }
   <div class="hero-overlay"></div>
   <div class="hero-inner">
     <div class="hero-content">
+      <div class="hero-news-row"><a href="joint-venture-dot.html" class="hero-news" data-news-link><span class="hero-news-tag" data-i18n="news.tag">New</span><span data-i18n="news.pill">OrbiFarm and DOT Holding agree on a joint venture for North Africa and the Gulf region</span></a></div>
       <div class="hero-badge" data-i18n="hero.badge">The Next Level of Total Controlled Environment Agriculture</div>
       <h1>
         <span data-i18n="hero.title1">The Most Versatile</span><br>
@@ -759,6 +786,35 @@ section { padding: 100px 24px; }
       </div>
     </div>
     <!-- Video is now full hero background -->
+  </div>
+</section>
+
+<!-- ==================== NEWS: JV DOT ==================== -->
+<section id="news">
+  <div class="news-card reveal">
+    <div class="section-label" data-i18n="news.label">Press Release, 18 November 2026</div>
+    <h2 data-i18n="news.title">OrbiFarm and DOT Holding Agree on a Joint Venture</h2>
+    <p class="news-lead" data-i18n="news.lead">OrbiFarm GmbH and Dot Holding S.A.E., Cairo, have signed an agreement to establish a joint venture in Egypt. Based in Cairo, it will utilise and market the OrbiFarm® technology for food and medicinal plants in North Africa and the Gulf region. It starts with first client projects in the region and will then build its own production farm in the Greater Cairo area.</p>
+    <div class="news-facts">
+      <div class="news-fact">
+        <div class="news-fact-num">25 %</div>
+        <div class="news-fact-name">OrbiFarm</div>
+        <div class="news-fact-text" data-i18n="news.fact1">Contributes technology, expertise and engineering. The systems are developed and supplied in Germany.</div>
+      </div>
+      <div class="news-fact">
+        <div class="news-fact-num">75 %</div>
+        <div class="news-fact-name">DOT Holding</div>
+        <div class="news-fact-text" data-i18n="news.fact2">Finances the joint venture's own farms and is responsible for sales and on-site operations.</div>
+      </div>
+    </div>
+    <div class="news-quote">
+      <p data-i18n="news.quote">“North Africa and the Gulf region are our first markets outside Europe for scaling up our technology internationally.”</p>
+      <span data-i18n="news.quoteBy">Jan Bredack, founder and managing director of OrbiFarm GmbH</span>
+    </div>
+    <div class="news-actions">
+      <a href="joint-venture-dot.html" class="btn btn-primary" style="animation:none;" data-news-link data-i18n="news.cta">Read the press release</a>
+      <a href="press/OrbiFarm_DOT_Joint_Venture_2026-11-18.pdf" class="btn btn-outline" target="_blank" rel="noopener" data-i18n="news.pdf">Download PDF</a>
+    </div>
   </div>
 </section>
 
@@ -1379,6 +1435,14 @@ const LANG = {
     "reg.title": "Unlock Full Calculator", "reg.subtitle": "Register to access all 57 plants and detailed KPIs.", "reg.button": "Unlock Full Access",
     "calc.disclaimer": "Values are projections based on default parameters. Open the full tool for detailed analysis.",
     "nav.invest": "Invest", "nav.press": "Press",
+    "news.tag": "New", "news.pill": "OrbiFarm and DOT Holding agree on a joint venture for North Africa and the Gulf region",
+    "news.label": "Press Release, 18 November 2026", "news.title": "OrbiFarm and DOT Holding Agree on a Joint Venture",
+    "news.lead": "OrbiFarm GmbH and Dot Holding S.A.E., Cairo, have signed an agreement to establish a joint venture in Egypt. Based in Cairo, it will utilise and market the OrbiFarm® technology for food and medicinal plants in North Africa and the Gulf region. It starts with first client projects in the region and will then build its own production farm in the Greater Cairo area.",
+    "news.fact1": "Contributes technology, expertise and engineering. The systems are developed and supplied in Germany.",
+    "news.fact2": "Finances the joint venture's own farms and is responsible for sales and on-site operations.",
+    "news.quote": "“North Africa and the Gulf region are our first markets outside Europe for scaling up our technology internationally.”",
+    "news.quoteBy": "Jan Bredack, founder and managing director of OrbiFarm GmbH",
+    "news.cta": "Read the press release", "news.pdf": "Download PDF",
     "press.label": "In the Press", "press.title": "Media Coverage", "press.subtitle": "Latest coverage and articles about OrbiFarm®.", "press.viewAll": "View All Articles →", "press.empty": "No articles available yet.",
     "invest.label": "Series A Open", "invest.title": "Invest in OrbiFarm\u00ae",
     "invest.subtitle": "EUR 205M revenue target, up to 85% licensing margins, break-even by FY28. A platform business backed by Fraunhofer-validated technology and worldwide patent protection.",
@@ -1433,6 +1497,14 @@ const LANG = {
     "reg.title": "Kalkulator freischalten", "reg.subtitle": "Registrieren Sie sich f\u00fcr Zugang zu allen 57 Pflanzen und detaillierten KPIs.", "reg.button": "Vollen Zugang freischalten",
     "calc.disclaimer": "Werte sind Projektionen auf Basis der Standardparameter. \u00d6ffnen Sie das vollst\u00e4ndige Tool f\u00fcr detaillierte Analysen.",
     "nav.invest": "Investieren", "nav.press": "Presse",
+    "news.tag": "Neu", "news.pill": "OrbiFarm und DOT Holding vereinbaren Joint Venture für Nordafrika und die Golfregion",
+    "news.label": "Pressemitteilung, 18. November 2026", "news.title": "OrbiFarm und DOT Holding vereinbaren Joint Venture",
+    "news.lead": "Die OrbiFarm GmbH und die Dot Holding S.A.E., Kairo, haben einen Vertrag über die Gründung eines gemeinsamen Unternehmens in Ägypten unterzeichnet. Das Joint Venture mit Sitz in Kairo wird die OrbiFarm®-Technologie für Nutz- und Arzneipflanzen in Nordafrika sowie der Golfregion einsetzen und vermarkten. Es startet mit ersten Kundenprojekten in der Region und errichtet danach eine eigene Produktionsfarm im Großraum Kairo.",
+    "news.fact1": "Bringt Technologie, Know-how und Engineering ein. Die Anlagen werden in Deutschland entwickelt und geliefert.",
+    "news.fact2": "Finanziert die eigenen Farmen des Joint Ventures und verantwortet Vertrieb sowie Betrieb vor Ort.",
+    "news.quote": "„Nordafrika und die Golfregion sind für uns die ersten Märkte außerhalb Europas, um unsere Technologie international zu skalieren.“",
+    "news.quoteBy": "Jan Bredack, Gründer und Geschäftsführer der OrbiFarm GmbH",
+    "news.cta": "Zur Pressemitteilung", "news.pdf": "PDF herunterladen",
     "press.label": "In der Presse", "press.title": "Medienberichterstattung", "press.subtitle": "Aktuelle Berichterstattung und Artikel \u00fcber OrbiFarm®.", "press.viewAll": "Alle Artikel anzeigen →", "press.empty": "Noch keine Artikel verf\u00fcgbar.",
     "invest.label": "Series-A-Runde er\u00f6ffnet", "invest.title": "Investieren Sie in OrbiFarm\u00ae",
     "invest.subtitle": "EUR 205 Mio. Umsatzziel, bis zu 85% Lizenzmargen, Break-even bis FY28. Ein Plattform-Gesch\u00e4ftsmodell, gest\u00fctzt durch Fraunhofer-validierte Technologie und weltweiten Patentschutz.",
@@ -1463,6 +1535,7 @@ function setLanguage(lang) {
     if (LANG[lang] && LANG[lang][key]) el.textContent = LANG[lang][key];
   });
   document.documentElement.lang = lang;
+  document.querySelectorAll('a[data-news-link]').forEach(a => { a.href = 'joint-venture-dot.html?lang=' + lang; });
   updateCalc();
 }
 
@@ -1958,6 +2031,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 // ==================== INIT ====================
 applyGating();
 updateCalc();
+if (new URLSearchParams(location.search).get('lang') === 'de') setLanguage('de');
 </script>
 
 <!-- ==================== 3D LOOP MODULE INIT ==================== -->
