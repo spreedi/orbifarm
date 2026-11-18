@@ -1536,6 +1536,7 @@ function setLanguage(lang) {
   });
   document.documentElement.lang = lang;
   document.querySelectorAll('a[data-news-link]').forEach(a => { a.href = 'joint-venture-dot.html?lang=' + lang; });
+  if (window.renderPressPreview) window.renderPressPreview();
   updateCalc();
 }
 
@@ -1795,7 +1796,7 @@ async function handleRegister(e) {
       const articles = (orbiOnly.length ? orbiOnly : all).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
       const list = document.getElementById('pressList');
       if (!articles.length) { list.style.display = 'none'; document.getElementById('pressEmpty').style.display = 'block'; return; }
-      list.innerHTML = articles.map(a => {
+      window.renderPressPreview = () => { list.innerHTML = articles.map(a => {
         const lang = typeof currentLang !== 'undefined' ? currentLang : 'en';
         const title = (lang === 'de' && a.title_de) ? a.title_de : a.title;
         const desc = (lang === 'de' && a.description_de) ? a.description_de : (a.description || '');
@@ -1814,7 +1815,8 @@ async function handleRegister(e) {
           </div>
           <span class="press-preview-arrow">&rarr;</span>
         </a>`;
-      }).join('');
+      }).join(''); };
+      window.renderPressPreview();
     })
     .catch(() => {
       document.getElementById('pressList').style.display = 'none';
